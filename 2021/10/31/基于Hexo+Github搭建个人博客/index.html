@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"gahow.github.io","root":"/","images":"/images","scheme":"Muse","darkmode":true,"version":"8.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+<meta name="description" content="本文在mac OS11.6环境下进行配置，出现的一些问题在文末进行总结。 安装Node.js 可通过在terminal中运行 1brew install node.js 安装Node.js，可通过 1node -v 查看node版本，确认是否成功安装。  node版本">
+<meta property="og:type" content="article">
+<meta property="og:title" content="基于Hexo+Github搭建个人博客">
+<meta property="og:url" content="https://gahow.github.io/2021/10/31/%E5%9F%BA%E4%BA%8EHexo+Github%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/index.html">
+<meta property="og:site_name" content="Gahow&#39;s net">
+<meta property="og:description" content="本文在mac OS11.6环境下进行配置，出现的一些问题在文末进行总结。 安装Node.js 可通过在terminal中运行 1brew install node.js 安装Node.js，可通过 1node -v 查看node版本，确认是否成功安装。  node版本">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gahow.github.io/images/截屏2021-10-31%20下午9.01.46.png">
+<meta property="og:image" content="https://gahow.github.io/images/截屏2021-10-31%20下午9.02.07.png">
+<meta property="og:image" content="https://gahow.github.io/images/截屏2021-10-31%20下午9.08.01.png">
+<meta property="og:image" content="https://gahow.github.io/images/截屏2021-10-31%20下午9.10.47.png">
+<meta property="og:image" content="https://gahow.github.io/images/截屏2021-10-31%20下午9.12.37.png">
+<meta property="og:image" content="https://gahow.github.io/images/截屏2021-10-31%20下午9.16.05.png">
+<meta property="og:image" content="https://gahow.github.io/images/截屏2021-10-31%20下午9.17.38.png">
+<meta property="og:image" content="https://gahow.github.io/images/截屏2021-10-31%20下午9.19.42.png">
+<meta property="og:image" content="https://gahow.github.io/images/截屏2021-10-31%20下午9.32.30.png">
+<meta property="og:image" content="https://gahow.github.io/images/截屏2021-10-31%20下午9.35.28.png">
+<meta property="article:published_time" content="2021-10-31T12:55:15.631Z">
+<meta property="article:modified_time" content="2021-11-02T15:58:53.156Z">
+<meta property="article:author" content="Gahow">
+<meta property="article:tag" content="个人博客">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gahow.github.io/images/截屏2021-10-31%20下午9.01.46.png">
+
+
+<link rel="canonical" href="https://gahow.github.io/2021/10/31/%E5%9F%BA%E4%BA%8EHexo+Github%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://gahow.github.io/2021/10/31/%E5%9F%BA%E4%BA%8EHexo+Github%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/","path":"2021/10/31/基于Hexo+Github搭建个人博客/","title":"基于Hexo+Github搭建个人博客"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>基于Hexo+Github搭建个人博客 | Gahow's net</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-211760862-2"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"UA-211760862-2","only_pageview":false}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Gahow's net</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%AE%89%E8%A3%85node.js"><span class="nav-number">1.</span> <span class="nav-text">安装Node.js</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%AE%89%E8%A3%85git"><span class="nav-number">2.</span> <span class="nav-text">安装git</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%B3%A8%E5%86%8C%E8%8E%B7%E5%8F%96github%E4%BB%93%E5%BA%93"><span class="nav-number">3.</span> <span class="nav-text">注册获取GitHub仓库</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%AE%89%E8%A3%85hexo"><span class="nav-number">4.</span> <span class="nav-text">安装Hexo</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E5%8D%9A%E5%AE%A2%E6%96%87%E4%BB%B6"><span class="nav-number">5.</span> <span class="nav-text">创建博客文件</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%88%A9%E7%94%A8hexo%E5%88%9D%E5%A7%8B%E6%96%87%E4%BB%B6%E7%94%9F%E6%88%90%E6%9C%AC%E5%9C%B0%E7%BD%91%E9%A1%B5"><span class="nav-number">6.</span> <span class="nav-text">利用Hexo初始文件生成本地网页</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%B0%86%E6%9C%AC%E5%9C%B0%E7%BD%91%E9%A1%B5%E9%83%A8%E7%BD%B2%E5%88%B0github%E4%B8%8A"><span class="nav-number">7.</span> <span class="nav-text">将本地网页部署到GitHub上</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%A8%A1%E7%89%88%E4%BF%AE%E6%94%B9"><span class="nav-number">8.</span> <span class="nav-text">模版修改</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%8D%9A%E6%96%87%E4%B8%8A%E4%BC%A0"><span class="nav-number">9.</span> <span class="nav-text">博文上传</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%97%AE%E9%A2%98%E6%80%BB%E7%BB%93"><span class="nav-number">10.</span> <span class="nav-text">问题总结</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Gahow"
+      src="/images/my.jpeg">
+  <p class="site-author-name" itemprop="name">Gahow</p>
+  <div class="site-description" itemprop="description">Coding</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">2</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdn.jsdelivr.net/npm/@creativecommons/vocabulary@2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://gahow.github.io/2021/10/31/%E5%9F%BA%E4%BA%8EHexo+Github%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/my.jpeg">
+      <meta itemprop="name" content="Gahow">
+      <meta itemprop="description" content="Coding">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Gahow's net">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          基于Hexo+Github搭建个人博客
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-10-31 20:55:15" itemprop="dateCreated datePublished" datetime="2021-10-31T20:55:15+08:00">2021-10-31</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-11-02 23:58:53" itemprop="dateModified" datetime="2021-11-02T23:58:53+08:00">2021-11-02</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E8%90%8C%E6%96%B0%E4%B9%8B%E5%A7%8B/" itemprop="url" rel="index"><span itemprop="name">萌新之始</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Changyan：</span>
+    
+    
+      <a title="changyan" href="/2021/10/31/%E5%9F%BA%E4%BA%8EHexo+Github%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/#SOHUCS" itemprop="discussionUrl">
+        <span id="changyan_count_unit" class="post-comments-count hc-comment-count" data-xid="2021/10/31/基于Hexo+Github搭建个人博客/" itemprop="commentCount"></span>
+      </a>
+    
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>1.7k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>2 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>本文在mac OS11.6环境下进行配置，出现的一些问题在文末进行总结。</p>
+<h5 id="安装node.js">安装Node.js</h5>
+<p>可通过在terminal中运行</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install node.js</span><br></pre></td></tr></table></figure>
+<p>安装Node.js，可通过</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">node -v</span><br></pre></td></tr></table></figure>
+<p>查看node版本，确认是否成功安装。</p>
+<figure>
+<img src="/images/截屏2021-10-31%20下午9.01.46.png" alt="node版本" /><figcaption aria-hidden="true">node版本</figcaption>
+</figure>
+<span id="more"></span>
+<h5 id="安装git">安装git</h5>
+<p>通过安装Xcode Command Line Tools即带有git，可通过</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git --version</span><br></pre></td></tr></table></figure>
+<p>查看git的版本，确认是否成功安装。</p>
+<figure>
+<img src="/images/截屏2021-10-31%20下午9.02.07.png" alt="git版本" /><figcaption aria-hidden="true">git版本</figcaption>
+</figure>
+<h5 id="注册获取github仓库">注册获取GitHub仓库</h5>
+<p>注册一个github账号，在Your repositories里新建一个仓库，其中repository name填username.github.io</p>
+<figure>
+<img src="/images/截屏2021-10-31%20下午9.08.01.png" alt="创建GitHub仓库" /><figcaption aria-hidden="true">创建GitHub仓库</figcaption>
+</figure>
+<h5 id="安装hexo">安装Hexo</h5>
+<p>在你要存储你的博客文件的地方开始安装Hexo，可通过</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i hexo-cli -g</span><br></pre></td></tr></table></figure>
+<p>安装Hexo。</p>
+<figure>
+<img src="/images/截屏2021-10-31%20下午9.10.47.png" alt="安装Hexo" /><figcaption aria-hidden="true">安装Hexo</figcaption>
+</figure>
+<p>之后通过</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo -v</span><br></pre></td></tr></table></figure>
+<p>确认Hexo版本从而确认是否成功安装。</p>
+<figure>
+<img src="/images/截屏2021-10-31%20下午9.12.37.png" alt="Hexo版本" /><figcaption aria-hidden="true">Hexo版本</figcaption>
+</figure>
+<h5 id="创建博客文件">创建博客文件</h5>
+<p>可通过</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo init Blog</span><br></pre></td></tr></table></figure>
+<p>在当前位置初始化一个名字为Blog的文件夹。</p>
+<p>通过</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd Blog</span><br></pre></td></tr></table></figure>
+<p>进入Blog文件夹，接着输入</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install</span><br></pre></td></tr></table></figure>
+<p>安装必需的组件。</p>
+<figure>
+<img src="/images/截屏2021-10-31%20下午9.16.05.png" alt="安装必需组件" /><figcaption aria-hidden="true">安装必需组件</figcaption>
+</figure>
+<h5 id="利用hexo初始文件生成本地网页">利用Hexo初始文件生成本地网页</h5>
+<p>通过</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo g</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo s</span><br></pre></td></tr></table></figure>
+<p>生成本地网页并部署至本地服务器。<img src="/images/截屏2021-10-31%20下午9.17.38.png" alt="部署本地网页" /></p>
+<p>这时通过http://localhost:4000即可进入我们的博客预览。</p>
+<figure>
+<img src="/images/截屏2021-10-31%20下午9.19.42.png" alt="博客预览" /><figcaption aria-hidden="true">博客预览</figcaption>
+</figure>
+<p>上图所示即为Hexo提供的初始模版。</p>
+<h5 id="将本地网页部署到github上">将本地网页部署到GitHub上</h5>
+<p>进入博客文件夹位置（上文的Blog）运行如下命令</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name &quot;yourname&quot;</span><br><span class="line">git config --global user.email &quot;youremail&quot;</span><br></pre></td></tr></table></figure>
+<p>之后通过下列命令生成密钥SSH key</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -C &quot;youremail&quot;</span><br></pre></td></tr></table></figure>
+<p>选择文件夹与输入密码和确认密码时都可不填，回车三次即可。</p>
+<p>之后通过下列命令</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat ~/.ssh/id_rsa.pub</span><br></pre></td></tr></table></figure>
+<p>可返回密钥，将该段内容复制。</p>
+<p>进入GitHub，头像下方的settings，点击SSH and GPG keys，新建一个SSH，Title可随意，Key中填入上面复制的内容。</p>
+<p>回到Terminal输入</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh -T git@github.com</span><br></pre></td></tr></table></figure>
+<p>出现下图所示内容则代表GitHub成功与Blog文件夹连接。</p>
+<p><img src="/images/截屏2021-10-31%20下午9.32.30.png" /></p>
+<p>之后通过</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim _config.yml</span><br></pre></td></tr></table></figure>
+<p>进入_config.yml进行修改，将最后一行deploy补充为</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">deploy:</span><br><span class="line">  type: git</span><br><span class="line">  repository: git@github.com:yourname/yourname.github.io</span><br><span class="line">  branch: master</span><br></pre></td></tr></table></figure>
+<figure>
+<img src="/images/截屏2021-10-31%20下午9.35.28.png" alt="修改_config.yml" /><figcaption aria-hidden="true">修改_config.yml</figcaption>
+</figure>
+<p>之后保存退出即可。</p>
+<p>最后安装一个拓展，通过下列命令实现</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i hexo-deployer-git</span><br></pre></td></tr></table></figure>
+<p>最后通过下列命令即可将博客部署到Github网页上</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo g</span><br><span class="line">hexo d</span><br></pre></td></tr></table></figure>
+<p>稍等一会即可通过yourname.github.io访问你的博客啦！</p>
+<p>如果部署失败可通过</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo clean</span><br><span class="line">hexo g</span><br><span class="line">hexo d</span><br></pre></td></tr></table></figure>
+<p>再次尝试。</p>
+<h5 id="模版修改">模版修改</h5>
+<p>当然Hexo初始的模版太丑啦，功能也不完全，我们可以到Hexo官网挑选自己喜欢的主题。</p>
+<p>之后通过该主题的官方文档即可完成模版的配置。</p>
+<p>个人比较喜欢的几个模版：Maupassant、NexT、Purer</p>
+<h5 id="博文上传">博文上传</h5>
+<p>将你的文章的.md文件放入Blog文件下的source/_posts即可。</p>
+<h5 id="问题总结">问题总结</h5>
+<p>1.从GitHub获取文件时出现unable to access</p>
+<p>可使用</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export http_proxy=http://proxyAddress:port</span><br></pre></td></tr></table></figure>
+<p>让Terminal使用代理，此命令只对当前Terminal生效，若想获取永久代理，可自行Google。</p>
+<p>2.安装hero-renderer-sass失败，网络上的常见解决方案对我无效</p>
+<p>目前暂未解决该问题，猜想是默认安装的Node.js版本与默认安装的sass版本不匹配。</p>
+<p>3.本地网页预览正确，部署到网页上后显示有问题</p>
+<p>通过修改站点配置文件_config,yml中的网页url解决。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>Gahow
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://gahow.github.io/2021/10/31/%E5%9F%BA%E4%BA%8EHexo+Github%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/" title="基于Hexo+Github搭建个人博客">https://gahow.github.io/2021/10/31/基于Hexo+Github搭建个人博客/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/" rel="tag"># 个人博客</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/10/15/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%AC%E5%9B%9B%E6%AC%A1%E5%AE%9E%E9%AA%8C%E6%8A%A5%E5%91%8A/" rel="prev" title="数据结构第四次实验报告">
+                  <i class="fa fa-chevron-left"></i> 数据结构第四次实验报告
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="SOHUCS"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Gahow</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">5k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">4 分钟</span>
+  </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+<script class="next-config" data-name="changyan" type="application/json">{"enable":true,"appid":"cyvJKy7i5","appkey":"513a9cb40b560c4ddb8a440418be32fa"}</script>
+<script src="/js/third-party/comments/changyan.js"></script>
+
+</body>
+</html>
