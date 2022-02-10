@@ -1,6 +1,147 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title></title>
+    <url>/2022/01/17/Vim%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
+    <content><![CDATA[###
+<center>
+Vim学习笔记
+<center>
+<h4 id="vim的一些学习资源">Vim的一些学习资源</h4>
+<p>1.Terminal下的<code>vimtutor</code>，个人觉得刷上几遍<code>vimtutor</code>熟悉后应该就算Vim入门了</p>
+<p>2.<code>pacvim n</code>，<code>n</code>代表选择的level，一个练习vim光标移动的小游戏</p>
+<h4 id="为什么学vim">为什么学Vim</h4>
+<p>装逼是第一生产力！（doge）一方面确实是因为觉得vim是一个跟此前接触的文本编辑器不太一样的新玩意，觉得这个挺酷的，另一方面是某个c语言上机题让我把30几条的if语句改为case，手动改的属实烦人，想起vim好像可以通过几个指令自动化完成。所以我相信学好vim大概是可以提高一些生产力的。</p>
+<span id="more"></span>
+<h4 id="vim光标移动">vim光标移动</h4>
+<p>左<code>h</code> 下<code>j</code> 上<code>k</code> 右<code>l</code></p>
+<p>向后一个词<code>w</code> 向后一个词忽略中间标点<code>W</code></p>
+<p>移动至当前词的末尾<code>e</code> 忽略中间标点移动至当前词的末尾<code>E</code></p>
+<p>向前一个词<code>b</code> 向前一个词忽略中间标点<code>B</code></p>
+<p>移动到行首<code>0</code> 移动到行末<code>$</code></p>
+<p>上一个段落<code>&#123;</code> 下一个段落<code>&#125;</code></p>
+<p>移动到文件头<code>gg</code> 移动到文件尾<code>G</code></p>
+<p>当一行长文字被显示为两行时，如下图所示，若要让光标从<code>t</code>移动到<code>y</code>，直接按<code>j</code>是无法实现的</p>
+<p>到视角上的下一行<code>gj</code> 视角上的上一行<code>gk</code></p>
+<p><img src="/Users/sheldon/Library/Application Support/typora-user-images/截屏2022-01-17 上午9.59.40.png" alt="截屏2022-01-17 上午9.59.40" style="zoom:50%;" /></p>
+<h4 id="vim文本搜索与替换">vim文本搜索与替换</h4>
+<p><code>:set hlsearch</code>可以设置为将搜索结果高亮显示</p>
+<p>搜索文本<code>/</code> 到下一个搜索到的文本<code>n</code> 到上一个搜索到的文本<code>N</code></p>
+<p>另一种方式：搜索文本<code>?</code> 到下一个<code>N</code> 到上一个<code>n</code></p>
+<p>搜索当前光标所在的词<code>*</code></p>
+<p>向后搜索同一行最近的"x"<code>fx</code> 向前搜索同一行最近的"x"<code>Fx</code></p>
+<p>画面移动：让当前行停留在中间位置<code>zz</code> 停留在上方<code>zt</code> 停留在下方<code>zb</code></p>
+<p>替换当前行第一个word1为word2：<code>:s/word1/word2/</code></p>
+<p>替换当前行所有word1为word2：<code>:s/word1/word2/g</code></p>
+<p>（注意当word中有<code>\</code>时要用<code>\\</code>表示）</p>
+<p>替换第n行到最后一行中每一行第一个word1为word2：<code>:n,$s/word1/word2/</code></p>
+<p>替换第n行到最后一行中每一行所有word1为word2：<code>:n,$s/word1/word2/g</code></p>
+<p>替换全文每一行的第一个word1为word2：<code>:%s/word1/word2/</code></p>
+<p>替换全文所有的word1为word2：<code>:%s/word1/word2/g</code></p>
+<p>在行首插入指定字符<code>:%s/^/word/</code></p>
+<p>在行尾插入指定字符<code>:%s/$/word/</code></p>
+<h4 id="vim选取复制粘贴">vim选取、复制、粘贴</h4>
+<p>进入Visual模式<code>v</code> 进入Visual模式并按行选取<code>V</code></p>
+<p>复制<code>y</code> 复制一整行 <code>yy</code></p>
+<p>在光标后粘贴<code>p</code> 在光标前粘贴<code>P</code> 复制n次<code>np</code></p>
+<p>复制n行<code>nyy</code></p>
+<p>复制从光标处到行尾<code>y$</code></p>
+<p>复制到文本末尾<code>yG</code></p>
+<p>撤销上一步<code>u</code> 重做撤销的操作<code>Ctrl+r</code></p>
+<p>把内容复制到a寄存器<code>"ay</code> 把内容复制到b寄存器<code>"by</code> 以此类推</p>
+<p>粘贴a寄存器的内容<code>"ap</code> 粘贴b寄存器的内容<code>"bp</code> 以此类推</p>
+<p>检视目前所有寄存器的内容<code>:reg</code></p>
+<p>设置寄存器与系统剪切板共通<code>:set clipboard=unnamed</code></p>
+<h4 id="vim文本编辑">vim文本编辑</h4>
+<p>在光标前进入插入模式<code>i</code> 跳到行首进入Insert模式<code>I</code></p>
+<p>在光标后进入插入模式<code>a</code> 跳到行末进入Insert模式<code>A</code></p>
+<p>在当前行下方创建新的一行并进入Insert模式<code>o</code></p>
+<p>在当前行上方创建新的一行并进入Insert模式<code>O</code></p>
+<p>删除光标所在文字<code>x</code>（删除操作都会把删除的文字放入寄存器中）</p>
+<p>删除选择的内容<code>d</code></p>
+<p>从光标删除至行末<code>D</code></p>
+<p>删除光标所在行<code>dd</code></p>
+<p>从光标删除至文本末尾<code>dG</code></p>
+<p>从光标删除至文本头<code>dgg</code></p>
+<p>删除选择的内容并进入Insert模式<code>c</code></p>
+<p>从光标删除至行末并进入Insert模式<code>C</code></p>
+<p>用"x"替换光标所在的字符<code>rx</code></p>
+<p>向右或向左缩进<code>&gt;&gt;</code>或<code>&lt;&lt;</code></p>
+<p>将n行向右或向左缩进<code>n&gt;&gt;</code>或<code>n&lt;&lt;</code></p>
+<p>将选取内容自动排版<code>=</code></p>
+<h4 id="vim多文档操作tab">vim多文档操作（tab）</h4>
+<p>在当前窗口开启文档<code>:e FILENAME</code></p>
+<p>新建窗口<code>:tabe</code></p>
+<p>在新窗口开启文档<code>:tabe FILENAME</code></p>
+<p>跳转至下一个窗口<code>gt</code></p>
+<p>跳转至上一个窗口<code>gT</code></p>
+<p>新增水平分割视窗<code>:new</code></p>
+<p>新增垂直分割视窗<code>:vnew</code></p>
+<p>移动游标到指定视窗<code>Ctrl+w+hjkl</code></p>
+<p>循环移动视窗<code>Ctrl+ww</code></p>
+<p>水平分割开启多个文档<code>vim -o FILE1 FILE2 ...</code></p>
+<p>垂直分割开启多个文档<code>vim -O FILE1 FILE 2 ...</code></p>
+<p>用分页多窗口开启多个文档<code>vim -p FILE1 FILE2 ...</code></p>
+<h4 id="vim多文档操作buffer">vim多文档操作（buffer）</h4>
+<p>打开多个文档，以不同buffer的形式<code>vim FILE1 FILE2 ...</code></p>
+<p>列出所有buffer<code>:ls</code></p>
+<p>切换到第k个buffer<code>:bk</code></p>
+<p>直接切换buffer<code>:b FILENAME</code></p>
+<p>切换到上一个buffer<code>Ctrl + ^</code></p>
+<p>切换到下一个buffer<code>:bn</code></p>
+<p>切换到上一个buffer<code>:bp</code></p>
+<p>切换到第一个buffer<code>:bf</code></p>
+<p>切换到最后一个buffer<code>:bl</code></p>
+<p>关闭当前buffer<code>:bd</code></p>
+<p>把当前所有buffer展开为tab<code>:tab ba</code></p>
+<h4 id="vim文本选取进阶">vim文本选取进阶</h4>
+<p>选取一个单词<code>viw</code>（i=inner，w=word）</p>
+<p>选取引号里的内容<code>vi"</code> 选取花括号里的内容<code>vi&#123;</code> 以此类推</p>
+<p>选取引号及其里面的内容<code>va"</code>（a=around）</p>
+<p>选取tag里的内容<code>vit</code> 选取tag及tag里的内容<code>vat</code></p>
+<p>可以把<code>v</code>换成<code>d</code>或<code>c</code>（d=delete, c=change)实现别的操作</p>
+<p>进入Visual Block模式<code>Ctrl+v</code>，可以实现选取多行同时添加相同的内容</p>
+<h4 id="vim语法">vim语法</h4>
+<p>模式切换</p>
+<p><code>i</code> <code>v</code> <code>V</code> <code>Ctrl+v</code> <code>Esc</code>或<code>Ctrl+[</code></p>
+<p>名词</p>
+<p><code>w</code> = word <code>s</code> = sentence <code>p</code> = paragraph <code>t</code> = tag 及各类符号</p>
+<p>动词</p>
+<p><code>y</code> = yank <code>p</code> = paste <code>d</code> = delete <code>c</code> = change</p>
+<p>范围</p>
+<p><code>i</code> = inner <code>a</code> = around</p>
+<p>量词</p>
+<p>即数字</p>
+<p>指令的一般语法</p>
+<p>模式+量词+动词+范围（也可以是数字）+名词</p>
+<p>如：<code>viw</code> <code>v3w</code> <code>vaw</code> <code>vap</code> <code>vi&#123;</code> <code>3yy</code> <code>4p</code> <code>d3w</code>或<code>3dw</code> <code>cis</code> <code>vip</code></p>
+<h4 id="实用技巧">实用技巧</h4>
+<p>移动到行首<code>^</code>（跳过开头的缩进）</p>
+<p>移动到第n行<code>nG</code>或<code>ngg</code></p>
+<p>打开行号<code>:set number</code></p>
+<p>往下翻一页<code>Ctrl+f</code></p>
+<p>往上翻一页<code>Ctrl+b</code></p>
+<p>将选中的代码行折叠<code>zf</code> 展开<code>zd</code></p>
+<p>大小写互换<code>~</code></p>
+<p>重做最后做的动作<code>.</code></p>
+<p>将多行并为同一行<code>J</code></p>
+<p>在Insert模式下删除一个词<code>Ctrl+w</code></p>
+<p>删除光标前的内容<code>Ctrl+u</code>（Insert和Normal模式都可使用）</p>
+<p>执行外部指令<code>:!指令</code></p>
+<p>执行外部指令并贴上内容<code>:r!指令</code></p>
+<p>使用帮助手册<code>:help</code></p>
+<p>找到当前行的下一个字符x<code>fx</code> 到下一个目标字符上<code>;</code> 到上一个目标字符<code>,</code></p>
+<h4 id="好用的插件总结">好用的插件总结</h4>
+<p>首先使用<code>vim-plug</code>来安装插件</p>
+<p>airline：界面美化</p>
+<p>nerdtree：展示文件夹</p>
+<p>ctrlp：文件搜索</p>
+<p>emmet：代码补全（html、css）</p>
+<p>surround：处理成对的引号括号问题</p>
+<p>repeat：加强<code>.</code>的重做功能</p>
+]]></content>
+  </entry>
+  <entry>
     <title>基于Hexo+Github搭建个人博客</title>
     <url>/2021/10/31/%E5%9F%BA%E4%BA%8EHexo+Github%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/</url>
     <content><![CDATA[<p>本文在mac OS11.6环境下进行配置，出现的一些问题在文末进行总结。</p>
@@ -115,42 +256,161 @@
       </tags>
   </entry>
   <entry>
-    <title>数据结构第四次实验报告</title>
-    <url>/2021/10/15/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%AC%E5%9B%9B%E6%AC%A1%E5%AE%9E%E9%AA%8C%E6%8A%A5%E5%91%8A/</url>
-    <content><![CDATA[<center>
-<h3>
-数据结构第四次实验报告
-</h3>
-</center>
+    <title></title>
+    <url>/2022/01/06/%E5%B8%B8%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B%E7%AC%94%E8%AE%B0/</url>
+    <content><![CDATA[###
 <center>
-<h4>
-王家豪 20377210
-</h4>
-</center>
-<h5 id="一任务实现的基本思路">一、任务实现的基本思路</h5>
-<h5 id="必做题">1.必做题</h5>
-<p>​ 首先将输入的列表创建一棵树，通过队列逐个将新建的非空节点压入队列中，逐个从队列获取第一个节点，从列表中获取值为该节点添加左孩子和右孩子。之后定义递归函数解决问题，传入两个节点，判断第一个节点的左孩子与第二个节点的右孩子是否相等，通过递归即可判断整棵树是否对称。</p>
-<h5 id="选做题">2.选做题</h5>
-<p>​ 同第一题将输入的数据创建一棵树，之后利用贪心算法，通过递归函数实现计算。当一个节点为空或者一个节点的两个根节点都为空时，返回上一级，如果有一个孩子节点非空且孩子节点的值不为inf，则在该节点设置一个监控，并记该节点的父节点也为被监控，为ans的值加1，返回上一级。如此递归即可实现计算。</p>
+常微分方程
+<center>
+<h4 id="变量分离法">变量分离法</h4>
+<h5 id="变量分离方程fracdydx-fxgy">变量分离方程：<span class="math inline">\(\frac{dy}{dx} = f(x)g(y)\)</span></h5>
+<p>当<span class="math inline">\(g(y) \neq 0\)</span>，<span class="math inline">\(\frac{dy}{g(y)} = f(x)dx\)</span>，解为<span class="math inline">\(\int\frac{1}{g(y)}dy = \int f(x)dx +c\)</span></p>
+<p>若<span class="math inline">\(g(y_0) = 0\)</span>，则<span class="math inline">\(y = y_0\)</span>也是方程的解</p>
+<p><span class="math inline">\(Ex.\)</span> <span class="math inline">\(\frac{dy}{dx} = 2x(1-y^2)^{\frac{1}{2}}\)</span></p>
 <span id="more"></span>
-<h5 id="二相关数据结构回顾">二、相关数据结构回顾</h5>
-<p>​ 二叉树是每个节点最多只有两个分支（即不存在分支度大于2的节点）的树结构。通常分支被称作“左子树”或“右子树”。二叉树的分支具有左右次序，不能随意颠倒。</p>
-<p>​ 二叉树的第<span class="math inline">\({\displaystyle i}\)</span>层至多拥有<span class="math inline">\({\displaystyle 2^{i-1}}\)</span>个节点；深度为<span class="math inline">\({\displaystyle k}\)</span>的二叉树至多总共有<span class="math inline">\({\displaystyle 2^{\begin{aligned}k+1\end{aligned}}-1}\)</span>个节点（定义根节点所在深度 <span class="math inline">\({\displaystyle k_{0}=0}\)</span>，而总计拥有节点数符合的，称为“满二叉树”；深度为<span class="math inline">\({\displaystyle k}\)</span>有<span class="math inline">\({\displaystyle n}\)</span>个节点的二叉树，当且仅当其中的每一节点，都可以和同样深度<span class="math inline">\({\displaystyle k}\)</span>的满二叉树，序号为1到<span class="math inline">\({\displaystyle n}\)</span>的节点一对一对应时，称为完全二叉树。</p>
-<h5 id="三解决问题中的问题与反思">三、解决问题中的问题与反思</h5>
-<p>​ 在第一次通过输入元素创建树时，以为第<span class="math inline">\(k\)</span>个节点的左节点和右节点可通过列表的第<span class="math inline">\(2k\)</span>和<span class="math inline">\(2k+1\)</span>个元素来生成。但之后发现了问题，如果一个节点已经为空，之后的列表中就不再输入该空节点的左右节点。所以之后选择该用一个队列在逐个获取节点，为其添加左右节点，再将新建的节点压入队列中。即可避免创建树失败的问题。</p>
-<h5 id="四代码及运行结果截图">四、代码及运行结果截图</h5>
-<p>第一题代码</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Node</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, var</span>):</span></span><br><span class="line">        self.var = var</span><br><span class="line">        self.left = <span class="literal">None</span></span><br><span class="line">        self.right = <span class="literal">None</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">make_tree</span>(<span class="params">lis, root</span>):</span></span><br><span class="line">    stack = [root]</span><br><span class="line">    k = <span class="number">1</span></span><br><span class="line">    <span class="keyword">while</span> k &lt; <span class="built_in">len</span>(lis):</span><br><span class="line">        p = stack.pop(<span class="number">0</span>)</span><br><span class="line">        <span class="keyword">if</span> lis[k] != <span class="string">&#x27;null&#x27;</span>:</span><br><span class="line">            p.left = Node(lis[k])</span><br><span class="line">            stack.append(p.left)</span><br><span class="line">        k += <span class="number">1</span></span><br><span class="line">        <span class="keyword">if</span> lis[k] != <span class="string">&#x27;null&#x27;</span>:</span><br><span class="line">            p.right = Node(lis[k])</span><br><span class="line">            stack.append(p.right)</span><br><span class="line">        k += <span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;def pre_order(node):</span></span><br><span class="line"><span class="string">    if node is None:</span></span><br><span class="line"><span class="string">        return</span></span><br><span class="line"><span class="string">    print(node.var, end=&#x27; &#x27;)</span></span><br><span class="line"><span class="string">    pre_order(node.left)</span></span><br><span class="line"><span class="string">    pre_order(node.right)</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">def in_order(node):</span></span><br><span class="line"><span class="string">    if node is None:</span></span><br><span class="line"><span class="string">        return</span></span><br><span class="line"><span class="string">    in_order(node.left)</span></span><br><span class="line"><span class="string">    print(node.var, end=&#x27; &#x27;)</span></span><br><span class="line"><span class="string">    in_order(node.right)</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">def post_order(node):</span></span><br><span class="line"><span class="string">    if node is None:</span></span><br><span class="line"><span class="string">        return</span></span><br><span class="line"><span class="string">    post_order(node.left)</span></span><br><span class="line"><span class="string">    post_order(node.right)</span></span><br><span class="line"><span class="string">    print(node.var, end=&#x27; &#x27;)&#x27;&#x27;&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">solve</span>(<span class="params">node1, node2</span>):</span></span><br><span class="line">    <span class="keyword">if</span> node1 <span class="keyword">is</span> <span class="literal">None</span> <span class="keyword">and</span> node2 <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">    <span class="keyword">if</span> (node1 <span class="keyword">is</span> <span class="literal">None</span>) ^ (node2 <span class="keyword">is</span> <span class="literal">None</span>):</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> solve(node1.left, node2.right):</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> solve(node1.right, node2.left):</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">    <span class="keyword">if</span> node1.var == node2.var:</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line"></span><br><span class="line">lis1 = [<span class="number">1</span>, <span class="number">5</span>, <span class="number">5</span>, <span class="number">7</span>, <span class="number">6</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">11</span>, <span class="string">&#x27;null&#x27;</span>, <span class="number">11</span>, <span class="string">&#x27;null&#x27;</span>, <span class="string">&#x27;null&#x27;</span>, <span class="number">11</span>, <span class="string">&#x27;null&#x27;</span>, <span class="number">11</span>]</span><br><span class="line">lis2 = [<span class="number">1</span>, <span class="number">5</span>, <span class="number">7</span>, <span class="number">6</span>, <span class="string">&#x27;null&#x27;</span>, <span class="number">6</span>, <span class="string">&#x27;null&#x27;</span>]</span><br><span class="line">lis3 = [<span class="number">1</span>, <span class="number">5</span>, <span class="number">7</span>, <span class="number">16</span>, <span class="number">6</span>, <span class="number">6</span>, <span class="number">16</span>]</span><br><span class="line">lis0 = <span class="built_in">input</span>().split()</span><br><span class="line"></span><br><span class="line">root1 = Node(lis1[<span class="number">0</span>])</span><br><span class="line">make_tree(lis1, root1)</span><br><span class="line"><span class="built_in">print</span>(solve(root1, root1))</span><br><span class="line"></span><br><span class="line">root2 = Node(lis2[<span class="number">0</span>])</span><br><span class="line">make_tree(lis2, root2)</span><br><span class="line"><span class="built_in">print</span>(solve(root2, root2))</span><br><span class="line"></span><br><span class="line">root3 = Node(lis3[<span class="number">0</span>])</span><br><span class="line">make_tree(lis3, root3)</span><br><span class="line"><span class="built_in">print</span>(solve(root3, root3))</span><br><span class="line"></span><br><span class="line">root0 = Node(lis0[<span class="number">0</span>])</span><br><span class="line">make_tree(lis0, root0)</span><br><span class="line"><span class="built_in">print</span>(solve(root0, root0))</span><br></pre></td></tr></table></figure>
-<p>第一题运行结果</p>
-<figure>
-<img src="/images/截屏2021-10-29%20下午3.39.07.png" alt="第一题运行结果" /><figcaption aria-hidden="true">第一题运行结果</figcaption>
-</figure>
-<p>第二题代码</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Node</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, var</span>):</span></span><br><span class="line">        self.var = var</span><br><span class="line">        self.left = <span class="literal">None</span></span><br><span class="line">        self.right = <span class="literal">None</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">make_tree</span>(<span class="params">lis, root</span>):</span></span><br><span class="line">    stack = [root]</span><br><span class="line">    k = <span class="number">1</span></span><br><span class="line">    <span class="keyword">while</span> k &lt; <span class="built_in">len</span>(lis):</span><br><span class="line">        p = stack.pop(<span class="number">0</span>)</span><br><span class="line">        <span class="keyword">if</span> lis[k] != <span class="string">&#x27;null&#x27;</span>:</span><br><span class="line">            p.left = Node(lis[k])</span><br><span class="line">            stack.append(p.left)</span><br><span class="line">        k += <span class="number">1</span></span><br><span class="line">        <span class="keyword">if</span> k &gt;= <span class="built_in">len</span>(lis):</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">        <span class="keyword">if</span> lis[k] != <span class="string">&#x27;null&#x27;</span>:</span><br><span class="line">            p.right = Node(lis[k])</span><br><span class="line">            stack.append(p.right)</span><br><span class="line">        k += <span class="number">1</span></span><br><span class="line"></span><br><span class="line">inf = <span class="built_in">float</span>(<span class="string">&quot;inf&quot;</span>)</span><br><span class="line">ans = <span class="number">0</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">solve</span>(<span class="params">node, fanode</span>):</span></span><br><span class="line">    <span class="keyword">if</span> node <span class="keyword">is</span> <span class="literal">None</span> <span class="keyword">or</span> (node.left <span class="keyword">is</span> <span class="literal">None</span> <span class="keyword">and</span> node.right <span class="keyword">is</span> <span class="literal">None</span>):</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    solve(node.left, node)</span><br><span class="line">    solve(node.right, node)</span><br><span class="line">    <span class="keyword">if</span> (node.left <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span> <span class="keyword">and</span> node.left.var != inf) <span class="keyword">or</span> (node.right <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span> <span class="keyword">and</span> node.right.var != inf):</span><br><span class="line">        node.var = inf</span><br><span class="line">        fanode.var = inf</span><br><span class="line">        <span class="keyword">global</span> ans</span><br><span class="line">        ans += <span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">lis0 = <span class="built_in">input</span>().split()</span><br><span class="line">root = Node(lis0[<span class="number">0</span>])</span><br><span class="line">make_tree(lis0, root)</span><br><span class="line">solve(root, root)</span><br><span class="line"><span class="keyword">if</span> root.var != inf:</span><br><span class="line">    ans += <span class="number">1</span></span><br><span class="line"><span class="built_in">print</span>(ans)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>第二题运行结果</p>
+<h5 id="齐次方程fracdydx-gfracyx">齐次方程：<span class="math inline">\(\frac{dy}{dx} = g(\frac{y}{x})\)</span></h5>
+<p>令<span class="math inline">\(u=\frac{y}{x}\)</span>，则<span class="math inline">\(x\frac{du}{dx}+u=g(u)\)</span>，从而<span class="math inline">\(\frac{du}{dx} = \frac{g(u)-u}{x}\)</span>即为变量分离方程</p>
+<p><span class="math inline">\(Ex.\)</span> <span class="math inline">\(x\frac{dy}{dx} = y+\sqrt{x^2-y^2}\)</span></p>
+<p><span class="math inline">\(Ex.\)</span> <span class="math inline">\(\frac{dy}{dx} = \frac{2xye^{(\frac{x}{y})^2}}{y^2+y^2e^{(\frac{x}{y})^2}+2x^2e^{(\frac{x}{y})^2}}\)</span></p>
+<h5 id="形如fracdydx-fraca_1xb_1yc_1a_2xb_2yc_2">形如<span class="math inline">\(\frac{dy}{dx} = \frac{a_1x+b_1y+c_1}{a_2x+b_2y+c_2}\)</span></h5>
+<p>利用平移变换可化为齐次方程</p>
+<p><span class="math inline">\(Ex.\)</span> <span class="math inline">\(\frac{dy}{dx} = \frac{2x-y+1}{x-2y+1}\)</span></p>
+<h4 id="一阶线性微分方程常数变易法">一阶线性微分方程常数变易法</h4>
+<p><span class="math inline">\(y&#39; = P(x)y+Q(x)\)</span></p>
+<p>当<span class="math inline">\(Q(x) = 0\)</span>时，可化为变量分离方程，解为<span class="math inline">\(y=Ce^{\int P(x)dx}\)</span></p>
+<p>通过常数变易<span class="math inline">\(y(x) = C(x)e^{\int P(x)dx}\)</span>代入方程中，可解得<span class="math inline">\(C(x) = \int Q(x)e^{-\int P(x)dx}dx+k\)</span></p>
+<p>因此原方程通解为<span class="math inline">\(y = e^{\int P(x)dx}(\int Q(x)e^{-P(x)dx}dx+k)\)</span></p>
+<p><span class="math inline">\(Ex.\)</span> <span class="math inline">\(\frac{dy}{dx}-\frac{n}{x}y = e^xx^n\)</span></p>
+<p><span class="math inline">\(Ex.\)</span> <span class="math inline">\(\frac{dy}{dx}=\frac{y}{x+y^3}\)</span></p>
+<p><span class="math inline">\(Bernoulli\)</span>方程：<span class="math inline">\(\frac{dy}{dx} = P(x)y+Q(x)y^n\)</span></p>
+<p>两边同乘<span class="math inline">\(y^{-n}\)</span>，可得<span class="math inline">\(y^{-n}\frac{dy}{dx} = P(x)y^{1-n}+Q(x)\)</span></p>
+<p>令<span class="math inline">\(z = y^{1-n}\)</span>，则<span class="math inline">\(\frac{dz}{dx} = (1-n)P(x)z+(1-n)Q(x)\)</span></p>
+<p><span class="math inline">\(Ex.\)</span> <span class="math inline">\(\frac{dy}{dx} = \frac{x^4+y^3}{xy^2}\)</span></p>
+<p><span class="math inline">\(Riccati\)</span>方程：<span class="math inline">\(\frac{dy}{dx} = P(x)y+Q(x)y^2+f(x)\)</span></p>
+<p>一般无法精确求解，但若已知一个特解<span class="math inline">\(y^*(x)\)</span>，做变换<span class="math inline">\(y = z+y^*(x)\)</span>，可将方程化为<span class="math inline">\(\frac{dz}{dx} = (P(x)+2Q(x)y^*(x))z+Q(x)z^2\)</span>，即为<span class="math inline">\(n=2\)</span>的<span class="math inline">\(Bernoulli\)</span>方程</p>
+<p><span class="math inline">\(Ex.\)</span> <span class="math inline">\(\frac{dy}{dx}+y^2-3ysinx=cosx-2sin^2x\)</span></p>
+<h4 id="恰当方程与积分因子法">恰当方程与积分因子法</h4>
+<p>恰当方程：<span class="math inline">\(M(x,y)dx+N(x,y)dy=0\)</span>满足<span class="math inline">\(M(x,y)dx+N(x,y)dy=du(x,y) = \frac{\partial u}{\partial x}dx+\frac{\partial u}{\partial y}dy\)</span></p>
+<p>恰当方程的充要条件<span class="math inline">\(\frac{\partial M}{\partial y} = \frac{\partial N}{\partial x}\)</span></p>
+<p>恰当方程的解：观察法或<span class="math inline">\(u(x,y) = \int M(x,y)dx+\int[N(x,y)-\frac{\partial}{\partial y}\int M(x,y)dx]dy\)</span></p>
+<p><span class="math inline">\(Ex.\)</span> <span class="math inline">\([\frac{y^2}{(x-y)^2}-\frac{1}{x^2}]dx+[\frac{1}{y}-\frac{x^2}{(x-y)^2}]dy=0\)</span></p>
+<p>若存在连续可微函数<span class="math inline">\(\mu = \mu(x,y) \neq 0\)</span>，使得<span class="math inline">\(\mu M(x,y)dx+\mu N(x,y)dy=0\)</span>为恰当方程，则称<span class="math inline">\(\mu\)</span>为积分因子</p>
+<p>积分因子的求法</p>
+<p>（1）<span class="math inline">\(\frac{\frac{\partial M}{\partial y}-\frac{\partial N}{\partial x}}{N} = \psi(x)\)</span>或<span class="math inline">\(\frac{\frac{\partial M}{\partial y}-\frac{\partial N}{\partial x}}{-M} = \psi(y)\)</span></p>
+<p>积分因子为<span class="math inline">\(\mu = e^{\int \psi(x)dx}\)</span>或<span class="math inline">\(\mu = e^{\psi(y)dy}\)</span></p>
+<p>（2）<span class="math inline">\(\frac{\frac{\partial M}{\partial y}-\frac{\partial N}{\partial x}}{N\frac{\partial z}{\partial x}-M\frac{\partial z}{\partial y}} = f(z)\)</span></p>
+<p>则<span class="math inline">\(\mu = e^{\int f(z)dz}\)</span></p>
+<p><span class="math inline">\(Ex.\)</span> <span class="math inline">\(ydx+(y-x)dy=0\)</span></p>
+<p>分组积分因子法</p>
+<p>求出每组的积分因子<span class="math inline">\(\mu _1,\mu_2\)</span>与对应的恰当函数<span class="math inline">\(u_1,u_2\)</span>，寻找<span class="math inline">\(\phi, \psi\)</span>，使<span class="math inline">\(\mu = \mu_1\phi(u_1) = \mu_2 \psi(u_2)\)</span></p>
+<p><span class="math inline">\(Ex.\)</span> <span class="math inline">\((5xy-3y^3)dx+(3x^2-7xy^2)=0\)</span></p>
+<h4 id="一阶隐式方程求法">一阶隐式方程求法</h4>
+<p>（1）<span class="math inline">\(y = f(x,y&#39;)\)</span>或<span class="math inline">\(x = f(y, y&#39;)\)</span></p>
+<p>令<span class="math inline">\(y&#39; = p\)</span>，有<span class="math inline">\(y = f(x,p)\)</span>，两边求导得<span class="math inline">\(p = \frac{\partial f}{\partial x} + \frac{dp}{dx}\frac{\partial f}{\partial p}\)</span></p>
+<p>即<span class="math inline">\(\frac{dp}{dx} = \frac{p-\frac{\partial f}{\partial x}}{\frac{\partial f}{\partial p}}\)</span></p>
+<p>从而解出<span class="math inline">\(p = \phi(x, C)\)</span>，代入即得<span class="math inline">\(y = f(x, \phi(x, C))\)</span></p>
+<p><span class="math inline">\(Ex.\)</span> <span class="math inline">\(y = -(\frac{dy}{dx})^2-x\frac{dy}{dx}-\frac{x^2}{2}\)</span></p>
+<p>（2）<span class="math inline">\(f(x,y&#39;)=0\)</span>或<span class="math inline">\(f(y,y&#39;)=0\)</span></p>
+<p>设参数形式为<span class="math inline">\(x = \phi(t), \ p = \psi(t)\)</span>，则<span class="math inline">\(y = \int \psi(t)\phi&#39;(t)dt + C\)</span></p>
+<p>即原方程通解为<span class="math inline">\(\left \{ \begin{array}{lr} x = \phi(t) \\ y = \int \psi(t)\phi&#39;(t)dt +C \end{array} \right.\)</span></p>
+<p><span class="math inline">\(Ex.\)</span> <span class="math inline">\((y&#39;)^3-x^3(1-y&#39;)=0\)</span></p>
+<h4 id="n阶常系数齐线性微分方程解法">n阶常系数齐线性微分方程解法</h4>
+<p><span class="math inline">\(y^{(n)}+a_1y^{(n-1)}+...+a_{n-1}y&#39;+a_ny = 0\)</span></p>
+<p>令<span class="math inline">\(F(\lambda) = \lambda ^n + a_1 \lambda ^{n-1}+...+a_{n-1}\lambda + a_n = 0\)</span>，解出特征根</p>
+<p>（1）特征根都为单根</p>
+<p>设特征根为<span class="math inline">\(\lambda_1,...\lambda_n\)</span></p>
+<p>则原方程通解为<span class="math inline">\(y = c_1e^{\lambda_1x}+c_2e^{\lambda_2x}+...+c_ne^{\lambda_nx}\)</span></p>
+<p>若<span class="math inline">\(\lambda_i = \alpha_i + i \beta_i\)</span>为复根，则<span class="math inline">\(\lambda_i&#39; = \alpha_i-i\beta_i\)</span>也是特征根，故可用<span class="math inline">\(e^{\alpha_ix}cos\beta_ix,\ e^{\alpha_ix}sin\beta_ix\)</span>替代<span class="math inline">\(e^{\lambda_ix},e^{\lambda_i&#39;x}\)</span></p>
+<p>（2）特征根有重根</p>
+<p>设特征方程有<span class="math inline">\(k_i\)</span>重特征根<span class="math inline">\(\lambda_i\)</span>，则方程有<span class="math inline">\(k_i\)</span>个线性无关的解</p>
+<p><span class="math inline">\(e^{\lambda_ix},xe^{\lambda_ix},...,x^{k_i-1}e^{\lambda_ix}\)</span></p>
+<p>若<span class="math inline">\(\lambda_i = \alpha_i+i\beta_i\)</span>，则有解</p>
+<p><span class="math inline">\(e^{\alpha_ix}cos\beta_ix,xe^{\alpha_ix}cos\beta_ix,...,x^{k_i-1}e^{\alpha_ix}cos\beta_ix\)</span></p>
+<p><span class="math inline">\(e^{\alpha_ix}sin\beta_ix,xe^{\alpha_ix}sin\beta_ix,...,x^{k_i-1}e^{\alpha_ix}sin\beta_ix\)</span></p>
+<p><span class="math inline">\(Ex.\)</span> <span class="math inline">\(y^{(7)}-3y^{(6)}+5y^{(5)}-7y^{(4)}+7y^{(3)}-5y^{(2)}+3y&#39;-y=0\)</span></p>
+<p><span class="math inline">\(Euler\)</span>方程：<span class="math inline">\(x^n\frac{d^n y}{dx^n}+a_1x^{n-1}\frac{d^{n-1}y}{dx^{n-1}}+...+a_{n-1}x\frac{dy}{dx}+a_ny = 0\)</span></p>
+<p>做换元<span class="math inline">\(x = e^t\)</span>，有<span class="math inline">\(x^k\frac{d^ky}{dx^k} = D(D-1)...(D-k+1)y\)</span>，<span class="math inline">\(D=\frac{d}{dt}\)</span></p>
+<p>即可将<span class="math inline">\(Euler\)</span>方程变为常系数齐线性微分方程</p>
+<p>即解<span class="math inline">\(F(\lambda) = \lambda(\lambda-1)...(\lambda-n+1)+a_1\lambda(\lambda-1)...(\lambda-n+2)+...+a_{n-1}\lambda+a_n = 0\)</span></p>
+<p>对<span class="math inline">\(k_i\)</span>重根<span class="math inline">\(\lambda_i\)</span>，对应的解为</p>
+<p><span class="math inline">\(x^{\lambda_i},(ln|x|)x^{\lambda_i},...,(ln|x|)^{k_i-1}x^{\lambda_i}\)</span></p>
+<p>若<span class="math inline">\(\lambda_i=\alpha_i+i\beta_i\)</span>，对应有解</p>
+<p><span class="math inline">\(x^{\alpha_i}cos(\beta_iln|x|),x^{\alpha_i}ln|x|cos(\beta_iln|x|),...,x^{\alpha_i}(ln|x|)^{k_i-1}cos(\beta_iln|x|)\)</span></p>
+<p><span class="math inline">\(x^{\alpha_i}sin(\beta_iln|x|),x^{\alpha_i}ln|x|sin(\beta_iln|x|),...,x^{\alpha_i}(ln|x|)^{k_i-1}sin(\beta_iln|x|)\)</span></p>
+<p><span class="math inline">\(Ex.\)</span> <span class="math inline">\(x^2\frac{d^2y}{dx^2}-3x\frac{dy}{dx}+4y=0\)</span></p>
+<h4 id="n阶常系数非齐线性微分方程解法">n阶常系数非齐线性微分方程解法</h4>
+<p>常系数非齐线性微分方程：<span class="math inline">\(y^{(n)}+a_1y^{(n-1)}+...+a_{n-1}y&#39;+a_ny = f(x)\)</span></p>
+<h5 id="常数变易法">常数变易法</h5>
+<p>对<span class="math inline">\(f(x) = 0\)</span>解出<span class="math inline">\(y(x) = C_1y_1(x)+...+C_ny_n(x)\)</span></p>
+<p>将常数变易<span class="math inline">\(y(x) = C_1(x)y_1(x)+...+C_n(x)y_n(x)\)</span></p>
+<p>对<span class="math inline">\(y(x)\)</span>两边求导得<span class="math inline">\(y&#39;(x) = C_1(x)y&#39;_1(x)+...+C_n(x)y&#39;_n(x)+C_1&#39;(x)y_1(x)+...+C_n&#39;(x)y_n(x)\)</span></p>
+<p>令<span class="math inline">\(C_1&#39;(x)y_1(x)+...+C_n&#39;(x)y_n&#39;(x)=0\)</span></p>
+<p>如此求<span class="math inline">\(n-1\)</span>次，得到<span class="math inline">\(n-1\)</span>个方程</p>
+<p>最后关于<span class="math inline">\(x\)</span>求导可得<span class="math inline">\(C_1&#39;(x)y_1^{(n-1)}(x)+...+C&#39;_n(x)y_n^{(n-1)}(x) = f(x)\)</span></p>
+<p>通过解下列线性方程组即可求得<span class="math inline">\(C_1(x),...C_n(x)\)</span></p>
+<p><span class="math inline">\(\left\{\begin{array}{lr} C_1&#39;(x)y_1(x)+...+C_n&#39;(x)y_n(x) = 0 \\ C_1&#39;(x)y_1&#39;(x)+...+C_n&#39;(x)y_n&#39;(x) = 0 \\ ...... \\ C_1&#39;(x)y_1^{(n-2)}(x)+...+C_n&#39;(x)y_n^{(n-2)}(x) = 0 \\ C_1&#39;(x)y_1^{(n-1)}(x)+...+C_n&#39;(x)y_n^{(n-1)}(x) = f(x) \end{array} \right.\)</span></p>
+<p><span class="math inline">\(Ex.\)</span> <span class="math inline">\(\frac{d^2y}{dx^2}+4y=xsin2x\)</span></p>
+<h5 id="比较系数法">比较系数法</h5>
+<p>若<span class="math inline">\(f(x) = (b_0x^m+b_1x^{m-1}+...+b_{m-1}x+b_m)e^{rx}\)</span>，则方程有形如：<span class="math inline">\(y=x^k(B_0x^m+B_1x^{m-1}+...+B_{m-1}x+B_m)e^{rx}\)</span>的特解，其中<span class="math inline">\(k\)</span>为特征方程<span class="math inline">\(F(\lambda)=0\)</span>的根<span class="math inline">\(\lambda=r\)</span>的重数，当<span class="math inline">\(r\)</span>不是特征根时，取<span class="math inline">\(k=0\)</span></p>
+<p>若<span class="math inline">\(f(x) = [A_m(x)cos\beta x + B_n(x)sin\beta x]e^{\alpha x}\)</span>，其中<span class="math inline">\(\alpha,\beta\)</span>为实常数，<span class="math inline">\(A_m(x),B_n(x)\)</span>分别为<span class="math inline">\(x\)</span>的<span class="math inline">\(m,n\)</span>次实系数多项式，则方程有形如：</p>
+<p><span class="math inline">\(y = x^k[C_s(x)cos\beta x+D_s(x)sin \beta x]e^{\alpha x}\)</span>的特解，其中<span class="math inline">\(k\)</span>为特征根<span class="math inline">\(\alpha+i\beta\)</span>的重数，当$+i<span class="math inline">\(不是特征根时，取\)</span>k=0<span class="math inline">\(，\)</span>C_s(x),D_s(x)<span class="math inline">\(为\)</span>s<span class="math inline">\(次待定实系数多项式，\)</span>s = max { m,n }$</p>
+<p><span class="math inline">\(Ex.\)</span> <span class="math inline">\(y^{(4)}-2y&#39;&#39;+y=x^2-3\)</span></p>
+<p><span class="math inline">\(Ex.\)</span> <span class="math inline">\(y&#39;&#39;&#39;-y=(x+1)e^x\)</span></p>
+<p><span class="math inline">\(Ex.\)</span> <span class="math inline">\(y&#39;&#39;-2y&#39;+2y=xe^xcosx\)</span></p>
+<h5 id="复数法">复数法</h5>
+<p>若<span class="math inline">\(f(x) = A(x)e^{\alpha x}cos\beta x\)</span>或<span class="math inline">\(f(x) = A(x)e^{\alpha x}sin \beta x\)</span></p>
+<p>则原方程的特解为方程<span class="math inline">\(y^{(n)}+a_1y^{(n-1)}+...+a_{n-1}y&#39;+a_ny = f(x)\)</span>特解的实部或虚部</p>
+<p><span class="math inline">\(Ex.\)</span> <span class="math inline">\(y&#39;&#39;+9y=xsin3x\)</span></p>
+<h5 id="叠加原理法">叠加原理法</h5>
+<p><span class="math inline">\(Ex.\)</span> <span class="math inline">\(y&#39;&#39;+y=sinx-cos2x\)</span></p>
+<h4 id="laplace变换法求解n阶线性微分方程的初值问题"><span class="math inline">\(Laplace\)</span>变换法求解n阶线性微分方程的初值问题</h4>
+<p>在有定义的条件下，<span class="math inline">\(F(s) = \int _0 ^{+\infty} e^{-sx}f(x)dx\)</span>为<span class="math inline">\(f(x)\)</span>的<span class="math inline">\(Laplace\)</span>变换，记为<span class="math inline">\(L[f(x)] = F(s)\)</span></p>
+<p><span class="math inline">\(Laplace\)</span>变换的性质：</p>
+<p>（1）线性性质：<span class="math inline">\(L[\alpha f(x) + \beta g(x)] = \alpha L[f(x)]+\beta L[g(x)]\)</span></p>
+<p>（2）原函数微分性质：记<span class="math inline">\(L[f(x)] = F(s)\)</span>，则<span class="math inline">\(L[f&#39;(x)] = sF(s)-f(0)\)</span></p>
+<p>一般地，<span class="math inline">\(L[f^{(n)}(x)] = s^nF(s)-s^{n-1}f(0)-s^{n-2}f&#39;(0)-...-f^{(n-1)}(0)\)</span></p>
+<p>（3）像函数微分性质：<span class="math inline">\(F&#39;(s) = -L[xf(x)]\)</span></p>
+<p>一般地，<span class="math inline">\(F^{(n)}(s) = (-1)^n L[x^nf(x)]\)</span></p>
+<p>（4）位移性质：<span class="math inline">\(L[e^{ax}f(x)] = F(s-a)\)</span></p>
+<p>（5）卷积性质</p>
+<p>常见函数的<span class="math inline">\(Laplace\)</span>变换</p>
+<p><span class="math inline">\(L[1] = \frac{1}{s}\)</span></p>
+<p><span class="math inline">\(L[x^n] = \frac{n!}{s^{n+1}}\)</span></p>
+<p><span class="math inline">\(L[x^ne^{ax}] = \frac{n!}{(s-a)^{n+1}}\)</span></p>
+<p><span class="math inline">\(L[e^{ax}] = \frac{1}{s-a}\)</span></p>
+<p><span class="math inline">\(L[sinkx] = \frac{k}{s^2+k^2}\)</span></p>
+<p><span class="math inline">\(L[coskx] =\frac{s}{s^2+k^2}\)</span></p>
+<p><span class="math inline">\(L[xsinkx] = \frac{2sk}{(s^2+k^2)^2}\)</span></p>
+<p><span class="math inline">\(L[xcoskx] = \frac{s^2-k^2}{(s^2+k^2)^2}\)</span></p>
+<p>应用<span class="math inline">\(Laplace\)</span>变换解方程的解法</p>
+<p>记<span class="math inline">\(L[y(x)] = Y(s)\)</span>，在微分方程两边取<span class="math inline">\(Laplace\)</span>变换，代入初值条件，整理得到<span class="math inline">\(Y(s)\)</span>的表达式，将<span class="math inline">\(Y(s)\)</span>变形为容易得到<span class="math inline">\(Laplace\)</span>逆变换的形式，再做<span class="math inline">\(Laplace\)</span>逆变换，即可解得<span class="math inline">\(y(x)\)</span></p>
+<p><span class="math inline">\(Ex.\)</span> 方程<span class="math inline">\(y&#39;&#39;+2y&#39;-3y=e^{-x}\)</span>，满足初始条件<span class="math inline">\(y(0) = 0,y&#39;(0) = 1\)</span>，求<span class="math inline">\(y(x)\)</span></p>
+<h4 id="高阶微分方程降阶法">高阶微分方程降阶法</h4>
+<h5 id="换元">换元</h5>
+<p><span class="math inline">\(Ex.\)</span> <span class="math inline">\(\frac{d^5y}{dx^5}-\frac{1}{x}\frac{d^4y}{dx^4} = 0\)</span></p>
+<h5 id="凑微分">凑微分</h5>
+<p><span class="math inline">\(Ex.\)</span> <span class="math inline">\(yy&#39;&#39;-(y&#39;)^2=0\)</span></p>
+<h5 id="齐次方程换元法">齐次方程换元法</h5>
+<p>若<span class="math inline">\(F(x,y,y&#39;,...,y^{(n)})\)</span>关于<span class="math inline">\(y\)</span>与<span class="math inline">\(y\)</span>的各阶导数是齐次的，则可做换元<span class="math inline">\(y=e^{\int zdx}\)</span>，代入解出<span class="math inline">\(z\)</span></p>
+<p><span class="math inline">\(Ex.\)</span> <span class="math inline">\(yy&#39;&#39;-(y&#39;)^2=0\)</span></p>
+<h5 id="通过已知解降阶">通过已知解降阶</h5>
+<p>已知<span class="math inline">\(y_0\)</span>为方程的解，通过换元<span class="math inline">\(y = y_0u\)</span>，代入方程即可实现降阶</p>
+<p>特别地，设<span class="math inline">\(y_1(x) \neq 0\)</span>是二阶变系数微分方程<span class="math inline">\(y&#39;&#39;+a_1y&#39;+a_2y=0\)</span>的解，则方程另一与<span class="math inline">\(y_1\)</span>线性无关的解为<span class="math inline">\(y_1 \int \frac{1}{y_1^2}e^{-\int a_1(x)dx}dx\)</span>，即方程的通解为<span class="math inline">\(y=C_1y_1+C_2y_1 \int \frac{1}{y_1^2}e^{-a_1(x)dx}dx\)</span></p>
+<p><span class="math inline">\(Ex.\)</span> <span class="math inline">\(x\frac{d^3y}{dx^3}+3\frac{d^2y}{dx^2}-x\frac{dy}{dx}-y=0\)</span>有特解<span class="math inline">\(y_0=\frac{1}{x}\)</span>，求其通解</p>
+<h5 id="幂级数解法">幂级数解法</h5>
+<h4 id="常系数齐线性微分方程组解法">常系数齐线性微分方程组解法</h4>
+<p><span class="math inline">\(\frac{d \boldsymbol{x}}{dt} = A\boldsymbol{x}\)</span>，<span class="math inline">\(A=(a_{ij})_{(n \times n)}\)</span>为常数矩阵</p>
+<h5 id="特征向量法">特征向量法</h5>
+<p>如果矩阵<span class="math inline">\(A\)</span>有<span class="math inline">\(n\)</span>个线性无关的特征向量<span class="math inline">\(\boldsymbol{u}_1,\boldsymbol{u}_2,...,\boldsymbol{u}_n\)</span>，对应的特征值为<span class="math inline">\(\lambda_1,\lambda_2,...\lambda_n\)</span>（不必互不相同），则有基解矩阵<span class="math inline">\(\boldsymbol{\Phi}(t) = [e^{\lambda_1t}\boldsymbol{u}_1,e^{\lambda_2t}\boldsymbol{u}_2,...,e^{\lambda_nt}\boldsymbol{u}_n]\)</span></p>
+<p><span class="math inline">\(Ex.\)</span> <span class="math inline">\(\frac{d\boldsymbol{x}}{dt} = \left( \begin{array}{**} 3 &amp; -1 &amp; 1 \\ -1&amp; 5&amp; -1\\1 &amp; -1 &amp; 3 \end{array} \right)\boldsymbol{x}\)</span></p>
+<p><span class="math inline">\(Ex.\)</span> <span class="math inline">\(\frac{d\boldsymbol{x}}{dt} = \left( \begin{array}{**} 1 &amp; 1 \\ -1&amp; 1 \end{array} \right)\boldsymbol{x}\)</span></p>
+<h5 id="jordan标准形法"><span class="math inline">\(Jordan\)</span>标准形法</h5>
+<h5 id="hamilton-cayley法"><span class="math inline">\(Hamilton-Cayley\)</span>法</h5>
+<p>设<span class="math inline">\(\lambda_1,...\lambda_n\)</span>为<span class="math inline">\(A\)</span>的特征值（可以有相同的），令</p>
+<p><span class="math inline">\(\left \{ \begin{array}{lr} Q_0 = E \\ Q_1 = (A-\lambda_1E)Q_0 \\ ...... \\ Q_{n-1} = (A-\lambda_{n-1}E)Q_{n-2} \end{array} \right.\)</span></p>
+<p>令</p>
+<p><span class="math inline">\(\left \{ \begin{array}{lr} r_1(t) = e^{\lambda_1t} \\ r_2(t) = \int _0 ^t e^{\lambda_2(t-s)}r_1(s)ds \\ ...... \\ r_n(t) = \int_0^t e^{\lambda_n(t-s)}r_{n-1}(s)ds \end{array} \right.\)</span></p>
+<p>则方程的基解矩阵为<span class="math inline">\(e^{At} = r_1(t)Q_0 + r_2(t)Q_1 +...+r_n(t)Q_{n-1}\)</span></p>
 ]]></content>
-      <categories>
-        <category>例子</category>
-      </categories>
   </entry>
 </search>

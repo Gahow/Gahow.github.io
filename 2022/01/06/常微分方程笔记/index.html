@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"gahow.github.io","root":"/","images":"/images","scheme":"Muse","darkmode":true,"version":"8.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+<meta name="description" content="###  常微分方程  变量分离法 变量分离方程：\(\frac{dy}{dx} &#x3D; f(x)g(y)\) 当\(g(y) \neq 0\)，\(\frac{dy}{g(y)} &#x3D; f(x)dx\)，解为\(\int\frac{1}{g(y)}dy &#x3D; \int f(x)dx +c\) 若\(g(y_0) &#x3D; 0\)，则\(y &#x3D; y_0\)也是方程的解 \(Ex.\) \(\frac{dy}{d">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Gahow&#39;s net">
+<meta property="og:url" content="https://gahow.github.io/2022/01/06/%E5%B8%B8%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:site_name" content="Gahow&#39;s net">
+<meta property="og:description" content="###  常微分方程  变量分离法 变量分离方程：\(\frac{dy}{dx} &#x3D; f(x)g(y)\) 当\(g(y) \neq 0\)，\(\frac{dy}{g(y)} &#x3D; f(x)dx\)，解为\(\int\frac{1}{g(y)}dy &#x3D; \int f(x)dx +c\) 若\(g(y_0) &#x3D; 0\)，则\(y &#x3D; y_0\)也是方程的解 \(Ex.\) \(\frac{dy}{d">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-01-06T08:56:35.390Z">
+<meta property="article:modified_time" content="2022-02-10T15:11:26.159Z">
+<meta property="article:author" content="Gahow">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://gahow.github.io/2022/01/06/%E5%B8%B8%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B%E7%AC%94%E8%AE%B0/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://gahow.github.io/2022/01/06/%E5%B8%B8%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B%E7%AC%94%E8%AE%B0/","path":"2022/01/06/常微分方程笔记/","title":""}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title> | Gahow's net</title>
+  
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"UA-211760862-2","only_pageview":true}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Gahow's net</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%98%E9%87%8F%E5%88%86%E7%A6%BB%E6%B3%95"><span class="nav-number">1.</span> <span class="nav-text">变量分离法</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%8F%98%E9%87%8F%E5%88%86%E7%A6%BB%E6%96%B9%E7%A8%8Bfracdydx-fxgy"><span class="nav-number">1.1.</span> <span class="nav-text">变量分离方程：\(\frac{dy}{dx} &#x3D; f(x)g(y)\)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%BD%90%E6%AC%A1%E6%96%B9%E7%A8%8Bfracdydx-gfracyx"><span class="nav-number">1.2.</span> <span class="nav-text">齐次方程：\(\frac{dy}{dx} &#x3D; g(\frac{y}{x})\)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%BD%A2%E5%A6%82fracdydx-fraca_1xb_1yc_1a_2xb_2yc_2"><span class="nav-number">1.3.</span> <span class="nav-text">形如\(\frac{dy}{dx} &#x3D; \frac{a_1x+b_1y+c_1}{a_2x+b_2y+c_2}\)</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%80%E9%98%B6%E7%BA%BF%E6%80%A7%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B%E5%B8%B8%E6%95%B0%E5%8F%98%E6%98%93%E6%B3%95"><span class="nav-number">2.</span> <span class="nav-text">一阶线性微分方程常数变易法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%81%B0%E5%BD%93%E6%96%B9%E7%A8%8B%E4%B8%8E%E7%A7%AF%E5%88%86%E5%9B%A0%E5%AD%90%E6%B3%95"><span class="nav-number">3.</span> <span class="nav-text">恰当方程与积分因子法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%80%E9%98%B6%E9%9A%90%E5%BC%8F%E6%96%B9%E7%A8%8B%E6%B1%82%E6%B3%95"><span class="nav-number">4.</span> <span class="nav-text">一阶隐式方程求法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#n%E9%98%B6%E5%B8%B8%E7%B3%BB%E6%95%B0%E9%BD%90%E7%BA%BF%E6%80%A7%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B%E8%A7%A3%E6%B3%95"><span class="nav-number">5.</span> <span class="nav-text">n阶常系数齐线性微分方程解法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#n%E9%98%B6%E5%B8%B8%E7%B3%BB%E6%95%B0%E9%9D%9E%E9%BD%90%E7%BA%BF%E6%80%A7%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B%E8%A7%A3%E6%B3%95"><span class="nav-number">6.</span> <span class="nav-text">n阶常系数非齐线性微分方程解法</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%B8%B8%E6%95%B0%E5%8F%98%E6%98%93%E6%B3%95"><span class="nav-number">6.1.</span> <span class="nav-text">常数变易法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%AF%94%E8%BE%83%E7%B3%BB%E6%95%B0%E6%B3%95"><span class="nav-number">6.2.</span> <span class="nav-text">比较系数法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%A4%8D%E6%95%B0%E6%B3%95"><span class="nav-number">6.3.</span> <span class="nav-text">复数法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%8F%A0%E5%8A%A0%E5%8E%9F%E7%90%86%E6%B3%95"><span class="nav-number">6.4.</span> <span class="nav-text">叠加原理法</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#laplace%E5%8F%98%E6%8D%A2%E6%B3%95%E6%B1%82%E8%A7%A3n%E9%98%B6%E7%BA%BF%E6%80%A7%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B%E7%9A%84%E5%88%9D%E5%80%BC%E9%97%AE%E9%A2%98"><span class="nav-number">7.</span> <span class="nav-text">\(Laplace\)变换法求解n阶线性微分方程的初值问题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%AB%98%E9%98%B6%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B%E9%99%8D%E9%98%B6%E6%B3%95"><span class="nav-number">8.</span> <span class="nav-text">高阶微分方程降阶法</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%8D%A2%E5%85%83"><span class="nav-number">8.1.</span> <span class="nav-text">换元</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%87%91%E5%BE%AE%E5%88%86"><span class="nav-number">8.2.</span> <span class="nav-text">凑微分</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%BD%90%E6%AC%A1%E6%96%B9%E7%A8%8B%E6%8D%A2%E5%85%83%E6%B3%95"><span class="nav-number">8.3.</span> <span class="nav-text">齐次方程换元法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%80%9A%E8%BF%87%E5%B7%B2%E7%9F%A5%E8%A7%A3%E9%99%8D%E9%98%B6"><span class="nav-number">8.4.</span> <span class="nav-text">通过已知解降阶</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%B9%82%E7%BA%A7%E6%95%B0%E8%A7%A3%E6%B3%95"><span class="nav-number">8.5.</span> <span class="nav-text">幂级数解法</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B8%B8%E7%B3%BB%E6%95%B0%E9%BD%90%E7%BA%BF%E6%80%A7%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B%E7%BB%84%E8%A7%A3%E6%B3%95"><span class="nav-number">9.</span> <span class="nav-text">常系数齐线性微分方程组解法</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%89%B9%E5%BE%81%E5%90%91%E9%87%8F%E6%B3%95"><span class="nav-number">9.1.</span> <span class="nav-text">特征向量法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#jordan%E6%A0%87%E5%87%86%E5%BD%A2%E6%B3%95"><span class="nav-number">9.2.</span> <span class="nav-text">\(Jordan\)标准形法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#hamilton-cayley%E6%B3%95"><span class="nav-number">9.3.</span> <span class="nav-text">\(Hamilton-Cayley\)法</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Gahow"
+      src="/images/my.jpeg">
+  <p class="site-author-name" itemprop="name">Gahow</p>
+  <div class="site-description" itemprop="description">Coding</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">3</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdn.jsdelivr.net/npm/@creativecommons/vocabulary@2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://gahow.github.io/2022/01/06/%E5%B8%B8%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B%E7%AC%94%E8%AE%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/my.jpeg">
+      <meta itemprop="name" content="Gahow">
+      <meta itemprop="description" content="Coding">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Gahow's net">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-01-06 16:56:35" itemprop="dateCreated datePublished" datetime="2022-01-06T16:56:35+08:00">2022-01-06</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2022-02-10 23:11:26" itemprop="dateModified" datetime="2022-02-10T23:11:26+08:00">2022-02-10</time>
+      </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Changyan：</span>
+    
+    
+      <a title="changyan" href="/2022/01/06/%E5%B8%B8%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B%E7%AC%94%E8%AE%B0/#SOHUCS" itemprop="discussionUrl">
+        <span id="changyan_count_unit" class="post-comments-count hc-comment-count" data-xid="2022/01/06/常微分方程笔记/" itemprop="commentCount"></span>
+      </a>
+    
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>8.6k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>8 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        ###
+<center>
+常微分方程
+<center>
+<h4 id="变量分离法">变量分离法</h4>
+<h5 id="变量分离方程fracdydx-fxgy">变量分离方程：<span class="math inline">\(\frac{dy}{dx} = f(x)g(y)\)</span></h5>
+<p>当<span class="math inline">\(g(y) \neq 0\)</span>，<span class="math inline">\(\frac{dy}{g(y)} = f(x)dx\)</span>，解为<span class="math inline">\(\int\frac{1}{g(y)}dy = \int f(x)dx +c\)</span></p>
+<p>若<span class="math inline">\(g(y_0) = 0\)</span>，则<span class="math inline">\(y = y_0\)</span>也是方程的解</p>
+<p><span class="math inline">\(Ex.\)</span> <span class="math inline">\(\frac{dy}{dx} = 2x(1-y^2)^{\frac{1}{2}}\)</span></p>
+<span id="more"></span>
+<h5 id="齐次方程fracdydx-gfracyx">齐次方程：<span class="math inline">\(\frac{dy}{dx} = g(\frac{y}{x})\)</span></h5>
+<p>令<span class="math inline">\(u=\frac{y}{x}\)</span>，则<span class="math inline">\(x\frac{du}{dx}+u=g(u)\)</span>，从而<span class="math inline">\(\frac{du}{dx} = \frac{g(u)-u}{x}\)</span>即为变量分离方程</p>
+<p><span class="math inline">\(Ex.\)</span> <span class="math inline">\(x\frac{dy}{dx} = y+\sqrt{x^2-y^2}\)</span></p>
+<p><span class="math inline">\(Ex.\)</span> <span class="math inline">\(\frac{dy}{dx} = \frac{2xye^{(\frac{x}{y})^2}}{y^2+y^2e^{(\frac{x}{y})^2}+2x^2e^{(\frac{x}{y})^2}}\)</span></p>
+<h5 id="形如fracdydx-fraca_1xb_1yc_1a_2xb_2yc_2">形如<span class="math inline">\(\frac{dy}{dx} = \frac{a_1x+b_1y+c_1}{a_2x+b_2y+c_2}\)</span></h5>
+<p>利用平移变换可化为齐次方程</p>
+<p><span class="math inline">\(Ex.\)</span> <span class="math inline">\(\frac{dy}{dx} = \frac{2x-y+1}{x-2y+1}\)</span></p>
+<h4 id="一阶线性微分方程常数变易法">一阶线性微分方程常数变易法</h4>
+<p><span class="math inline">\(y&#39; = P(x)y+Q(x)\)</span></p>
+<p>当<span class="math inline">\(Q(x) = 0\)</span>时，可化为变量分离方程，解为<span class="math inline">\(y=Ce^{\int P(x)dx}\)</span></p>
+<p>通过常数变易<span class="math inline">\(y(x) = C(x)e^{\int P(x)dx}\)</span>代入方程中，可解得<span class="math inline">\(C(x) = \int Q(x)e^{-\int P(x)dx}dx+k\)</span></p>
+<p>因此原方程通解为<span class="math inline">\(y = e^{\int P(x)dx}(\int Q(x)e^{-P(x)dx}dx+k)\)</span></p>
+<p><span class="math inline">\(Ex.\)</span> <span class="math inline">\(\frac{dy}{dx}-\frac{n}{x}y = e^xx^n\)</span></p>
+<p><span class="math inline">\(Ex.\)</span> <span class="math inline">\(\frac{dy}{dx}=\frac{y}{x+y^3}\)</span></p>
+<p><span class="math inline">\(Bernoulli\)</span>方程：<span class="math inline">\(\frac{dy}{dx} = P(x)y+Q(x)y^n\)</span></p>
+<p>两边同乘<span class="math inline">\(y^{-n}\)</span>，可得<span class="math inline">\(y^{-n}\frac{dy}{dx} = P(x)y^{1-n}+Q(x)\)</span></p>
+<p>令<span class="math inline">\(z = y^{1-n}\)</span>，则<span class="math inline">\(\frac{dz}{dx} = (1-n)P(x)z+(1-n)Q(x)\)</span></p>
+<p><span class="math inline">\(Ex.\)</span> <span class="math inline">\(\frac{dy}{dx} = \frac{x^4+y^3}{xy^2}\)</span></p>
+<p><span class="math inline">\(Riccati\)</span>方程：<span class="math inline">\(\frac{dy}{dx} = P(x)y+Q(x)y^2+f(x)\)</span></p>
+<p>一般无法精确求解，但若已知一个特解<span class="math inline">\(y^*(x)\)</span>，做变换<span class="math inline">\(y = z+y^*(x)\)</span>，可将方程化为<span class="math inline">\(\frac{dz}{dx} = (P(x)+2Q(x)y^*(x))z+Q(x)z^2\)</span>，即为<span class="math inline">\(n=2\)</span>的<span class="math inline">\(Bernoulli\)</span>方程</p>
+<p><span class="math inline">\(Ex.\)</span> <span class="math inline">\(\frac{dy}{dx}+y^2-3ysinx=cosx-2sin^2x\)</span></p>
+<h4 id="恰当方程与积分因子法">恰当方程与积分因子法</h4>
+<p>恰当方程：<span class="math inline">\(M(x,y)dx+N(x,y)dy=0\)</span>满足<span class="math inline">\(M(x,y)dx+N(x,y)dy=du(x,y) = \frac{\partial u}{\partial x}dx+\frac{\partial u}{\partial y}dy\)</span></p>
+<p>恰当方程的充要条件<span class="math inline">\(\frac{\partial M}{\partial y} = \frac{\partial N}{\partial x}\)</span></p>
+<p>恰当方程的解：观察法或<span class="math inline">\(u(x,y) = \int M(x,y)dx+\int[N(x,y)-\frac{\partial}{\partial y}\int M(x,y)dx]dy\)</span></p>
+<p><span class="math inline">\(Ex.\)</span> <span class="math inline">\([\frac{y^2}{(x-y)^2}-\frac{1}{x^2}]dx+[\frac{1}{y}-\frac{x^2}{(x-y)^2}]dy=0\)</span></p>
+<p>若存在连续可微函数<span class="math inline">\(\mu = \mu(x,y) \neq 0\)</span>，使得<span class="math inline">\(\mu M(x,y)dx+\mu N(x,y)dy=0\)</span>为恰当方程，则称<span class="math inline">\(\mu\)</span>为积分因子</p>
+<p>积分因子的求法</p>
+<p>（1）<span class="math inline">\(\frac{\frac{\partial M}{\partial y}-\frac{\partial N}{\partial x}}{N} = \psi(x)\)</span>或<span class="math inline">\(\frac{\frac{\partial M}{\partial y}-\frac{\partial N}{\partial x}}{-M} = \psi(y)\)</span></p>
+<p>积分因子为<span class="math inline">\(\mu = e^{\int \psi(x)dx}\)</span>或<span class="math inline">\(\mu = e^{\psi(y)dy}\)</span></p>
+<p>（2）<span class="math inline">\(\frac{\frac{\partial M}{\partial y}-\frac{\partial N}{\partial x}}{N\frac{\partial z}{\partial x}-M\frac{\partial z}{\partial y}} = f(z)\)</span></p>
+<p>则<span class="math inline">\(\mu = e^{\int f(z)dz}\)</span></p>
+<p><span class="math inline">\(Ex.\)</span> <span class="math inline">\(ydx+(y-x)dy=0\)</span></p>
+<p>分组积分因子法</p>
+<p>求出每组的积分因子<span class="math inline">\(\mu _1,\mu_2\)</span>与对应的恰当函数<span class="math inline">\(u_1,u_2\)</span>，寻找<span class="math inline">\(\phi, \psi\)</span>，使<span class="math inline">\(\mu = \mu_1\phi(u_1) = \mu_2 \psi(u_2)\)</span></p>
+<p><span class="math inline">\(Ex.\)</span> <span class="math inline">\((5xy-3y^3)dx+(3x^2-7xy^2)=0\)</span></p>
+<h4 id="一阶隐式方程求法">一阶隐式方程求法</h4>
+<p>（1）<span class="math inline">\(y = f(x,y&#39;)\)</span>或<span class="math inline">\(x = f(y, y&#39;)\)</span></p>
+<p>令<span class="math inline">\(y&#39; = p\)</span>，有<span class="math inline">\(y = f(x,p)\)</span>，两边求导得<span class="math inline">\(p = \frac{\partial f}{\partial x} + \frac{dp}{dx}\frac{\partial f}{\partial p}\)</span></p>
+<p>即<span class="math inline">\(\frac{dp}{dx} = \frac{p-\frac{\partial f}{\partial x}}{\frac{\partial f}{\partial p}}\)</span></p>
+<p>从而解出<span class="math inline">\(p = \phi(x, C)\)</span>，代入即得<span class="math inline">\(y = f(x, \phi(x, C))\)</span></p>
+<p><span class="math inline">\(Ex.\)</span> <span class="math inline">\(y = -(\frac{dy}{dx})^2-x\frac{dy}{dx}-\frac{x^2}{2}\)</span></p>
+<p>（2）<span class="math inline">\(f(x,y&#39;)=0\)</span>或<span class="math inline">\(f(y,y&#39;)=0\)</span></p>
+<p>设参数形式为<span class="math inline">\(x = \phi(t), \ p = \psi(t)\)</span>，则<span class="math inline">\(y = \int \psi(t)\phi&#39;(t)dt + C\)</span></p>
+<p>即原方程通解为<span class="math inline">\(\left \{ \begin{array}{lr} x = \phi(t) \\ y = \int \psi(t)\phi&#39;(t)dt +C \end{array} \right.\)</span></p>
+<p><span class="math inline">\(Ex.\)</span> <span class="math inline">\((y&#39;)^3-x^3(1-y&#39;)=0\)</span></p>
+<h4 id="n阶常系数齐线性微分方程解法">n阶常系数齐线性微分方程解法</h4>
+<p><span class="math inline">\(y^{(n)}+a_1y^{(n-1)}+...+a_{n-1}y&#39;+a_ny = 0\)</span></p>
+<p>令<span class="math inline">\(F(\lambda) = \lambda ^n + a_1 \lambda ^{n-1}+...+a_{n-1}\lambda + a_n = 0\)</span>，解出特征根</p>
+<p>（1）特征根都为单根</p>
+<p>设特征根为<span class="math inline">\(\lambda_1,...\lambda_n\)</span></p>
+<p>则原方程通解为<span class="math inline">\(y = c_1e^{\lambda_1x}+c_2e^{\lambda_2x}+...+c_ne^{\lambda_nx}\)</span></p>
+<p>若<span class="math inline">\(\lambda_i = \alpha_i + i \beta_i\)</span>为复根，则<span class="math inline">\(\lambda_i&#39; = \alpha_i-i\beta_i\)</span>也是特征根，故可用<span class="math inline">\(e^{\alpha_ix}cos\beta_ix,\ e^{\alpha_ix}sin\beta_ix\)</span>替代<span class="math inline">\(e^{\lambda_ix},e^{\lambda_i&#39;x}\)</span></p>
+<p>（2）特征根有重根</p>
+<p>设特征方程有<span class="math inline">\(k_i\)</span>重特征根<span class="math inline">\(\lambda_i\)</span>，则方程有<span class="math inline">\(k_i\)</span>个线性无关的解</p>
+<p><span class="math inline">\(e^{\lambda_ix},xe^{\lambda_ix},...,x^{k_i-1}e^{\lambda_ix}\)</span></p>
+<p>若<span class="math inline">\(\lambda_i = \alpha_i+i\beta_i\)</span>，则有解</p>
+<p><span class="math inline">\(e^{\alpha_ix}cos\beta_ix,xe^{\alpha_ix}cos\beta_ix,...,x^{k_i-1}e^{\alpha_ix}cos\beta_ix\)</span></p>
+<p><span class="math inline">\(e^{\alpha_ix}sin\beta_ix,xe^{\alpha_ix}sin\beta_ix,...,x^{k_i-1}e^{\alpha_ix}sin\beta_ix\)</span></p>
+<p><span class="math inline">\(Ex.\)</span> <span class="math inline">\(y^{(7)}-3y^{(6)}+5y^{(5)}-7y^{(4)}+7y^{(3)}-5y^{(2)}+3y&#39;-y=0\)</span></p>
+<p><span class="math inline">\(Euler\)</span>方程：<span class="math inline">\(x^n\frac{d^n y}{dx^n}+a_1x^{n-1}\frac{d^{n-1}y}{dx^{n-1}}+...+a_{n-1}x\frac{dy}{dx}+a_ny = 0\)</span></p>
+<p>做换元<span class="math inline">\(x = e^t\)</span>，有<span class="math inline">\(x^k\frac{d^ky}{dx^k} = D(D-1)...(D-k+1)y\)</span>，<span class="math inline">\(D=\frac{d}{dt}\)</span></p>
+<p>即可将<span class="math inline">\(Euler\)</span>方程变为常系数齐线性微分方程</p>
+<p>即解<span class="math inline">\(F(\lambda) = \lambda(\lambda-1)...(\lambda-n+1)+a_1\lambda(\lambda-1)...(\lambda-n+2)+...+a_{n-1}\lambda+a_n = 0\)</span></p>
+<p>对<span class="math inline">\(k_i\)</span>重根<span class="math inline">\(\lambda_i\)</span>，对应的解为</p>
+<p><span class="math inline">\(x^{\lambda_i},(ln|x|)x^{\lambda_i},...,(ln|x|)^{k_i-1}x^{\lambda_i}\)</span></p>
+<p>若<span class="math inline">\(\lambda_i=\alpha_i+i\beta_i\)</span>，对应有解</p>
+<p><span class="math inline">\(x^{\alpha_i}cos(\beta_iln|x|),x^{\alpha_i}ln|x|cos(\beta_iln|x|),...,x^{\alpha_i}(ln|x|)^{k_i-1}cos(\beta_iln|x|)\)</span></p>
+<p><span class="math inline">\(x^{\alpha_i}sin(\beta_iln|x|),x^{\alpha_i}ln|x|sin(\beta_iln|x|),...,x^{\alpha_i}(ln|x|)^{k_i-1}sin(\beta_iln|x|)\)</span></p>
+<p><span class="math inline">\(Ex.\)</span> <span class="math inline">\(x^2\frac{d^2y}{dx^2}-3x\frac{dy}{dx}+4y=0\)</span></p>
+<h4 id="n阶常系数非齐线性微分方程解法">n阶常系数非齐线性微分方程解法</h4>
+<p>常系数非齐线性微分方程：<span class="math inline">\(y^{(n)}+a_1y^{(n-1)}+...+a_{n-1}y&#39;+a_ny = f(x)\)</span></p>
+<h5 id="常数变易法">常数变易法</h5>
+<p>对<span class="math inline">\(f(x) = 0\)</span>解出<span class="math inline">\(y(x) = C_1y_1(x)+...+C_ny_n(x)\)</span></p>
+<p>将常数变易<span class="math inline">\(y(x) = C_1(x)y_1(x)+...+C_n(x)y_n(x)\)</span></p>
+<p>对<span class="math inline">\(y(x)\)</span>两边求导得<span class="math inline">\(y&#39;(x) = C_1(x)y&#39;_1(x)+...+C_n(x)y&#39;_n(x)+C_1&#39;(x)y_1(x)+...+C_n&#39;(x)y_n(x)\)</span></p>
+<p>令<span class="math inline">\(C_1&#39;(x)y_1(x)+...+C_n&#39;(x)y_n&#39;(x)=0\)</span></p>
+<p>如此求<span class="math inline">\(n-1\)</span>次，得到<span class="math inline">\(n-1\)</span>个方程</p>
+<p>最后关于<span class="math inline">\(x\)</span>求导可得<span class="math inline">\(C_1&#39;(x)y_1^{(n-1)}(x)+...+C&#39;_n(x)y_n^{(n-1)}(x) = f(x)\)</span></p>
+<p>通过解下列线性方程组即可求得<span class="math inline">\(C_1(x),...C_n(x)\)</span></p>
+<p><span class="math inline">\(\left\{\begin{array}{lr} C_1&#39;(x)y_1(x)+...+C_n&#39;(x)y_n(x) = 0 \\ C_1&#39;(x)y_1&#39;(x)+...+C_n&#39;(x)y_n&#39;(x) = 0 \\ ...... \\ C_1&#39;(x)y_1^{(n-2)}(x)+...+C_n&#39;(x)y_n^{(n-2)}(x) = 0 \\ C_1&#39;(x)y_1^{(n-1)}(x)+...+C_n&#39;(x)y_n^{(n-1)}(x) = f(x) \end{array} \right.\)</span></p>
+<p><span class="math inline">\(Ex.\)</span> <span class="math inline">\(\frac{d^2y}{dx^2}+4y=xsin2x\)</span></p>
+<h5 id="比较系数法">比较系数法</h5>
+<p>若<span class="math inline">\(f(x) = (b_0x^m+b_1x^{m-1}+...+b_{m-1}x+b_m)e^{rx}\)</span>，则方程有形如：<span class="math inline">\(y=x^k(B_0x^m+B_1x^{m-1}+...+B_{m-1}x+B_m)e^{rx}\)</span>的特解，其中<span class="math inline">\(k\)</span>为特征方程<span class="math inline">\(F(\lambda)=0\)</span>的根<span class="math inline">\(\lambda=r\)</span>的重数，当<span class="math inline">\(r\)</span>不是特征根时，取<span class="math inline">\(k=0\)</span></p>
+<p>若<span class="math inline">\(f(x) = [A_m(x)cos\beta x + B_n(x)sin\beta x]e^{\alpha x}\)</span>，其中<span class="math inline">\(\alpha,\beta\)</span>为实常数，<span class="math inline">\(A_m(x),B_n(x)\)</span>分别为<span class="math inline">\(x\)</span>的<span class="math inline">\(m,n\)</span>次实系数多项式，则方程有形如：</p>
+<p><span class="math inline">\(y = x^k[C_s(x)cos\beta x+D_s(x)sin \beta x]e^{\alpha x}\)</span>的特解，其中<span class="math inline">\(k\)</span>为特征根<span class="math inline">\(\alpha+i\beta\)</span>的重数，当$+i<span class="math inline">\(不是特征根时，取\)</span>k=0<span class="math inline">\(，\)</span>C_s(x),D_s(x)<span class="math inline">\(为\)</span>s<span class="math inline">\(次待定实系数多项式，\)</span>s = max { m,n }$</p>
+<p><span class="math inline">\(Ex.\)</span> <span class="math inline">\(y^{(4)}-2y&#39;&#39;+y=x^2-3\)</span></p>
+<p><span class="math inline">\(Ex.\)</span> <span class="math inline">\(y&#39;&#39;&#39;-y=(x+1)e^x\)</span></p>
+<p><span class="math inline">\(Ex.\)</span> <span class="math inline">\(y&#39;&#39;-2y&#39;+2y=xe^xcosx\)</span></p>
+<h5 id="复数法">复数法</h5>
+<p>若<span class="math inline">\(f(x) = A(x)e^{\alpha x}cos\beta x\)</span>或<span class="math inline">\(f(x) = A(x)e^{\alpha x}sin \beta x\)</span></p>
+<p>则原方程的特解为方程<span class="math inline">\(y^{(n)}+a_1y^{(n-1)}+...+a_{n-1}y&#39;+a_ny = f(x)\)</span>特解的实部或虚部</p>
+<p><span class="math inline">\(Ex.\)</span> <span class="math inline">\(y&#39;&#39;+9y=xsin3x\)</span></p>
+<h5 id="叠加原理法">叠加原理法</h5>
+<p><span class="math inline">\(Ex.\)</span> <span class="math inline">\(y&#39;&#39;+y=sinx-cos2x\)</span></p>
+<h4 id="laplace变换法求解n阶线性微分方程的初值问题"><span class="math inline">\(Laplace\)</span>变换法求解n阶线性微分方程的初值问题</h4>
+<p>在有定义的条件下，<span class="math inline">\(F(s) = \int _0 ^{+\infty} e^{-sx}f(x)dx\)</span>为<span class="math inline">\(f(x)\)</span>的<span class="math inline">\(Laplace\)</span>变换，记为<span class="math inline">\(L[f(x)] = F(s)\)</span></p>
+<p><span class="math inline">\(Laplace\)</span>变换的性质：</p>
+<p>（1）线性性质：<span class="math inline">\(L[\alpha f(x) + \beta g(x)] = \alpha L[f(x)]+\beta L[g(x)]\)</span></p>
+<p>（2）原函数微分性质：记<span class="math inline">\(L[f(x)] = F(s)\)</span>，则<span class="math inline">\(L[f&#39;(x)] = sF(s)-f(0)\)</span></p>
+<p>一般地，<span class="math inline">\(L[f^{(n)}(x)] = s^nF(s)-s^{n-1}f(0)-s^{n-2}f&#39;(0)-...-f^{(n-1)}(0)\)</span></p>
+<p>（3）像函数微分性质：<span class="math inline">\(F&#39;(s) = -L[xf(x)]\)</span></p>
+<p>一般地，<span class="math inline">\(F^{(n)}(s) = (-1)^n L[x^nf(x)]\)</span></p>
+<p>（4）位移性质：<span class="math inline">\(L[e^{ax}f(x)] = F(s-a)\)</span></p>
+<p>（5）卷积性质</p>
+<p>常见函数的<span class="math inline">\(Laplace\)</span>变换</p>
+<p><span class="math inline">\(L[1] = \frac{1}{s}\)</span></p>
+<p><span class="math inline">\(L[x^n] = \frac{n!}{s^{n+1}}\)</span></p>
+<p><span class="math inline">\(L[x^ne^{ax}] = \frac{n!}{(s-a)^{n+1}}\)</span></p>
+<p><span class="math inline">\(L[e^{ax}] = \frac{1}{s-a}\)</span></p>
+<p><span class="math inline">\(L[sinkx] = \frac{k}{s^2+k^2}\)</span></p>
+<p><span class="math inline">\(L[coskx] =\frac{s}{s^2+k^2}\)</span></p>
+<p><span class="math inline">\(L[xsinkx] = \frac{2sk}{(s^2+k^2)^2}\)</span></p>
+<p><span class="math inline">\(L[xcoskx] = \frac{s^2-k^2}{(s^2+k^2)^2}\)</span></p>
+<p>应用<span class="math inline">\(Laplace\)</span>变换解方程的解法</p>
+<p>记<span class="math inline">\(L[y(x)] = Y(s)\)</span>，在微分方程两边取<span class="math inline">\(Laplace\)</span>变换，代入初值条件，整理得到<span class="math inline">\(Y(s)\)</span>的表达式，将<span class="math inline">\(Y(s)\)</span>变形为容易得到<span class="math inline">\(Laplace\)</span>逆变换的形式，再做<span class="math inline">\(Laplace\)</span>逆变换，即可解得<span class="math inline">\(y(x)\)</span></p>
+<p><span class="math inline">\(Ex.\)</span> 方程<span class="math inline">\(y&#39;&#39;+2y&#39;-3y=e^{-x}\)</span>，满足初始条件<span class="math inline">\(y(0) = 0,y&#39;(0) = 1\)</span>，求<span class="math inline">\(y(x)\)</span></p>
+<h4 id="高阶微分方程降阶法">高阶微分方程降阶法</h4>
+<h5 id="换元">换元</h5>
+<p><span class="math inline">\(Ex.\)</span> <span class="math inline">\(\frac{d^5y}{dx^5}-\frac{1}{x}\frac{d^4y}{dx^4} = 0\)</span></p>
+<h5 id="凑微分">凑微分</h5>
+<p><span class="math inline">\(Ex.\)</span> <span class="math inline">\(yy&#39;&#39;-(y&#39;)^2=0\)</span></p>
+<h5 id="齐次方程换元法">齐次方程换元法</h5>
+<p>若<span class="math inline">\(F(x,y,y&#39;,...,y^{(n)})\)</span>关于<span class="math inline">\(y\)</span>与<span class="math inline">\(y\)</span>的各阶导数是齐次的，则可做换元<span class="math inline">\(y=e^{\int zdx}\)</span>，代入解出<span class="math inline">\(z\)</span></p>
+<p><span class="math inline">\(Ex.\)</span> <span class="math inline">\(yy&#39;&#39;-(y&#39;)^2=0\)</span></p>
+<h5 id="通过已知解降阶">通过已知解降阶</h5>
+<p>已知<span class="math inline">\(y_0\)</span>为方程的解，通过换元<span class="math inline">\(y = y_0u\)</span>，代入方程即可实现降阶</p>
+<p>特别地，设<span class="math inline">\(y_1(x) \neq 0\)</span>是二阶变系数微分方程<span class="math inline">\(y&#39;&#39;+a_1y&#39;+a_2y=0\)</span>的解，则方程另一与<span class="math inline">\(y_1\)</span>线性无关的解为<span class="math inline">\(y_1 \int \frac{1}{y_1^2}e^{-\int a_1(x)dx}dx\)</span>，即方程的通解为<span class="math inline">\(y=C_1y_1+C_2y_1 \int \frac{1}{y_1^2}e^{-a_1(x)dx}dx\)</span></p>
+<p><span class="math inline">\(Ex.\)</span> <span class="math inline">\(x\frac{d^3y}{dx^3}+3\frac{d^2y}{dx^2}-x\frac{dy}{dx}-y=0\)</span>有特解<span class="math inline">\(y_0=\frac{1}{x}\)</span>，求其通解</p>
+<h5 id="幂级数解法">幂级数解法</h5>
+<h4 id="常系数齐线性微分方程组解法">常系数齐线性微分方程组解法</h4>
+<p><span class="math inline">\(\frac{d \boldsymbol{x}}{dt} = A\boldsymbol{x}\)</span>，<span class="math inline">\(A=(a_{ij})_{(n \times n)}\)</span>为常数矩阵</p>
+<h5 id="特征向量法">特征向量法</h5>
+<p>如果矩阵<span class="math inline">\(A\)</span>有<span class="math inline">\(n\)</span>个线性无关的特征向量<span class="math inline">\(\boldsymbol{u}_1,\boldsymbol{u}_2,...,\boldsymbol{u}_n\)</span>，对应的特征值为<span class="math inline">\(\lambda_1,\lambda_2,...\lambda_n\)</span>（不必互不相同），则有基解矩阵<span class="math inline">\(\boldsymbol{\Phi}(t) = [e^{\lambda_1t}\boldsymbol{u}_1,e^{\lambda_2t}\boldsymbol{u}_2,...,e^{\lambda_nt}\boldsymbol{u}_n]\)</span></p>
+<p><span class="math inline">\(Ex.\)</span> <span class="math inline">\(\frac{d\boldsymbol{x}}{dt} = \left( \begin{array}{**} 3 &amp; -1 &amp; 1 \\ -1&amp; 5&amp; -1\\1 &amp; -1 &amp; 3 \end{array} \right)\boldsymbol{x}\)</span></p>
+<p><span class="math inline">\(Ex.\)</span> <span class="math inline">\(\frac{d\boldsymbol{x}}{dt} = \left( \begin{array}{**} 1 &amp; 1 \\ -1&amp; 1 \end{array} \right)\boldsymbol{x}\)</span></p>
+<h5 id="jordan标准形法"><span class="math inline">\(Jordan\)</span>标准形法</h5>
+<h5 id="hamilton-cayley法"><span class="math inline">\(Hamilton-Cayley\)</span>法</h5>
+<p>设<span class="math inline">\(\lambda_1,...\lambda_n\)</span>为<span class="math inline">\(A\)</span>的特征值（可以有相同的），令</p>
+<p><span class="math inline">\(\left \{ \begin{array}{lr} Q_0 = E \\ Q_1 = (A-\lambda_1E)Q_0 \\ ...... \\ Q_{n-1} = (A-\lambda_{n-1}E)Q_{n-2} \end{array} \right.\)</span></p>
+<p>令</p>
+<p><span class="math inline">\(\left \{ \begin{array}{lr} r_1(t) = e^{\lambda_1t} \\ r_2(t) = \int _0 ^t e^{\lambda_2(t-s)}r_1(s)ds \\ ...... \\ r_n(t) = \int_0^t e^{\lambda_n(t-s)}r_{n-1}(s)ds \end{array} \right.\)</span></p>
+<p>则方程的基解矩阵为<span class="math inline">\(e^{At} = r_1(t)Q_0 + r_2(t)Q_1 +...+r_n(t)Q_{n-1}\)</span></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>Gahow
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://gahow.github.io/2022/01/06/%E5%B8%B8%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B%E7%AC%94%E8%AE%B0/" title="">https://gahow.github.io/2022/01/06/常微分方程笔记/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/10/31/%E5%9F%BA%E4%BA%8EHexo+Github%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/" rel="prev" title="基于Hexo+Github搭建个人博客">
+                  <i class="fa fa-chevron-left"></i> 基于Hexo+Github搭建个人博客
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/01/17/Vim%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" rel="next" title="">
+                   <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="SOHUCS"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Gahow</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">13k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">12 分钟</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+<script class="next-config" data-name="changyan" type="application/json">{"enable":true,"appid":"cyvJKy7i5","appkey":"513a9cb40b560c4ddb8a440418be32fa"}</script>
+<script src="/js/third-party/comments/changyan.js"></script>
+
+</body>
+</html>
