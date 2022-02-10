@@ -1,147 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title></title>
-    <url>/2022/01/17/Vim%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
-    <content><![CDATA[###
-<center>
-Vim学习笔记
-<center>
-<h4 id="vim的一些学习资源">Vim的一些学习资源</h4>
-<p>1.Terminal下的<code>vimtutor</code>，个人觉得刷上几遍<code>vimtutor</code>熟悉后应该就算Vim入门了</p>
-<p>2.<code>pacvim n</code>，<code>n</code>代表选择的level，一个练习vim光标移动的小游戏</p>
-<h4 id="为什么学vim">为什么学Vim</h4>
-<p>装逼是第一生产力！（doge）一方面确实是因为觉得vim是一个跟此前接触的文本编辑器不太一样的新玩意，觉得这个挺酷的，另一方面是某个c语言上机题让我把30几条的if语句改为case，手动改的属实烦人，想起vim好像可以通过几个指令自动化完成。所以我相信学好vim大概是可以提高一些生产力的。</p>
-<span id="more"></span>
-<h4 id="vim光标移动">vim光标移动</h4>
-<p>左<code>h</code> 下<code>j</code> 上<code>k</code> 右<code>l</code></p>
-<p>向后一个词<code>w</code> 向后一个词忽略中间标点<code>W</code></p>
-<p>移动至当前词的末尾<code>e</code> 忽略中间标点移动至当前词的末尾<code>E</code></p>
-<p>向前一个词<code>b</code> 向前一个词忽略中间标点<code>B</code></p>
-<p>移动到行首<code>0</code> 移动到行末<code>$</code></p>
-<p>上一个段落<code>&#123;</code> 下一个段落<code>&#125;</code></p>
-<p>移动到文件头<code>gg</code> 移动到文件尾<code>G</code></p>
-<p>当一行长文字被显示为两行时，如下图所示，若要让光标从<code>t</code>移动到<code>y</code>，直接按<code>j</code>是无法实现的</p>
-<p>到视角上的下一行<code>gj</code> 视角上的上一行<code>gk</code></p>
-<p><img src="/Users/sheldon/Library/Application Support/typora-user-images/截屏2022-01-17 上午9.59.40.png" alt="截屏2022-01-17 上午9.59.40" style="zoom:50%;" /></p>
-<h4 id="vim文本搜索与替换">vim文本搜索与替换</h4>
-<p><code>:set hlsearch</code>可以设置为将搜索结果高亮显示</p>
-<p>搜索文本<code>/</code> 到下一个搜索到的文本<code>n</code> 到上一个搜索到的文本<code>N</code></p>
-<p>另一种方式：搜索文本<code>?</code> 到下一个<code>N</code> 到上一个<code>n</code></p>
-<p>搜索当前光标所在的词<code>*</code></p>
-<p>向后搜索同一行最近的"x"<code>fx</code> 向前搜索同一行最近的"x"<code>Fx</code></p>
-<p>画面移动：让当前行停留在中间位置<code>zz</code> 停留在上方<code>zt</code> 停留在下方<code>zb</code></p>
-<p>替换当前行第一个word1为word2：<code>:s/word1/word2/</code></p>
-<p>替换当前行所有word1为word2：<code>:s/word1/word2/g</code></p>
-<p>（注意当word中有<code>\</code>时要用<code>\\</code>表示）</p>
-<p>替换第n行到最后一行中每一行第一个word1为word2：<code>:n,$s/word1/word2/</code></p>
-<p>替换第n行到最后一行中每一行所有word1为word2：<code>:n,$s/word1/word2/g</code></p>
-<p>替换全文每一行的第一个word1为word2：<code>:%s/word1/word2/</code></p>
-<p>替换全文所有的word1为word2：<code>:%s/word1/word2/g</code></p>
-<p>在行首插入指定字符<code>:%s/^/word/</code></p>
-<p>在行尾插入指定字符<code>:%s/$/word/</code></p>
-<h4 id="vim选取复制粘贴">vim选取、复制、粘贴</h4>
-<p>进入Visual模式<code>v</code> 进入Visual模式并按行选取<code>V</code></p>
-<p>复制<code>y</code> 复制一整行 <code>yy</code></p>
-<p>在光标后粘贴<code>p</code> 在光标前粘贴<code>P</code> 复制n次<code>np</code></p>
-<p>复制n行<code>nyy</code></p>
-<p>复制从光标处到行尾<code>y$</code></p>
-<p>复制到文本末尾<code>yG</code></p>
-<p>撤销上一步<code>u</code> 重做撤销的操作<code>Ctrl+r</code></p>
-<p>把内容复制到a寄存器<code>"ay</code> 把内容复制到b寄存器<code>"by</code> 以此类推</p>
-<p>粘贴a寄存器的内容<code>"ap</code> 粘贴b寄存器的内容<code>"bp</code> 以此类推</p>
-<p>检视目前所有寄存器的内容<code>:reg</code></p>
-<p>设置寄存器与系统剪切板共通<code>:set clipboard=unnamed</code></p>
-<h4 id="vim文本编辑">vim文本编辑</h4>
-<p>在光标前进入插入模式<code>i</code> 跳到行首进入Insert模式<code>I</code></p>
-<p>在光标后进入插入模式<code>a</code> 跳到行末进入Insert模式<code>A</code></p>
-<p>在当前行下方创建新的一行并进入Insert模式<code>o</code></p>
-<p>在当前行上方创建新的一行并进入Insert模式<code>O</code></p>
-<p>删除光标所在文字<code>x</code>（删除操作都会把删除的文字放入寄存器中）</p>
-<p>删除选择的内容<code>d</code></p>
-<p>从光标删除至行末<code>D</code></p>
-<p>删除光标所在行<code>dd</code></p>
-<p>从光标删除至文本末尾<code>dG</code></p>
-<p>从光标删除至文本头<code>dgg</code></p>
-<p>删除选择的内容并进入Insert模式<code>c</code></p>
-<p>从光标删除至行末并进入Insert模式<code>C</code></p>
-<p>用"x"替换光标所在的字符<code>rx</code></p>
-<p>向右或向左缩进<code>&gt;&gt;</code>或<code>&lt;&lt;</code></p>
-<p>将n行向右或向左缩进<code>n&gt;&gt;</code>或<code>n&lt;&lt;</code></p>
-<p>将选取内容自动排版<code>=</code></p>
-<h4 id="vim多文档操作tab">vim多文档操作（tab）</h4>
-<p>在当前窗口开启文档<code>:e FILENAME</code></p>
-<p>新建窗口<code>:tabe</code></p>
-<p>在新窗口开启文档<code>:tabe FILENAME</code></p>
-<p>跳转至下一个窗口<code>gt</code></p>
-<p>跳转至上一个窗口<code>gT</code></p>
-<p>新增水平分割视窗<code>:new</code></p>
-<p>新增垂直分割视窗<code>:vnew</code></p>
-<p>移动游标到指定视窗<code>Ctrl+w+hjkl</code></p>
-<p>循环移动视窗<code>Ctrl+ww</code></p>
-<p>水平分割开启多个文档<code>vim -o FILE1 FILE2 ...</code></p>
-<p>垂直分割开启多个文档<code>vim -O FILE1 FILE 2 ...</code></p>
-<p>用分页多窗口开启多个文档<code>vim -p FILE1 FILE2 ...</code></p>
-<h4 id="vim多文档操作buffer">vim多文档操作（buffer）</h4>
-<p>打开多个文档，以不同buffer的形式<code>vim FILE1 FILE2 ...</code></p>
-<p>列出所有buffer<code>:ls</code></p>
-<p>切换到第k个buffer<code>:bk</code></p>
-<p>直接切换buffer<code>:b FILENAME</code></p>
-<p>切换到上一个buffer<code>Ctrl + ^</code></p>
-<p>切换到下一个buffer<code>:bn</code></p>
-<p>切换到上一个buffer<code>:bp</code></p>
-<p>切换到第一个buffer<code>:bf</code></p>
-<p>切换到最后一个buffer<code>:bl</code></p>
-<p>关闭当前buffer<code>:bd</code></p>
-<p>把当前所有buffer展开为tab<code>:tab ba</code></p>
-<h4 id="vim文本选取进阶">vim文本选取进阶</h4>
-<p>选取一个单词<code>viw</code>（i=inner，w=word）</p>
-<p>选取引号里的内容<code>vi"</code> 选取花括号里的内容<code>vi&#123;</code> 以此类推</p>
-<p>选取引号及其里面的内容<code>va"</code>（a=around）</p>
-<p>选取tag里的内容<code>vit</code> 选取tag及tag里的内容<code>vat</code></p>
-<p>可以把<code>v</code>换成<code>d</code>或<code>c</code>（d=delete, c=change)实现别的操作</p>
-<p>进入Visual Block模式<code>Ctrl+v</code>，可以实现选取多行同时添加相同的内容</p>
-<h4 id="vim语法">vim语法</h4>
-<p>模式切换</p>
-<p><code>i</code> <code>v</code> <code>V</code> <code>Ctrl+v</code> <code>Esc</code>或<code>Ctrl+[</code></p>
-<p>名词</p>
-<p><code>w</code> = word <code>s</code> = sentence <code>p</code> = paragraph <code>t</code> = tag 及各类符号</p>
-<p>动词</p>
-<p><code>y</code> = yank <code>p</code> = paste <code>d</code> = delete <code>c</code> = change</p>
-<p>范围</p>
-<p><code>i</code> = inner <code>a</code> = around</p>
-<p>量词</p>
-<p>即数字</p>
-<p>指令的一般语法</p>
-<p>模式+量词+动词+范围（也可以是数字）+名词</p>
-<p>如：<code>viw</code> <code>v3w</code> <code>vaw</code> <code>vap</code> <code>vi&#123;</code> <code>3yy</code> <code>4p</code> <code>d3w</code>或<code>3dw</code> <code>cis</code> <code>vip</code></p>
-<h4 id="实用技巧">实用技巧</h4>
-<p>移动到行首<code>^</code>（跳过开头的缩进）</p>
-<p>移动到第n行<code>nG</code>或<code>ngg</code></p>
-<p>打开行号<code>:set number</code></p>
-<p>往下翻一页<code>Ctrl+f</code></p>
-<p>往上翻一页<code>Ctrl+b</code></p>
-<p>将选中的代码行折叠<code>zf</code> 展开<code>zd</code></p>
-<p>大小写互换<code>~</code></p>
-<p>重做最后做的动作<code>.</code></p>
-<p>将多行并为同一行<code>J</code></p>
-<p>在Insert模式下删除一个词<code>Ctrl+w</code></p>
-<p>删除光标前的内容<code>Ctrl+u</code>（Insert和Normal模式都可使用）</p>
-<p>执行外部指令<code>:!指令</code></p>
-<p>执行外部指令并贴上内容<code>:r!指令</code></p>
-<p>使用帮助手册<code>:help</code></p>
-<p>找到当前行的下一个字符x<code>fx</code> 到下一个目标字符上<code>;</code> 到上一个目标字符<code>,</code></p>
-<h4 id="好用的插件总结">好用的插件总结</h4>
-<p>首先使用<code>vim-plug</code>来安装插件</p>
-<p>airline：界面美化</p>
-<p>nerdtree：展示文件夹</p>
-<p>ctrlp：文件搜索</p>
-<p>emmet：代码补全（html、css）</p>
-<p>surround：处理成对的引号括号问题</p>
-<p>repeat：加强<code>.</code>的重做功能</p>
-]]></content>
-  </entry>
-  <entry>
     <title>基于Hexo+Github搭建个人博客</title>
     <url>/2021/10/31/%E5%9F%BA%E4%BA%8EHexo+Github%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/</url>
     <content><![CDATA[<p>本文在mac OS11.6环境下进行配置，出现的一些问题在文末进行总结。</p>
@@ -256,13 +115,9 @@ Vim学习笔记
       </tags>
   </entry>
   <entry>
-    <title></title>
+    <title>《常微分方程》学习笔记</title>
     <url>/2022/01/06/%E5%B8%B8%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B%E7%AC%94%E8%AE%B0/</url>
-    <content><![CDATA[###
-<center>
-常微分方程
-<center>
-<h4 id="变量分离法">变量分离法</h4>
+    <content><![CDATA[<h4 id="变量分离法">变量分离法</h4>
 <h5 id="变量分离方程fracdydx-fxgy">变量分离方程：<span class="math inline">\(\frac{dy}{dx} = f(x)g(y)\)</span></h5>
 <p>当<span class="math inline">\(g(y) \neq 0\)</span>，<span class="math inline">\(\frac{dy}{g(y)} = f(x)dx\)</span>，解为<span class="math inline">\(\int\frac{1}{g(y)}dy = \int f(x)dx +c\)</span></p>
 <p>若<span class="math inline">\(g(y_0) = 0\)</span>，则<span class="math inline">\(y = y_0\)</span>也是方程的解</p>
@@ -412,5 +267,11 @@ Vim学习笔记
 <p><span class="math inline">\(\left \{ \begin{array}{lr} r_1(t) = e^{\lambda_1t} \\ r_2(t) = \int _0 ^t e^{\lambda_2(t-s)}r_1(s)ds \\ ...... \\ r_n(t) = \int_0^t e^{\lambda_n(t-s)}r_{n-1}(s)ds \end{array} \right.\)</span></p>
 <p>则方程的基解矩阵为<span class="math inline">\(e^{At} = r_1(t)Q_0 + r_2(t)Q_1 +...+r_n(t)Q_{n-1}\)</span></p>
 ]]></content>
+      <categories>
+        <category>数学笔记</category>
+      </categories>
+      <tags>
+        <tag>数学</tag>
+      </tags>
   </entry>
 </search>
