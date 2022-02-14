@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"gahow.github.io","root":"/","images":"/images","scheme":"Muse","darkmode":true,"version":"8.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+<meta name="description" content="###  Matlab学习笔记  变量类型 可通过class(var)查看var的变量类型 logical char 由一对单引号&#39;&#39;包裹 numeric 默认为double类型 可选类型有：int8, int16, int32, int64, uint8, uint16, uint32, uint64, single, double 更改数值型变量显示格式，可使用如format short">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Matlab学习笔记">
+<meta property="og:url" content="https://gahow.github.io/2022/02/13/Matlab%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:site_name" content="Gahow&#39;s net">
+<meta property="og:description" content="###  Matlab学习笔记  变量类型 可通过class(var)查看var的变量类型 logical char 由一对单引号&#39;&#39;包裹 numeric 默认为double类型 可选类型有：int8, int16, int32, int64, uint8, uint16, uint32, uint64, single, double 更改数值型变量显示格式，可使用如format short">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-02-13T12:42:12.348Z">
+<meta property="article:modified_time" content="2022-02-14T12:44:28.625Z">
+<meta property="article:author" content="Gahow">
+<meta property="article:tag" content="建模">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://gahow.github.io/2022/02/13/Matlab%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://gahow.github.io/2022/02/13/Matlab%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/","path":"2022/02/13/Matlab学习笔记/","title":"Matlab学习笔记"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Matlab学习笔记 | Gahow's net</title>
+  
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"UA-211760862-2","only_pageview":true}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Gahow's net</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%98%E9%87%8F%E7%B1%BB%E5%9E%8B"><span class="nav-number">1.</span> <span class="nav-text">变量类型</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#logical"><span class="nav-number">1.1.</span> <span class="nav-text">logical</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#char"><span class="nav-number">1.2.</span> <span class="nav-text">char</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#numeric"><span class="nav-number">1.3.</span> <span class="nav-text">numeric</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#struct"><span class="nav-number">1.4.</span> <span class="nav-text">struct</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#cell"><span class="nav-number">1.5.</span> <span class="nav-text">cell</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E6%95%B0%E5%AD%A6%E8%BF%90%E7%AE%97%E5%87%BD%E6%95%B0"><span class="nav-number">2.</span> <span class="nav-text">常用数学运算函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9F%A9%E9%98%B5"><span class="nav-number">3.</span> <span class="nav-text">矩阵</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E7%9F%A9%E9%98%B5"><span class="nav-number">3.1.</span> <span class="nav-text">创建矩阵</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%9F%A9%E9%98%B5%E7%B4%A2%E5%BC%95"><span class="nav-number">3.2.</span> <span class="nav-text">矩阵索引</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0"><span class="nav-number">3.3.</span> <span class="nav-text">常用函数</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E7%BC%96%E7%A8%8B%E8%AF%AD%E5%8F%A5"><span class="nav-number">4.</span> <span class="nav-text">基本编程语句</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89%E5%87%BD%E6%95%B0"><span class="nav-number">5.</span> <span class="nav-text">定义函数</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%A0%87%E5%87%86%E6%96%B9%E5%BC%8F"><span class="nav-number">5.1.</span> <span class="nav-text">标准方式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E5%8F%A5%E6%9F%84%E7%9A%84%E5%BD%A2%E5%BC%8F%E5%AE%9A%E4%B9%89%E5%87%BD%E6%95%B0"><span class="nav-number">5.2.</span> <span class="nav-text">函数句柄的形式定义函数</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C"><span class="nav-number">6.</span> <span class="nav-text">文件操作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9F%BA%E7%A1%80%E7%BB%98%E5%9B%BE"><span class="nav-number">7.</span> <span class="nav-text">基础绘图</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8plot%E5%87%BD%E6%95%B0%E7%BB%98%E5%88%B6%E4%BA%8C%E7%BB%B4%E7%BA%BF%E5%9B%BE"><span class="nav-number">7.1.</span> <span class="nav-text">使用plot()函数绘制二维线图</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%B0%83%E6%95%B4%E5%9D%90%E6%A0%87%E8%BD%B4%E8%BE%B9%E6%A1%86%E7%BD%91%E6%A0%BC"><span class="nav-number">7.2.</span> <span class="nav-text">调整坐标轴、边框、网格</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%9C%A8%E4%B8%80%E4%B8%AA%E5%9B%BE%E5%83%8F%E4%B8%AD%E7%BB%98%E5%88%B6%E5%A4%9A%E6%9D%A1%E5%9B%BE%E7%BA%BF"><span class="nav-number">7.3.</span> <span class="nav-text">在一个图像中绘制多条图线</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%9C%A8%E4%B8%80%E4%B8%AA%E7%AA%97%E5%8F%A3%E7%BB%98%E5%88%B6%E5%A4%9A%E4%B8%AA%E5%AD%90%E5%9B%BE"><span class="nav-number">7.4.</span> <span class="nav-text">在一个窗口绘制多个子图</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%8E%B7%E5%8F%96%E5%9B%BE%E5%BD%A2%E5%8F%A5%E6%9F%84"><span class="nav-number">7.5.</span> <span class="nav-text">获取图形句柄</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BF%9D%E5%AD%98%E5%9B%BE%E5%BD%A2"><span class="nav-number">7.6.</span> <span class="nav-text">保存图形</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9D%82%E9%A1%B9"><span class="nav-number">8.</span> <span class="nav-text">杂项</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Gahow"
+      src="/images/my.jpeg">
+  <p class="site-author-name" itemprop="name">Gahow</p>
+  <div class="site-description" itemprop="description">Coding</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">4</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdn.jsdelivr.net/npm/@creativecommons/vocabulary@2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://gahow.github.io/2022/02/13/Matlab%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/my.jpeg">
+      <meta itemprop="name" content="Gahow">
+      <meta itemprop="description" content="Coding">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Gahow's net">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Matlab学习笔记
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-02-13 20:42:12" itemprop="dateCreated datePublished" datetime="2022-02-13T20:42:12+08:00">2022-02-13</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2022-02-14 20:44:28" itemprop="dateModified" datetime="2022-02-14T20:44:28+08:00">2022-02-14</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">笔记</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Changyan：</span>
+    
+    
+      <a title="changyan" href="/2022/02/13/Matlab%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/#SOHUCS" itemprop="discussionUrl">
+        <span id="changyan_count_unit" class="post-comments-count hc-comment-count" data-xid="2022/02/13/Matlab学习笔记/" itemprop="commentCount"></span>
+      </a>
+    
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>5.3k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>5 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        ###
+<center>
+Matlab学习笔记
+<center>
+<h4 id="变量类型">变量类型</h4>
+<p>可通过<code>class(var)</code>查看<code>var</code>的变量类型</p>
+<h5 id="logical">logical</h5>
+<h5 id="char">char</h5>
+<p>由一对单引号<code>''</code>包裹</p>
+<h5 id="numeric">numeric</h5>
+<p>默认为double类型</p>
+<p>可选类型有：int8, int16, int32, int64, uint8, uint16, uint32, uint64, single, double</p>
+<p>更改数值型变量显示格式，可使用如<code>format short</code></p>
+<span id="more"></span>
+<table>
+<thead>
+<tr class="header">
+<th>格式</th>
+<th>表现形式</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>short</td>
+<td>整数显示为整数，浮点数保留小数点后4位</td>
+</tr>
+<tr class="even">
+<td>long</td>
+<td>整数显示为整数，浮点数保留小数点后15位</td>
+</tr>
+<tr class="odd">
+<td>shortE</td>
+<td>显示小数点后4位，以科学记数法表示</td>
+</tr>
+<tr class="even">
+<td>longE</td>
+<td>显示小数点后15位，以科学记数法表示</td>
+</tr>
+<tr class="odd">
+<td>bank</td>
+<td>显示小数点后两位</td>
+</tr>
+<tr class="even">
+<td>hex</td>
+<td>显示为十六进制</td>
+</tr>
+<tr class="odd">
+<td>rat</td>
+<td>显示为比例（分数）格式</td>
+</tr>
+</tbody>
+</table>
+<h5 id="struct">struct</h5>
+<p>与C语言的struct类似</p>
+<p>可直接通过<code>.</code>来赋值或访问</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">% 赋值</span></span><br><span class="line">student.name = <span class="string">&#x27;John&#x27;</span>;</span><br><span class="line">student.num = <span class="number">10001</span>;</span><br><span class="line">student.score = <span class="number">90</span>;</span><br><span class="line">student(<span class="number">2</span>).name = <span class="string">&#x27;David&#x27;</span>;</span><br><span class="line">student(<span class="number">2</span>).num = <span class="number">10002</span>;</span><br><span class="line">student(<span class="number">2</span>).score = <span class="number">95</span>;</span><br><span class="line"><span class="comment">% 删除</span></span><br><span class="line">student(<span class="number">2</span>).name = [];</span><br><span class="line">student(<span class="number">1</span>) = [];</span><br></pre></td></tr></table></figure>
+<p>常用函数：</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: center;">函数</th>
+<th style="text-align: center;">作用</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">struct(field1, value1, ... , fieldN, valueN)</td>
+<td style="text-align: center;">创建结构体</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">struct2cell(S)</td>
+<td style="text-align: center;">将结构体转换为元胞数组</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">cell2struct(C)</td>
+<td style="text-align: center;">将元胞数组转换为结构体</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">structfun(func, S)</td>
+<td style="text-align: center;">将函数func作用于结构体S的每个字段</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">fieldnames(S)</td>
+<td style="text-align: center;">获取结构体的所有字段名</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">isfield(S, field)</td>
+<td style="text-align: center;">判断结构体S中是否含有字段field</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">orderfields(S)</td>
+<td style="text-align: center;">将结构体S的字段按名称排序</td>
+</tr>
+</tbody>
+</table>
+<h5 id="cell">cell</h5>
+<p>使用<code>&#123;&#125;</code>创建元胞数组</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">A = &#123;<span class="number">3</span>, <span class="string">&#x27;John&#x27;</span>; <span class="number">1</span>:<span class="number">10</span>, [<span class="number">1</span>, <span class="number">2</span>; <span class="number">3</span>, <span class="number">4</span>]&#125;;</span><br><span class="line"><span class="comment">%单元索引()，返回子元胞数组</span></span><br><span class="line">A(<span class="number">1</span>, <span class="number">1</span>) = &#123;[<span class="number">3</span>]&#125;;</span><br><span class="line">A(<span class="number">1</span>, <span class="number">2</span>) = &#123;<span class="string">&#x27;John&#x27;</span>&#125;;</span><br><span class="line"><span class="comment">%内容索引&#123;&#125;，返回元胞数组对应位置的值</span></span><br><span class="line">A&#123;<span class="number">1</span>, <span class="number">1</span>&#125; = <span class="number">3</span>;</span><br><span class="line">A&#123;<span class="number">1</span>, <span class="number">2</span>&#125; = <span class="string">&#x27;John&#x27;</span>;</span><br></pre></td></tr></table></figure>
+<h4 id="常用数学运算函数">常用数学运算函数</h4>
+<p>加<code>+</code></p>
+<p>减<code>-</code></p>
+<p>乘<code>*</code></p>
+<p>矩阵对应元素相乘<code>.*</code></p>
+<p>右除<code>/</code> （<code>A/B</code>相当于<code>A*inv(B)</code>）</p>
+<p>左除<code>\</code> （<code>A\B</code>相当于<code>inv(A)*B</code>）</p>
+<p>乘方<code>^</code></p>
+<p>矩阵对应元素乘方<code>.^</code></p>
+<p>取模<code>mod(a, b)</code></p>
+<p>向上取整<code>ceil(x)</code></p>
+<p>向下取整<code>floor(x)</code></p>
+<p>四舍五入<code>round(x)</code></p>
+<p>舍弃小数部分<code>fix(x)</code></p>
+<p>矩阵求逆<code>inv(A)</code></p>
+<p>向量点乘<code>dot(A, B)</code></p>
+<p>向量叉乘<code>cross(A, B)</code></p>
+<p>三角函数<code>sin(x)</code> <code>cos(x)</code> <code>tan(x)</code> <code>asin(x)</code> <code>acos(x)</code> <code>atan(x)</code></p>
+<p>指对数函数<code>exp(x)</code> <code>log(x)</code>（即<code>ln(x)</code>) <code>log10(x)</code> <code>log2(x)</code> <code>pow2(x)</code> <code>sqrt(x)</code></p>
+<h4 id="矩阵">矩阵</h4>
+<h5 id="创建矩阵">创建矩阵</h5>
+<p>使用空格<code></code>或逗号<code>,</code>行内分隔，使用分号<code>;</code>行间分隔</p>
+<p><span class="math inline">\([1, 2; 3, 4] = \left[ \begin{array}{} 1&amp; 2 \\ 3&amp; 4 \end{array} \right]\)</span></p>
+<p>创建向量<code>i:k:j</code>起始为i，终点为j，步长为k <code>i:j</code>默认步长为1</p>
+<p>特殊矩阵：</p>
+<p><span class="math inline">\(n \times n\)</span>的单位阵 <code>eye(n)</code></p>
+<p><span class="math inline">\(n_1 \times n_2\)</span>的零矩阵 <code>zeros(n1, n2)</code></p>
+<p><span class="math inline">\(n_1 \times n_2\)</span>的全为1矩阵 <code>ones(n1, n2)</code></p>
+<p>以向量<code>vector</code>为对角线的对角阵 <code>diag(vector)</code></p>
+<h5 id="矩阵索引">矩阵索引</h5>
+<p>矩阵A的第i行第j列<code>A(i, j)</code></p>
+<p>取出矩阵<span class="math inline">\(i_1, i_2, i_3\)</span>行 <code>A([i1, i2, i3], :)</code></p>
+<p>取出矩阵<span class="math inline">\(i_1, i_2, i_3\)</span>列 <code>A( : , [i1, i2, i3])</code></p>
+<p>取出矩阵前n行<code>A(1:n, :)</code></p>
+<h5 id="常用函数">常用函数</h5>
+<p>注：以下函数中，<code>dim=1</code>表示按列操作，<code>dim=2</code>表示按行操作</p>
+<p>获取矩阵A在dim维度上的最大值<code>max(A, [], dim)</code></p>
+<p>获取矩阵A在dim维度上的最小值<code>min(A, [], dim)</code></p>
+<p>获取矩阵A在dim维度上的和<code>sum(A, dim)</code></p>
+<p>获取矩阵A在dim维度上的平均值<code>mean(A, dim)</code></p>
+<p>获取矩阵A在dim维度上按dir（可选<code>'ascned'</code>或<code>'descend'</code>）顺序排序结果<code>sort(A, dim, dir)</code></p>
+<p>获取矩阵A按照每行第col个元素按dir顺序排序结果<code>sortrows(A, col, dir)</code></p>
+<p>获取矩阵的行和列<code>size(A)</code></p>
+<h4 id="基本编程语句">基本编程语句</h4>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">%if语句</span></span><br><span class="line"><span class="keyword">if</span> condition1</span><br><span class="line">	statement1</span><br><span class="line"><span class="keyword">elseif</span> condition2</span><br><span class="line">	statement2</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">	statement3</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">%switch语句</span></span><br><span class="line"><span class="keyword">switch</span> expression</span><br><span class="line"><span class="keyword">case</span> value1</span><br><span class="line">	statement1</span><br><span class="line"><span class="keyword">case</span> value2</span><br><span class="line">	statement2</span><br><span class="line"><span class="keyword">otherwise</span></span><br><span class="line">	statement</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">%while语句</span></span><br><span class="line"><span class="keyword">while</span> condition</span><br><span class="line">	statement</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">%for语句</span></span><br><span class="line"><span class="keyword">for</span> var = start : increment : <span class="keyword">end</span></span><br><span class="line">	statement</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<h4 id="定义函数">定义函数</h4>
+<h5 id="标准方式">标准方式</h5>
+<p>创建<code>function.m</code>文件</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">%例如定义快速幂函数</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">y</span> = <span class="title">quick_power</span><span class="params">(base, power)</span></span></span><br><span class="line">y = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">while</span> power &gt;= <span class="number">1</span></span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">mod</span>(power, <span class="number">2</span>) == <span class="number">1</span></span><br><span class="line">        y = y * base;</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    base = base * base;</span><br><span class="line">    power = <span class="built_in">fix</span>(power / <span class="number">2</span>);</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<p>又如</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">%将华氏温度转化为摄氏温度，使用Ctrl+c退出程序</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">F_to_C</span><span class="params">()</span></span></span><br><span class="line"><span class="keyword">while</span> <span class="number">1</span></span><br><span class="line">    F_degree = input(<span class="string">&#x27;tempreature in Fahrenheit: &#x27;</span>, <span class="string">&#x27;s&#x27;</span>);</span><br><span class="line">    F_degree = str2double(F_degree);</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">isempty</span>(F_degree)</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    C_degree = (F_degree<span class="number">-32</span>)*<span class="number">5</span>/<span class="number">9</span>;</span><br><span class="line">    <span class="built_in">disp</span>([<span class="string">&#x27;tempreature in Celsius: &#x27;</span> num2str(C_degree)])</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<h5 id="函数句柄的形式定义函数">函数句柄的形式定义函数</h5>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">函数 = @(输入变量) 输出变量</span><br></pre></td></tr></table></figure>
+<p>例如</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">f = @(x, y) <span class="built_in">exp</span>(-(x*x + y*y));</span><br><span class="line">f(<span class="number">1</span>, <span class="number">2</span>)</span><br></pre></td></tr></table></figure>
+<h4 id="文件操作">文件操作</h4>
+<p>Matlab支持的文件类型</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: center;">文件内容</th>
+<th style="text-align: center;">扩展名</th>
+<th style="text-align: center;">读取文件的函数</th>
+<th style="text-align: center;">写入文件的函数</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">Matlab数据</td>
+<td style="text-align: center;"><code>.mat</code></td>
+<td style="text-align: center;"><code>load()</code></td>
+<td style="text-align: center;"><code>save()</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">Excel表格</td>
+<td style="text-align: center;"><code>.xls</code>,<code>.xlsx</code></td>
+<td style="text-align: center;"><code>readtable()</code></td>
+<td style="text-align: center;"><code>writetable()</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">空格分隔的数字</td>
+<td style="text-align: center;"><code>.txt</code></td>
+<td style="text-align: center;"><code>load()</code></td>
+<td style="text-align: center;"><code>save()</code></td>
+</tr>
+</tbody>
+</table>
+<p>例如</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">T = <span class="built_in">readtable</span>(<span class="string">&#x27;in.xlsx&#x27;</span>); <span class="comment">% 读取in.xlsx表格中的内容</span></span><br><span class="line">S = table2struct(T); <span class="comment">% 将表格转化为结构体</span></span><br><span class="line">row = <span class="built_in">size</span>(T, <span class="number">1</span>); <span class="comment">% 获取表格行数</span></span><br><span class="line">col = <span class="built_in">size</span>(T, <span class="number">2</span>); <span class="comment">% 获取表格列数</span></span><br><span class="line"><span class="keyword">for</span> <span class="built_in">i</span> = <span class="number">1</span> : row</span><br><span class="line">	S(<span class="built_in">i</span>).score = <span class="built_in">sqrt</span>(S(<span class="built_in">i</span>).score) * <span class="number">10</span> <span class="comment">% 对结构体每一项的score值开根号再乘10</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line">[~, index] = <span class="built_in">sort</span>([S.field], <span class="string">&#x27;descend&#x27;</span>) <span class="comment">% 按照结构体S的字段field降序排序，得到顺序为index</span></span><br><span class="line">S = S(index, :); <span class="comment">% 将S按照index的顺序排序，即将结构体降序排序</span></span><br><span class="line">T = struct2table(S) <span class="comment">% 将处理后的结构体转化为表格</span></span><br><span class="line"><span class="built_in">writetable</span>(T, <span class="string">&#x27;out.xlsx&#x27;</span>) <span class="comment">% 将表格T存入out.xlsx文件中</span></span><br></pre></td></tr></table></figure>
+<h4 id="基础绘图">基础绘图</h4>
+<h5 id="使用plot函数绘制二维线图">使用<code>plot()</code>函数绘制二维线图</h5>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">plot</span>(X1, Y1, LineSpec1, ... , Xn, Yn, LineSpecn)</span><br></pre></td></tr></table></figure>
+<p><code>LineSpec</code>的可选项通过<code>help plot</code>查看官方文档获取</p>
+<p>例如</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">x = <span class="built_in">linspace</span>(<span class="number">0</span>, <span class="number">2</span>*<span class="built_in">pi</span>);</span><br><span class="line">y1 = <span class="built_in">sin</span>(x);</span><br><span class="line">y2 = <span class="built_in">cos</span>(x);</span><br><span class="line"><span class="built_in">plot</span>(x, y1, <span class="string">&#x27;--.r&#x27;</span>, x, y2, <span class="string">&#x27;-.*k&#x27;</span>); <span class="comment">% 绘制six(x)与cos(x)图像</span></span><br><span class="line"><span class="built_in">legend</span>(<span class="string">&#x27;sin(x)&#x27;</span>, <span class="string">&#x27;cos(x)&#x27;</span>); <span class="comment">% 添加图例</span></span><br><span class="line">title(<span class="string">&#x27;Function of sin(x) &amp; cos(x)&#x27;</span>); <span class="comment">% 添加图标题</span></span><br><span class="line">xlabel(<span class="string">&#x27;x = 0 to 2\pi&#x27;</span>) <span class="comment">% 添加x轴标签</span></span><br><span class="line">ylabel(<span class="string">&#x27;sin(x) &amp; cos(x)&#x27;</span>) <span class="comment">% 添加y轴标签</span></span><br></pre></td></tr></table></figure>
+<p>使用<code>line()</code>函数可绘制基本线条</p>
+<p>使用<code>text()</code>函数可添加文本说明</p>
+<p>使用<code>annotation()</code>函数创建箭头等</p>
+<p>例如</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">x = <span class="built_in">linspace</span>(<span class="number">0</span>, <span class="number">3</span>);</span><br><span class="line">y = x.^<span class="number">2</span> .* <span class="built_in">sin</span>(x);</span><br><span class="line"><span class="built_in">plot</span>(x, y);</span><br><span class="line">line([<span class="number">2</span>, <span class="number">2</span>],[<span class="number">0</span>, <span class="number">2</span>^<span class="number">2</span> * <span class="built_in">sin</span>(<span class="number">2</span>)]); <span class="comment">% 绘制x=2的直线</span></span><br><span class="line">str = <span class="string">&#x27;$$ \int_&#123;0&#125;^&#123;2&#125; x^2\sin(x) dx $$&#x27;</span>;</span><br><span class="line">text(<span class="number">0.25</span>, <span class="number">2.5</span>, str, <span class="string">&#x27;Interpreter&#x27;</span>, <span class="string">&#x27;latex&#x27;</span>); <span class="comment">% 以latex形式添加说明内容str</span></span><br><span class="line">annotation(<span class="string">&#x27;arrow&#x27;</span>, <span class="string">&#x27;X&#x27;</span>, [<span class="number">0.32</span>, <span class="number">0.5</span>], <span class="string">&#x27;Y&#x27;</span>, [<span class="number">0.6</span>, <span class="number">0.4</span>]); <span class="comment">% 添加箭头</span></span><br></pre></td></tr></table></figure>
+<h5 id="调整坐标轴边框网格">调整坐标轴、边框、网格</h5>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: center;">命令</th>
+<th style="text-align: center;">作用</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"><code>axis on/off</code></td>
+<td style="text-align: center;">设置坐标轴可见性</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><code>axis normal</code></td>
+<td style="text-align: center;">默认图框纵横比</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><code>axis equal</code></td>
+<td style="text-align: center;">沿每个坐标轴使用相同的数据单位长度</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><code>axis tight</code></td>
+<td style="text-align: center;">将坐标轴范围设置为等同于数据范围，使轴框紧密围绕数据</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><code>box on/off</code></td>
+<td style="text-align: center;">设置边框可见性</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><code>grid on/off</code></td>
+<td style="text-align: center;">设置网格可见性</td>
+</tr>
+</tbody>
+</table>
+<h5 id="在一个图像中绘制多条图线">在一个图像中绘制多条图线</h5>
+<p>使用<code>hold on</code>与<code>hold off</code>使多个绘图结果保留在绘图区中</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">x = <span class="number">0</span> : <span class="built_in">pi</span>/<span class="number">100</span> : <span class="number">2</span>*<span class="built_in">pi</span>;</span><br><span class="line"><span class="built_in">hold</span> on</span><br><span class="line"><span class="built_in">plot</span>(x, <span class="built_in">sin</span>(x));</span><br><span class="line"><span class="built_in">plot</span>(x, <span class="built_in">cos</span>(x));</span><br><span class="line"><span class="built_in">hold</span> off</span><br></pre></td></tr></table></figure>
+<h5 id="在一个窗口绘制多个子图">在一个窗口绘制多个子图</h5>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">subplot(m, n, p) <span class="comment">% 将图窗分为m行n列，在第p个网格内绘制图像</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">x = <span class="built_in">linspace</span>(-<span class="built_in">pi</span>, <span class="built_in">pi</span>);</span><br><span class="line">y1 = <span class="built_in">sin</span>(x);</span><br><span class="line">y2 = x - x.^<span class="number">3</span> / <span class="number">6</span> + x.^<span class="number">5</span> / <span class="number">120</span>;</span><br><span class="line"></span><br><span class="line">subplot(<span class="number">2</span>, <span class="number">2</span>, <span class="number">1</span>);</span><br><span class="line"><span class="built_in">plot</span>(x, y1);</span><br><span class="line">title(<span class="string">&#x27;sin(x)&#x27;</span>);</span><br><span class="line"></span><br><span class="line">subplot(<span class="number">2</span>, <span class="number">2</span>, <span class="number">2</span>);</span><br><span class="line"><span class="built_in">plot</span>(x, y2);</span><br><span class="line">title(<span class="string">&#x27;Taylor poly&#x27;</span>);</span><br><span class="line"></span><br><span class="line">subplot(<span class="number">2</span>, <span class="number">2</span>, [<span class="number">3</span>, <span class="number">4</span>]); <span class="comment">% 在3、4网格合并绘制子图</span></span><br><span class="line"><span class="built_in">plot</span>(x, y1, x, y2);</span><br><span class="line">title(<span class="string">&#x27;sin(x) &amp; Taylor poly&#x27;</span>);</span><br></pre></td></tr></table></figure>
+<h5 id="获取图形句柄">获取图形句柄</h5>
+<p>使用<code>get()</code>和<code>set()</code>函数可访问或修改图形对象的属性，具体操作参见官方文档</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">x = <span class="built_in">linspace</span>(<span class="number">0</span>, <span class="number">2</span>*<span class="built_in">pi</span>);</span><br><span class="line">y = <span class="built_in">sin</span>(x);</span><br><span class="line">pic = <span class="built_in">plot</span>(x, y);</span><br><span class="line">set(pic, <span class="string">&#x27;LineWidth&#x27;</span>, <span class="number">4</span>, <span class="string">&#x27;Color&#x27;</span>, <span class="string">&#x27;b&#x27;</span>); <span class="comment">% 设置线宽和颜色</span></span><br><span class="line">set(gca, <span class="string">&#x27;XTick&#x27;</span>, <span class="number">0</span>:<span class="built_in">pi</span>/<span class="number">2</span>:<span class="number">2</span>*<span class="built_in">pi</span>); <span class="comment">% 设置x轴的坐标值</span></span><br><span class="line">set(gca, <span class="string">&#x27;XTickLabel&#x27;</span>, &#123;<span class="string">&#x27;0&#x27;</span>, <span class="string">&#x27;\pi/2&#x27;</span>, <span class="string">&#x27;\pi&#x27;</span>, <span class="string">&#x27;3\pi/2&#x27;</span>, <span class="string">&#x27;2\pi&#x27;</span>&#125;); <span class="comment">% 设置x轴坐标的Label</span></span><br><span class="line">get(pic) <span class="comment">% 返回图像pic的所有属性值</span></span><br></pre></td></tr></table></figure>
+<h5 id="保存图形">保存图形</h5>
+<p>使用<code>saveas()</code>或<code>print()</code>函数</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">fig = <span class="built_in">plot</span>(<span class="number">1</span>: <span class="number">10</span>);</span><br><span class="line">saveas(fig, <span class="string">&#x27;figure.png&#x27;</span>);</span><br></pre></td></tr></table></figure>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">x = <span class="built_in">linspace</span>(<span class="number">0</span>, <span class="number">2</span>*<span class="built_in">pi</span>);</span><br><span class="line">y1 = <span class="built_in">sin</span>(x);</span><br><span class="line">y2 = <span class="built_in">cos</span>(x);</span><br><span class="line"></span><br><span class="line">subplot(<span class="number">2</span>, <span class="number">1</span>, <span class="number">1</span>);</span><br><span class="line"><span class="built_in">plot</span>(x, y1);</span><br><span class="line"></span><br><span class="line">subplot(<span class="number">2</span>, <span class="number">1</span>, <span class="number">2</span>);</span><br><span class="line"><span class="built_in">plot</span>(x, y2);</span><br><span class="line"></span><br><span class="line">print(<span class="string">&#x27;figure&#x27;</span>, <span class="string">&#x27;-dpng&#x27;</span>);</span><br></pre></td></tr></table></figure>
+<h4 id="杂项">杂项</h4>
+<p><code>help cmd</code>，查找指令<code>cmd</code>的用法</p>
+<p>语句后加<code>;</code>，阻止终端输出该条结果</p>
+<p>使用循环语句时应尽量预先分配内存空间</p>
+<p>在脚本开头应该清空工作区缓存等</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">clear all <span class="comment">%清空工作区内存中的变量</span></span><br><span class="line">close all <span class="comment">%关闭之前程序绘制的图像</span></span><br><span class="line">clc       <span class="comment">%清空终端</span></span><br></pre></td></tr></table></figure>
+<p>使用<code>which function.m</code>可查看函数<code>function</code>文件所在的位置</p>
+<p>使用<code>edit funtion.m</code>可查看编辑函数<code>function</code>的源代码</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>Gahow
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://gahow.github.io/2022/02/13/Matlab%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" title="Matlab学习笔记">https://gahow.github.io/2022/02/13/Matlab学习笔记/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/%E5%BB%BA%E6%A8%A1/" rel="tag"># 建模</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/01/17/Vim%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" rel="prev" title="Vim学习笔记">
+                  <i class="fa fa-chevron-left"></i> Vim学习笔记
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="SOHUCS"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Gahow</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">18k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">16 分钟</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+<script class="next-config" data-name="changyan" type="application/json">{"enable":true,"appid":"cyvJKy7i5","appkey":"513a9cb40b560c4ddb8a440418be32fa"}</script>
+<script src="/js/third-party/comments/changyan.js"></script>
+
+</body>
+</html>

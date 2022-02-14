@@ -1,120 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>基于Hexo+Github搭建个人博客</title>
-    <url>/2021/10/31/%E5%9F%BA%E4%BA%8EHexo+Github%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/</url>
-    <content><![CDATA[<p>本文在mac OS11.6环境下进行配置，出现的一些问题在文末进行总结。</p>
-<h5 id="安装node.js">安装Node.js</h5>
-<p>可通过在terminal中运行</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">brew install node.js</span><br></pre></td></tr></table></figure>
-<p>安装Node.js，可通过</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">node -v</span><br></pre></td></tr></table></figure>
-<p>查看node版本，确认是否成功安装。</p>
-<figure>
-<img src="/images/截屏2021-10-31%20下午9.01.46.png" alt="node版本" /><figcaption aria-hidden="true">node版本</figcaption>
-</figure>
-<span id="more"></span>
-<h5 id="安装git">安装git</h5>
-<p>通过安装Xcode Command Line Tools即带有git，可通过</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git --version</span><br></pre></td></tr></table></figure>
-<p>查看git的版本，确认是否成功安装。</p>
-<figure>
-<img src="/images/截屏2021-10-31%20下午9.02.07.png" alt="git版本" /><figcaption aria-hidden="true">git版本</figcaption>
-</figure>
-<h5 id="注册获取github仓库">注册获取GitHub仓库</h5>
-<p>注册一个github账号，在Your repositories里新建一个仓库，其中repository name填username.github.io</p>
-<figure>
-<img src="/images/截屏2021-10-31%20下午9.08.01.png" alt="创建GitHub仓库" /><figcaption aria-hidden="true">创建GitHub仓库</figcaption>
-</figure>
-<h5 id="安装hexo">安装Hexo</h5>
-<p>在你要存储你的博客文件的地方开始安装Hexo，可通过</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">npm i hexo-cli -g</span><br></pre></td></tr></table></figure>
-<p>安装Hexo。</p>
-<figure>
-<img src="/images/截屏2021-10-31%20下午9.10.47.png" alt="安装Hexo" /><figcaption aria-hidden="true">安装Hexo</figcaption>
-</figure>
-<p>之后通过</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo -v</span><br></pre></td></tr></table></figure>
-<p>确认Hexo版本从而确认是否成功安装。</p>
-<figure>
-<img src="/images/截屏2021-10-31%20下午9.12.37.png" alt="Hexo版本" /><figcaption aria-hidden="true">Hexo版本</figcaption>
-</figure>
-<h5 id="创建博客文件">创建博客文件</h5>
-<p>可通过</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo init Blog</span><br></pre></td></tr></table></figure>
-<p>在当前位置初始化一个名字为Blog的文件夹。</p>
-<p>通过</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cd Blog</span><br></pre></td></tr></table></figure>
-<p>进入Blog文件夹，接着输入</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">npm install</span><br></pre></td></tr></table></figure>
-<p>安装必需的组件。</p>
-<figure>
-<img src="/images/截屏2021-10-31%20下午9.16.05.png" alt="安装必需组件" /><figcaption aria-hidden="true">安装必需组件</figcaption>
-</figure>
-<h5 id="利用hexo初始文件生成本地网页">利用Hexo初始文件生成本地网页</h5>
-<p>通过</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo g</span><br></pre></td></tr></table></figure>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo s</span><br></pre></td></tr></table></figure>
-<p>生成本地网页并部署至本地服务器。<img src="/images/截屏2021-10-31%20下午9.17.38.png" alt="部署本地网页" /></p>
-<p>这时通过http://localhost:4000即可进入我们的博客预览。</p>
-<figure>
-<img src="/images/截屏2021-10-31%20下午9.19.42.png" alt="博客预览" /><figcaption aria-hidden="true">博客预览</figcaption>
-</figure>
-<p>上图所示即为Hexo提供的初始模版。</p>
-<h5 id="将本地网页部署到github上">将本地网页部署到GitHub上</h5>
-<p>进入博客文件夹位置（上文的Blog）运行如下命令</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git config --global user.name &quot;yourname&quot;</span><br><span class="line">git config --global user.email &quot;youremail&quot;</span><br></pre></td></tr></table></figure>
-<p>之后通过下列命令生成密钥SSH key</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ssh-keygen -t rsa -C &quot;youremail&quot;</span><br></pre></td></tr></table></figure>
-<p>选择文件夹与输入密码和确认密码时都可不填，回车三次即可。</p>
-<p>之后通过下列命令</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cat ~/.ssh/id_rsa.pub</span><br></pre></td></tr></table></figure>
-<p>可返回密钥，将该段内容复制。</p>
-<p>进入GitHub，头像下方的settings，点击SSH and GPG keys，新建一个SSH，Title可随意，Key中填入上面复制的内容。</p>
-<p>回到Terminal输入</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ssh -T git@github.com</span><br></pre></td></tr></table></figure>
-<p>出现下图所示内容则代表GitHub成功与Blog文件夹连接。</p>
-<p><img src="/images/截屏2021-10-31%20下午9.32.30.png" /></p>
-<p>之后通过</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">vim _config.yml</span><br></pre></td></tr></table></figure>
-<p>进入_config.yml进行修改，将最后一行deploy补充为</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">deploy:</span><br><span class="line">  type: git</span><br><span class="line">  repository: git@github.com:yourname/yourname.github.io</span><br><span class="line">  branch: master</span><br></pre></td></tr></table></figure>
-<figure>
-<img src="/images/截屏2021-10-31%20下午9.35.28.png" alt="修改_config.yml" /><figcaption aria-hidden="true">修改_config.yml</figcaption>
-</figure>
-<p>之后保存退出即可。</p>
-<p>最后安装一个拓展，通过下列命令实现</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">npm i hexo-deployer-git</span><br></pre></td></tr></table></figure>
-<p>最后通过下列命令即可将博客部署到Github网页上</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo g</span><br><span class="line">hexo d</span><br></pre></td></tr></table></figure>
-<p>稍等一会即可通过yourname.github.io访问你的博客啦！</p>
-<p>如果部署失败可通过</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo clean</span><br><span class="line">hexo g</span><br><span class="line">hexo d</span><br></pre></td></tr></table></figure>
-<p>再次尝试。</p>
-<h5 id="模版修改">模版修改</h5>
-<p>当然Hexo初始的模版太丑啦，功能也不完全，我们可以到Hexo官网挑选自己喜欢的主题。</p>
-<p>之后通过该主题的官方文档即可完成模版的配置。</p>
-<p>个人比较喜欢的几个模版：Maupassant、NexT、Purer</p>
-<h5 id="博文上传">博文上传</h5>
-<p>将你的文章的.md文件放入Blog文件下的source/_posts即可。</p>
-<h5 id="问题总结">问题总结</h5>
-<p>1.从GitHub获取文件时出现unable to access</p>
-<p>可使用</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">export http_proxy=http://proxyAddress:port</span><br></pre></td></tr></table></figure>
-<p>让Terminal使用代理，此命令只对当前Terminal生效，若想获取永久代理，可自行Google。</p>
-<p>2.安装hero-renderer-sass失败，网络上的常见解决方案对我无效</p>
-<p>目前暂未解决该问题，猜想是默认安装的Node.js版本与默认安装的sass版本不匹配。</p>
-<p>3.本地网页预览正确，部署到网页上后显示有问题</p>
-<p>通过修改站点配置文件_config,yml中的网页url解决。</p>
-]]></content>
-      <categories>
-        <category>萌新之始</category>
-      </categories>
-      <tags>
-        <tag>个人博客</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Vim学习笔记</title>
     <url>/2022/01/17/Vim%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
     <content><![CDATA[<h4 id="vim的一些学习资源">Vim的一些学习资源</h4>
@@ -255,6 +141,388 @@
       </categories>
       <tags>
         <tag>编辑器</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Matlab学习笔记</title>
+    <url>/2022/02/13/Matlab%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
+    <content><![CDATA[###
+<center>
+Matlab学习笔记
+<center>
+<h4 id="变量类型">变量类型</h4>
+<p>可通过<code>class(var)</code>查看<code>var</code>的变量类型</p>
+<h5 id="logical">logical</h5>
+<h5 id="char">char</h5>
+<p>由一对单引号<code>''</code>包裹</p>
+<h5 id="numeric">numeric</h5>
+<p>默认为double类型</p>
+<p>可选类型有：int8, int16, int32, int64, uint8, uint16, uint32, uint64, single, double</p>
+<p>更改数值型变量显示格式，可使用如<code>format short</code></p>
+<span id="more"></span>
+<table>
+<thead>
+<tr class="header">
+<th>格式</th>
+<th>表现形式</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>short</td>
+<td>整数显示为整数，浮点数保留小数点后4位</td>
+</tr>
+<tr class="even">
+<td>long</td>
+<td>整数显示为整数，浮点数保留小数点后15位</td>
+</tr>
+<tr class="odd">
+<td>shortE</td>
+<td>显示小数点后4位，以科学记数法表示</td>
+</tr>
+<tr class="even">
+<td>longE</td>
+<td>显示小数点后15位，以科学记数法表示</td>
+</tr>
+<tr class="odd">
+<td>bank</td>
+<td>显示小数点后两位</td>
+</tr>
+<tr class="even">
+<td>hex</td>
+<td>显示为十六进制</td>
+</tr>
+<tr class="odd">
+<td>rat</td>
+<td>显示为比例（分数）格式</td>
+</tr>
+</tbody>
+</table>
+<h5 id="struct">struct</h5>
+<p>与C语言的struct类似</p>
+<p>可直接通过<code>.</code>来赋值或访问</p>
+<figure class="highlight matlab"><table><tr><td class="code"><pre><span class="line"><span class="comment">% 赋值</span></span><br><span class="line">student.name = <span class="string">&#x27;John&#x27;</span>;</span><br><span class="line">student.num = <span class="number">10001</span>;</span><br><span class="line">student.score = <span class="number">90</span>;</span><br><span class="line">student(<span class="number">2</span>).name = <span class="string">&#x27;David&#x27;</span>;</span><br><span class="line">student(<span class="number">2</span>).num = <span class="number">10002</span>;</span><br><span class="line">student(<span class="number">2</span>).score = <span class="number">95</span>;</span><br><span class="line"><span class="comment">% 删除</span></span><br><span class="line">student(<span class="number">2</span>).name = [];</span><br><span class="line">student(<span class="number">1</span>) = [];</span><br></pre></td></tr></table></figure>
+<p>常用函数：</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: center;">函数</th>
+<th style="text-align: center;">作用</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">struct(field1, value1, ... , fieldN, valueN)</td>
+<td style="text-align: center;">创建结构体</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">struct2cell(S)</td>
+<td style="text-align: center;">将结构体转换为元胞数组</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">cell2struct(C)</td>
+<td style="text-align: center;">将元胞数组转换为结构体</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">structfun(func, S)</td>
+<td style="text-align: center;">将函数func作用于结构体S的每个字段</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">fieldnames(S)</td>
+<td style="text-align: center;">获取结构体的所有字段名</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">isfield(S, field)</td>
+<td style="text-align: center;">判断结构体S中是否含有字段field</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">orderfields(S)</td>
+<td style="text-align: center;">将结构体S的字段按名称排序</td>
+</tr>
+</tbody>
+</table>
+<h5 id="cell">cell</h5>
+<p>使用<code>&#123;&#125;</code>创建元胞数组</p>
+<figure class="highlight matlab"><table><tr><td class="code"><pre><span class="line">A = &#123;<span class="number">3</span>, <span class="string">&#x27;John&#x27;</span>; <span class="number">1</span>:<span class="number">10</span>, [<span class="number">1</span>, <span class="number">2</span>; <span class="number">3</span>, <span class="number">4</span>]&#125;;</span><br><span class="line"><span class="comment">%单元索引()，返回子元胞数组</span></span><br><span class="line">A(<span class="number">1</span>, <span class="number">1</span>) = &#123;[<span class="number">3</span>]&#125;;</span><br><span class="line">A(<span class="number">1</span>, <span class="number">2</span>) = &#123;<span class="string">&#x27;John&#x27;</span>&#125;;</span><br><span class="line"><span class="comment">%内容索引&#123;&#125;，返回元胞数组对应位置的值</span></span><br><span class="line">A&#123;<span class="number">1</span>, <span class="number">1</span>&#125; = <span class="number">3</span>;</span><br><span class="line">A&#123;<span class="number">1</span>, <span class="number">2</span>&#125; = <span class="string">&#x27;John&#x27;</span>;</span><br></pre></td></tr></table></figure>
+<h4 id="常用数学运算函数">常用数学运算函数</h4>
+<p>加<code>+</code></p>
+<p>减<code>-</code></p>
+<p>乘<code>*</code></p>
+<p>矩阵对应元素相乘<code>.*</code></p>
+<p>右除<code>/</code> （<code>A/B</code>相当于<code>A*inv(B)</code>）</p>
+<p>左除<code>\</code> （<code>A\B</code>相当于<code>inv(A)*B</code>）</p>
+<p>乘方<code>^</code></p>
+<p>矩阵对应元素乘方<code>.^</code></p>
+<p>取模<code>mod(a, b)</code></p>
+<p>向上取整<code>ceil(x)</code></p>
+<p>向下取整<code>floor(x)</code></p>
+<p>四舍五入<code>round(x)</code></p>
+<p>舍弃小数部分<code>fix(x)</code></p>
+<p>矩阵求逆<code>inv(A)</code></p>
+<p>向量点乘<code>dot(A, B)</code></p>
+<p>向量叉乘<code>cross(A, B)</code></p>
+<p>三角函数<code>sin(x)</code> <code>cos(x)</code> <code>tan(x)</code> <code>asin(x)</code> <code>acos(x)</code> <code>atan(x)</code></p>
+<p>指对数函数<code>exp(x)</code> <code>log(x)</code>（即<code>ln(x)</code>) <code>log10(x)</code> <code>log2(x)</code> <code>pow2(x)</code> <code>sqrt(x)</code></p>
+<h4 id="矩阵">矩阵</h4>
+<h5 id="创建矩阵">创建矩阵</h5>
+<p>使用空格<code></code>或逗号<code>,</code>行内分隔，使用分号<code>;</code>行间分隔</p>
+<p><span class="math inline">\([1, 2; 3, 4] = \left[ \begin{array}{} 1&amp; 2 \\ 3&amp; 4 \end{array} \right]\)</span></p>
+<p>创建向量<code>i:k:j</code>起始为i，终点为j，步长为k <code>i:j</code>默认步长为1</p>
+<p>特殊矩阵：</p>
+<p><span class="math inline">\(n \times n\)</span>的单位阵 <code>eye(n)</code></p>
+<p><span class="math inline">\(n_1 \times n_2\)</span>的零矩阵 <code>zeros(n1, n2)</code></p>
+<p><span class="math inline">\(n_1 \times n_2\)</span>的全为1矩阵 <code>ones(n1, n2)</code></p>
+<p>以向量<code>vector</code>为对角线的对角阵 <code>diag(vector)</code></p>
+<h5 id="矩阵索引">矩阵索引</h5>
+<p>矩阵A的第i行第j列<code>A(i, j)</code></p>
+<p>取出矩阵<span class="math inline">\(i_1, i_2, i_3\)</span>行 <code>A([i1, i2, i3], :)</code></p>
+<p>取出矩阵<span class="math inline">\(i_1, i_2, i_3\)</span>列 <code>A( : , [i1, i2, i3])</code></p>
+<p>取出矩阵前n行<code>A(1:n, :)</code></p>
+<h5 id="常用函数">常用函数</h5>
+<p>注：以下函数中，<code>dim=1</code>表示按列操作，<code>dim=2</code>表示按行操作</p>
+<p>获取矩阵A在dim维度上的最大值<code>max(A, [], dim)</code></p>
+<p>获取矩阵A在dim维度上的最小值<code>min(A, [], dim)</code></p>
+<p>获取矩阵A在dim维度上的和<code>sum(A, dim)</code></p>
+<p>获取矩阵A在dim维度上的平均值<code>mean(A, dim)</code></p>
+<p>获取矩阵A在dim维度上按dir（可选<code>'ascned'</code>或<code>'descend'</code>）顺序排序结果<code>sort(A, dim, dir)</code></p>
+<p>获取矩阵A按照每行第col个元素按dir顺序排序结果<code>sortrows(A, col, dir)</code></p>
+<p>获取矩阵的行和列<code>size(A)</code></p>
+<h4 id="基本编程语句">基本编程语句</h4>
+<figure class="highlight matlab"><table><tr><td class="code"><pre><span class="line"><span class="comment">%if语句</span></span><br><span class="line"><span class="keyword">if</span> condition1</span><br><span class="line">	statement1</span><br><span class="line"><span class="keyword">elseif</span> condition2</span><br><span class="line">	statement2</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">	statement3</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight matlab"><table><tr><td class="code"><pre><span class="line"><span class="comment">%switch语句</span></span><br><span class="line"><span class="keyword">switch</span> expression</span><br><span class="line"><span class="keyword">case</span> value1</span><br><span class="line">	statement1</span><br><span class="line"><span class="keyword">case</span> value2</span><br><span class="line">	statement2</span><br><span class="line"><span class="keyword">otherwise</span></span><br><span class="line">	statement</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight matlab"><table><tr><td class="code"><pre><span class="line"><span class="comment">%while语句</span></span><br><span class="line"><span class="keyword">while</span> condition</span><br><span class="line">	statement</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight matlab"><table><tr><td class="code"><pre><span class="line"><span class="comment">%for语句</span></span><br><span class="line"><span class="keyword">for</span> var = start : increment : <span class="keyword">end</span></span><br><span class="line">	statement</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<h4 id="定义函数">定义函数</h4>
+<h5 id="标准方式">标准方式</h5>
+<p>创建<code>function.m</code>文件</p>
+<figure class="highlight matlab"><table><tr><td class="code"><pre><span class="line"><span class="comment">%例如定义快速幂函数</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">y</span> = <span class="title">quick_power</span><span class="params">(base, power)</span></span></span><br><span class="line">y = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">while</span> power &gt;= <span class="number">1</span></span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">mod</span>(power, <span class="number">2</span>) == <span class="number">1</span></span><br><span class="line">        y = y * base;</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    base = base * base;</span><br><span class="line">    power = <span class="built_in">fix</span>(power / <span class="number">2</span>);</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<p>又如</p>
+<figure class="highlight matlab"><table><tr><td class="code"><pre><span class="line"><span class="comment">%将华氏温度转化为摄氏温度，使用Ctrl+c退出程序</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">F_to_C</span><span class="params">()</span></span></span><br><span class="line"><span class="keyword">while</span> <span class="number">1</span></span><br><span class="line">    F_degree = input(<span class="string">&#x27;tempreature in Fahrenheit: &#x27;</span>, <span class="string">&#x27;s&#x27;</span>);</span><br><span class="line">    F_degree = str2double(F_degree);</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">isempty</span>(F_degree)</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    C_degree = (F_degree<span class="number">-32</span>)*<span class="number">5</span>/<span class="number">9</span>;</span><br><span class="line">    <span class="built_in">disp</span>([<span class="string">&#x27;tempreature in Celsius: &#x27;</span> num2str(C_degree)])</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<h5 id="函数句柄的形式定义函数">函数句柄的形式定义函数</h5>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">函数 = @(输入变量) 输出变量</span><br></pre></td></tr></table></figure>
+<p>例如</p>
+<figure class="highlight matlab"><table><tr><td class="code"><pre><span class="line">f = @(x, y) <span class="built_in">exp</span>(-(x*x + y*y));</span><br><span class="line">f(<span class="number">1</span>, <span class="number">2</span>)</span><br></pre></td></tr></table></figure>
+<h4 id="文件操作">文件操作</h4>
+<p>Matlab支持的文件类型</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: center;">文件内容</th>
+<th style="text-align: center;">扩展名</th>
+<th style="text-align: center;">读取文件的函数</th>
+<th style="text-align: center;">写入文件的函数</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">Matlab数据</td>
+<td style="text-align: center;"><code>.mat</code></td>
+<td style="text-align: center;"><code>load()</code></td>
+<td style="text-align: center;"><code>save()</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">Excel表格</td>
+<td style="text-align: center;"><code>.xls</code>,<code>.xlsx</code></td>
+<td style="text-align: center;"><code>readtable()</code></td>
+<td style="text-align: center;"><code>writetable()</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">空格分隔的数字</td>
+<td style="text-align: center;"><code>.txt</code></td>
+<td style="text-align: center;"><code>load()</code></td>
+<td style="text-align: center;"><code>save()</code></td>
+</tr>
+</tbody>
+</table>
+<p>例如</p>
+<figure class="highlight matlab"><table><tr><td class="code"><pre><span class="line">T = <span class="built_in">readtable</span>(<span class="string">&#x27;in.xlsx&#x27;</span>); <span class="comment">% 读取in.xlsx表格中的内容</span></span><br><span class="line">S = table2struct(T); <span class="comment">% 将表格转化为结构体</span></span><br><span class="line">row = <span class="built_in">size</span>(T, <span class="number">1</span>); <span class="comment">% 获取表格行数</span></span><br><span class="line">col = <span class="built_in">size</span>(T, <span class="number">2</span>); <span class="comment">% 获取表格列数</span></span><br><span class="line"><span class="keyword">for</span> <span class="built_in">i</span> = <span class="number">1</span> : row</span><br><span class="line">	S(<span class="built_in">i</span>).score = <span class="built_in">sqrt</span>(S(<span class="built_in">i</span>).score) * <span class="number">10</span> <span class="comment">% 对结构体每一项的score值开根号再乘10</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line">[~, index] = <span class="built_in">sort</span>([S.field], <span class="string">&#x27;descend&#x27;</span>) <span class="comment">% 按照结构体S的字段field降序排序，得到顺序为index</span></span><br><span class="line">S = S(index, :); <span class="comment">% 将S按照index的顺序排序，即将结构体降序排序</span></span><br><span class="line">T = struct2table(S) <span class="comment">% 将处理后的结构体转化为表格</span></span><br><span class="line"><span class="built_in">writetable</span>(T, <span class="string">&#x27;out.xlsx&#x27;</span>) <span class="comment">% 将表格T存入out.xlsx文件中</span></span><br></pre></td></tr></table></figure>
+<h4 id="基础绘图">基础绘图</h4>
+<h5 id="使用plot函数绘制二维线图">使用<code>plot()</code>函数绘制二维线图</h5>
+<figure class="highlight matlab"><table><tr><td class="code"><pre><span class="line"><span class="built_in">plot</span>(X1, Y1, LineSpec1, ... , Xn, Yn, LineSpecn)</span><br></pre></td></tr></table></figure>
+<p><code>LineSpec</code>的可选项通过<code>help plot</code>查看官方文档获取</p>
+<p>例如</p>
+<figure class="highlight matlab"><table><tr><td class="code"><pre><span class="line">x = <span class="built_in">linspace</span>(<span class="number">0</span>, <span class="number">2</span>*<span class="built_in">pi</span>);</span><br><span class="line">y1 = <span class="built_in">sin</span>(x);</span><br><span class="line">y2 = <span class="built_in">cos</span>(x);</span><br><span class="line"><span class="built_in">plot</span>(x, y1, <span class="string">&#x27;--.r&#x27;</span>, x, y2, <span class="string">&#x27;-.*k&#x27;</span>); <span class="comment">% 绘制six(x)与cos(x)图像</span></span><br><span class="line"><span class="built_in">legend</span>(<span class="string">&#x27;sin(x)&#x27;</span>, <span class="string">&#x27;cos(x)&#x27;</span>); <span class="comment">% 添加图例</span></span><br><span class="line">title(<span class="string">&#x27;Function of sin(x) &amp; cos(x)&#x27;</span>); <span class="comment">% 添加图标题</span></span><br><span class="line">xlabel(<span class="string">&#x27;x = 0 to 2\pi&#x27;</span>) <span class="comment">% 添加x轴标签</span></span><br><span class="line">ylabel(<span class="string">&#x27;sin(x) &amp; cos(x)&#x27;</span>) <span class="comment">% 添加y轴标签</span></span><br></pre></td></tr></table></figure>
+<p>使用<code>line()</code>函数可绘制基本线条</p>
+<p>使用<code>text()</code>函数可添加文本说明</p>
+<p>使用<code>annotation()</code>函数创建箭头等</p>
+<p>例如</p>
+<figure class="highlight matlab"><table><tr><td class="code"><pre><span class="line">x = <span class="built_in">linspace</span>(<span class="number">0</span>, <span class="number">3</span>);</span><br><span class="line">y = x.^<span class="number">2</span> .* <span class="built_in">sin</span>(x);</span><br><span class="line"><span class="built_in">plot</span>(x, y);</span><br><span class="line">line([<span class="number">2</span>, <span class="number">2</span>],[<span class="number">0</span>, <span class="number">2</span>^<span class="number">2</span> * <span class="built_in">sin</span>(<span class="number">2</span>)]); <span class="comment">% 绘制x=2的直线</span></span><br><span class="line">str = <span class="string">&#x27;$$ \int_&#123;0&#125;^&#123;2&#125; x^2\sin(x) dx $$&#x27;</span>;</span><br><span class="line">text(<span class="number">0.25</span>, <span class="number">2.5</span>, str, <span class="string">&#x27;Interpreter&#x27;</span>, <span class="string">&#x27;latex&#x27;</span>); <span class="comment">% 以latex形式添加说明内容str</span></span><br><span class="line">annotation(<span class="string">&#x27;arrow&#x27;</span>, <span class="string">&#x27;X&#x27;</span>, [<span class="number">0.32</span>, <span class="number">0.5</span>], <span class="string">&#x27;Y&#x27;</span>, [<span class="number">0.6</span>, <span class="number">0.4</span>]); <span class="comment">% 添加箭头</span></span><br></pre></td></tr></table></figure>
+<h5 id="调整坐标轴边框网格">调整坐标轴、边框、网格</h5>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: center;">命令</th>
+<th style="text-align: center;">作用</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"><code>axis on/off</code></td>
+<td style="text-align: center;">设置坐标轴可见性</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><code>axis normal</code></td>
+<td style="text-align: center;">默认图框纵横比</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><code>axis equal</code></td>
+<td style="text-align: center;">沿每个坐标轴使用相同的数据单位长度</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><code>axis tight</code></td>
+<td style="text-align: center;">将坐标轴范围设置为等同于数据范围，使轴框紧密围绕数据</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><code>box on/off</code></td>
+<td style="text-align: center;">设置边框可见性</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><code>grid on/off</code></td>
+<td style="text-align: center;">设置网格可见性</td>
+</tr>
+</tbody>
+</table>
+<h5 id="在一个图像中绘制多条图线">在一个图像中绘制多条图线</h5>
+<p>使用<code>hold on</code>与<code>hold off</code>使多个绘图结果保留在绘图区中</p>
+<figure class="highlight matlab"><table><tr><td class="code"><pre><span class="line">x = <span class="number">0</span> : <span class="built_in">pi</span>/<span class="number">100</span> : <span class="number">2</span>*<span class="built_in">pi</span>;</span><br><span class="line"><span class="built_in">hold</span> on</span><br><span class="line"><span class="built_in">plot</span>(x, <span class="built_in">sin</span>(x));</span><br><span class="line"><span class="built_in">plot</span>(x, <span class="built_in">cos</span>(x));</span><br><span class="line"><span class="built_in">hold</span> off</span><br></pre></td></tr></table></figure>
+<h5 id="在一个窗口绘制多个子图">在一个窗口绘制多个子图</h5>
+<figure class="highlight matlab"><table><tr><td class="code"><pre><span class="line">subplot(m, n, p) <span class="comment">% 将图窗分为m行n列，在第p个网格内绘制图像</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight matlab"><table><tr><td class="code"><pre><span class="line">x = <span class="built_in">linspace</span>(-<span class="built_in">pi</span>, <span class="built_in">pi</span>);</span><br><span class="line">y1 = <span class="built_in">sin</span>(x);</span><br><span class="line">y2 = x - x.^<span class="number">3</span> / <span class="number">6</span> + x.^<span class="number">5</span> / <span class="number">120</span>;</span><br><span class="line"></span><br><span class="line">subplot(<span class="number">2</span>, <span class="number">2</span>, <span class="number">1</span>);</span><br><span class="line"><span class="built_in">plot</span>(x, y1);</span><br><span class="line">title(<span class="string">&#x27;sin(x)&#x27;</span>);</span><br><span class="line"></span><br><span class="line">subplot(<span class="number">2</span>, <span class="number">2</span>, <span class="number">2</span>);</span><br><span class="line"><span class="built_in">plot</span>(x, y2);</span><br><span class="line">title(<span class="string">&#x27;Taylor poly&#x27;</span>);</span><br><span class="line"></span><br><span class="line">subplot(<span class="number">2</span>, <span class="number">2</span>, [<span class="number">3</span>, <span class="number">4</span>]); <span class="comment">% 在3、4网格合并绘制子图</span></span><br><span class="line"><span class="built_in">plot</span>(x, y1, x, y2);</span><br><span class="line">title(<span class="string">&#x27;sin(x) &amp; Taylor poly&#x27;</span>);</span><br></pre></td></tr></table></figure>
+<h5 id="获取图形句柄">获取图形句柄</h5>
+<p>使用<code>get()</code>和<code>set()</code>函数可访问或修改图形对象的属性，具体操作参见官方文档</p>
+<figure class="highlight matlab"><table><tr><td class="code"><pre><span class="line">x = <span class="built_in">linspace</span>(<span class="number">0</span>, <span class="number">2</span>*<span class="built_in">pi</span>);</span><br><span class="line">y = <span class="built_in">sin</span>(x);</span><br><span class="line">pic = <span class="built_in">plot</span>(x, y);</span><br><span class="line">set(pic, <span class="string">&#x27;LineWidth&#x27;</span>, <span class="number">4</span>, <span class="string">&#x27;Color&#x27;</span>, <span class="string">&#x27;b&#x27;</span>); <span class="comment">% 设置线宽和颜色</span></span><br><span class="line">set(gca, <span class="string">&#x27;XTick&#x27;</span>, <span class="number">0</span>:<span class="built_in">pi</span>/<span class="number">2</span>:<span class="number">2</span>*<span class="built_in">pi</span>); <span class="comment">% 设置x轴的坐标值</span></span><br><span class="line">set(gca, <span class="string">&#x27;XTickLabel&#x27;</span>, &#123;<span class="string">&#x27;0&#x27;</span>, <span class="string">&#x27;\pi/2&#x27;</span>, <span class="string">&#x27;\pi&#x27;</span>, <span class="string">&#x27;3\pi/2&#x27;</span>, <span class="string">&#x27;2\pi&#x27;</span>&#125;); <span class="comment">% 设置x轴坐标的Label</span></span><br><span class="line">get(pic) <span class="comment">% 返回图像pic的所有属性值</span></span><br></pre></td></tr></table></figure>
+<h5 id="保存图形">保存图形</h5>
+<p>使用<code>saveas()</code>或<code>print()</code>函数</p>
+<figure class="highlight matlab"><table><tr><td class="code"><pre><span class="line">fig = <span class="built_in">plot</span>(<span class="number">1</span>: <span class="number">10</span>);</span><br><span class="line">saveas(fig, <span class="string">&#x27;figure.png&#x27;</span>);</span><br></pre></td></tr></table></figure>
+<figure class="highlight matlab"><table><tr><td class="code"><pre><span class="line">x = <span class="built_in">linspace</span>(<span class="number">0</span>, <span class="number">2</span>*<span class="built_in">pi</span>);</span><br><span class="line">y1 = <span class="built_in">sin</span>(x);</span><br><span class="line">y2 = <span class="built_in">cos</span>(x);</span><br><span class="line"></span><br><span class="line">subplot(<span class="number">2</span>, <span class="number">1</span>, <span class="number">1</span>);</span><br><span class="line"><span class="built_in">plot</span>(x, y1);</span><br><span class="line"></span><br><span class="line">subplot(<span class="number">2</span>, <span class="number">1</span>, <span class="number">2</span>);</span><br><span class="line"><span class="built_in">plot</span>(x, y2);</span><br><span class="line"></span><br><span class="line">print(<span class="string">&#x27;figure&#x27;</span>, <span class="string">&#x27;-dpng&#x27;</span>);</span><br></pre></td></tr></table></figure>
+<h4 id="杂项">杂项</h4>
+<p><code>help cmd</code>，查找指令<code>cmd</code>的用法</p>
+<p>语句后加<code>;</code>，阻止终端输出该条结果</p>
+<p>使用循环语句时应尽量预先分配内存空间</p>
+<p>在脚本开头应该清空工作区缓存等</p>
+<figure class="highlight matlab"><table><tr><td class="code"><pre><span class="line">clear all <span class="comment">%清空工作区内存中的变量</span></span><br><span class="line">close all <span class="comment">%关闭之前程序绘制的图像</span></span><br><span class="line">clc       <span class="comment">%清空终端</span></span><br></pre></td></tr></table></figure>
+<p>使用<code>which function.m</code>可查看函数<code>function</code>文件所在的位置</p>
+<p>使用<code>edit funtion.m</code>可查看编辑函数<code>function</code>的源代码</p>
+]]></content>
+      <categories>
+        <category>笔记</category>
+      </categories>
+      <tags>
+        <tag>建模</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>基于Hexo+Github搭建个人博客</title>
+    <url>/2021/10/31/%E5%9F%BA%E4%BA%8EHexo+Github%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/</url>
+    <content><![CDATA[<p>本文在mac OS11.6环境下进行配置，出现的一些问题在文末进行总结。</p>
+<h5 id="安装node.js">安装Node.js</h5>
+<p>可通过在terminal中运行</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">brew install node.js</span><br></pre></td></tr></table></figure>
+<p>安装Node.js，可通过</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">node -v</span><br></pre></td></tr></table></figure>
+<p>查看node版本，确认是否成功安装。</p>
+<figure>
+<img src="/images/截屏2021-10-31%20下午9.01.46.png" alt="node版本" /><figcaption aria-hidden="true">node版本</figcaption>
+</figure>
+<span id="more"></span>
+<h5 id="安装git">安装git</h5>
+<p>通过安装Xcode Command Line Tools即带有git，可通过</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git --version</span><br></pre></td></tr></table></figure>
+<p>查看git的版本，确认是否成功安装。</p>
+<figure>
+<img src="/images/截屏2021-10-31%20下午9.02.07.png" alt="git版本" /><figcaption aria-hidden="true">git版本</figcaption>
+</figure>
+<h5 id="注册获取github仓库">注册获取GitHub仓库</h5>
+<p>注册一个github账号，在Your repositories里新建一个仓库，其中repository name填username.github.io</p>
+<figure>
+<img src="/images/截屏2021-10-31%20下午9.08.01.png" alt="创建GitHub仓库" /><figcaption aria-hidden="true">创建GitHub仓库</figcaption>
+</figure>
+<h5 id="安装hexo">安装Hexo</h5>
+<p>在你要存储你的博客文件的地方开始安装Hexo，可通过</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">npm i hexo-cli -g</span><br></pre></td></tr></table></figure>
+<p>安装Hexo。</p>
+<figure>
+<img src="/images/截屏2021-10-31%20下午9.10.47.png" alt="安装Hexo" /><figcaption aria-hidden="true">安装Hexo</figcaption>
+</figure>
+<p>之后通过</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo -v</span><br></pre></td></tr></table></figure>
+<p>确认Hexo版本从而确认是否成功安装。</p>
+<figure>
+<img src="/images/截屏2021-10-31%20下午9.12.37.png" alt="Hexo版本" /><figcaption aria-hidden="true">Hexo版本</figcaption>
+</figure>
+<h5 id="创建博客文件">创建博客文件</h5>
+<p>可通过</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo init Blog</span><br></pre></td></tr></table></figure>
+<p>在当前位置初始化一个名字为Blog的文件夹。</p>
+<p>通过</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cd Blog</span><br></pre></td></tr></table></figure>
+<p>进入Blog文件夹，接着输入</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">npm install</span><br></pre></td></tr></table></figure>
+<p>安装必需的组件。</p>
+<figure>
+<img src="/images/截屏2021-10-31%20下午9.16.05.png" alt="安装必需组件" /><figcaption aria-hidden="true">安装必需组件</figcaption>
+</figure>
+<h5 id="利用hexo初始文件生成本地网页">利用Hexo初始文件生成本地网页</h5>
+<p>通过</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo g</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo s</span><br></pre></td></tr></table></figure>
+<p>生成本地网页并部署至本地服务器。<img src="/images/截屏2021-10-31%20下午9.17.38.png" alt="部署本地网页" /></p>
+<p>这时通过http://localhost:4000即可进入我们的博客预览。</p>
+<figure>
+<img src="/images/截屏2021-10-31%20下午9.19.42.png" alt="博客预览" /><figcaption aria-hidden="true">博客预览</figcaption>
+</figure>
+<p>上图所示即为Hexo提供的初始模版。</p>
+<h5 id="将本地网页部署到github上">将本地网页部署到GitHub上</h5>
+<p>进入博客文件夹位置（上文的Blog）运行如下命令</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git config --global user.name &quot;yourname&quot;</span><br><span class="line">git config --global user.email &quot;youremail&quot;</span><br></pre></td></tr></table></figure>
+<p>之后通过下列命令生成密钥SSH key</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ssh-keygen -t rsa -C &quot;youremail&quot;</span><br></pre></td></tr></table></figure>
+<p>选择文件夹与输入密码和确认密码时都可不填，回车三次即可。</p>
+<p>之后通过下列命令</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cat ~/.ssh/id_rsa.pub</span><br></pre></td></tr></table></figure>
+<p>可返回密钥，将该段内容复制。</p>
+<p>进入GitHub，头像下方的settings，点击SSH and GPG keys，新建一个SSH，Title可随意，Key中填入上面复制的内容。</p>
+<p>回到Terminal输入</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ssh -T git@github.com</span><br></pre></td></tr></table></figure>
+<p>出现下图所示内容则代表GitHub成功与Blog文件夹连接。</p>
+<p><img src="/images/截屏2021-10-31%20下午9.32.30.png" /></p>
+<p>之后通过</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">vim _config.yml</span><br></pre></td></tr></table></figure>
+<p>进入_config.yml进行修改，将最后一行deploy补充为</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">deploy:</span><br><span class="line">  type: git</span><br><span class="line">  repository: git@github.com:yourname/yourname.github.io</span><br><span class="line">  branch: master</span><br></pre></td></tr></table></figure>
+<figure>
+<img src="/images/截屏2021-10-31%20下午9.35.28.png" alt="修改_config.yml" /><figcaption aria-hidden="true">修改_config.yml</figcaption>
+</figure>
+<p>之后保存退出即可。</p>
+<p>最后安装一个拓展，通过下列命令实现</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">npm i hexo-deployer-git</span><br></pre></td></tr></table></figure>
+<p>最后通过下列命令即可将博客部署到Github网页上</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo g</span><br><span class="line">hexo d</span><br></pre></td></tr></table></figure>
+<p>稍等一会即可通过yourname.github.io访问你的博客啦！</p>
+<p>如果部署失败可通过</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo clean</span><br><span class="line">hexo g</span><br><span class="line">hexo d</span><br></pre></td></tr></table></figure>
+<p>再次尝试。</p>
+<h5 id="模版修改">模版修改</h5>
+<p>当然Hexo初始的模版太丑啦，功能也不完全，我们可以到Hexo官网挑选自己喜欢的主题。</p>
+<p>之后通过该主题的官方文档即可完成模版的配置。</p>
+<p>个人比较喜欢的几个模版：Maupassant、NexT、Purer</p>
+<h5 id="博文上传">博文上传</h5>
+<p>将你的文章的.md文件放入Blog文件下的source/_posts即可。</p>
+<h5 id="问题总结">问题总结</h5>
+<p>1.从GitHub获取文件时出现unable to access</p>
+<p>可使用</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">export http_proxy=http://proxyAddress:port</span><br></pre></td></tr></table></figure>
+<p>让Terminal使用代理，此命令只对当前Terminal生效，若想获取永久代理，可自行Google。</p>
+<p>2.安装hero-renderer-sass失败，网络上的常见解决方案对我无效</p>
+<p>目前暂未解决该问题，猜想是默认安装的Node.js版本与默认安装的sass版本不匹配。</p>
+<p>3.本地网页预览正确，部署到网页上后显示有问题</p>
+<p>通过修改站点配置文件_config,yml中的网页url解决。</p>
+]]></content>
+      <categories>
+        <category>萌新之始</category>
+      </categories>
+      <tags>
+        <tag>个人博客</tag>
       </tags>
   </entry>
   <entry>
