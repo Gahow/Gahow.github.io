@@ -771,6 +771,91 @@
       </tags>
   </entry>
   <entry>
+    <title>《深入理解计算机系统》学习笔记</title>
+    <url>/2022/03/31/%E3%80%8A%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E3%80%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
+    <content><![CDATA[<h3 id="第二章-信息的表示与处理">第二章 信息的表示与处理</h3>
+<h4 id="信息存储">信息存储</h4>
+<p>大多数计算机使用<span class="math inline">\(8\)</span>位（bit）的块，称为字节（byte），作为最小的可寻址的内存单位，而不是访问内存中单独的位。机器级程序将内存视为一个非常大的字节数组，称为虚拟内存（virtual memory）。</p>
+<p>每台计算机都有一个字长（word size），虚拟地址是以字来编码的，对于一个字长为<span class="math inline">\(w\)</span>位的机器，虚拟地址的范围为<span class="math inline">\(0 ～ 2^w-1\)</span>。所以对于一个<span class="math inline">\(32\)</span>位字长的机器而言，字长限制了虚拟地址的空间为<span class="math inline">\(2^{32}\)</span>，即为<span class="math inline">\(4GB\)</span>。我们知道当代一些程序可能跑起来就需要占用近<span class="math inline">\(10GB\)</span>的内存，显然<span class="math inline">\(32\)</span>位的远古机器是支持不了的。</p>
+<p>对于一个<span class="math inline">\(w\)</span>位的整数，其位表示位<span class="math inline">\([x_{w-1}, x_{w-2}, \cdots, x_1, x_0]\)</span>，其中<span class="math inline">\(x_{w-1}\)</span>是最高有效位，<span class="math inline">\(x_0\)</span>是最低有效位。通常<span class="math inline">\(w\)</span>是<span class="math inline">\(8\)</span>的倍数，这些位就能被分组为字节，其中最高有效字节为<span class="math inline">\([x_{w-1},x_{w-2}, \cdots , x_{w-8}]\)</span>，最低有效字节为<span class="math inline">\([x_7, x_6, \cdots, x_0]\)</span>。机器存储字节有两种不同的方法：一种称为小端法（little endian），即最低有效字节存储在前，一种称为大端法（big endian），即最高有效字节存储在前。（这两个术语命名的来源在书中有介绍，还挺有趣的，有兴趣的可以翻翻书或自己查一下）。引用书中的例子和图片，考虑0x12345678的存储，两种不同方式的存储如下图所示。对于大部分的计算机，似乎都是采取小端法进行存储。</p>
+<p><img src="/Users/sheldon/Blog/source/images/《深入理解计算机系统》学习笔记/little&big_endian.png" alt="little&big_endian" style="zoom:50%;" /></p>
+<h4 id="c语言中的移位运算">C语言中的移位运算</h4>
+<h5 id="左移运算">左移运算</h5>
+<p>对于一个位表示为<span class="math inline">\([x_{w-1}, x_{w-2}, \cdots, x_0]\)</span>的操作数<span class="math inline">\(x\)</span>，x&lt;&lt;k会得到一个位表示为<span class="math inline">\([x_{w-k-1}, x_{w-k-2}, \cdots, x_0, 0, \cdots, 0]\)</span>的值。</p>
+<h5 id="右移运算">右移运算</h5>
+<p>分为两种形式：逻辑右移与算术右移，逻辑右移在左端补<span class="math inline">\(k\)</span>个<span class="math inline">\(0\)</span>，而算术右移在左端补<span class="math inline">\(k\)</span>个最高有效位的值。进行运算x&gt;&gt;k，逻辑右移得到结果为<span class="math inline">\([0, \cdots, 0, x_{w-1}, x_{w-2}, \cdots, x_k]\)</span>，算术右移得到结果为<span class="math inline">\([x_{w-1}, \cdots, x_{w-1}, x_{w-1},x_{w-2}, \cdots, x_k]\)</span>。在C语言中，默认对unsigned类型的数进行逻辑右移，对signed类型的数进行算数右移。</p>
+<h4 id="整数表示">整数表示</h4>
+<p>记位向量<span class="math inline">\(\vec{x} = [x_{w-1}, x_{w-2}, \cdots, x_0]\)</span></p>
+<h5 id="无符号数编码">无符号数编码</h5>
+<p><span class="math inline">\(B2U_w(\vec{x}) := \sum\limits_{i = 0}^{w-1}x_i 2^i\)</span></p>
+<h5 id="补码编码">补码编码</h5>
+<p><span class="math inline">\(B2T_w(\vec{x}) := -x_{w-1}2^{w-1} + \sum\limits_{i = 0}^{w-2}x_i 2^i\)</span></p>
+<h5 id="有符号数与无符号数之间的转换">有符号数与无符号数之间的转换</h5>
+<p>对于C语言来说，只从位级的角度来看，比如有符号数<span class="math inline">\(-1\)</span>的补码表示为0xFFFFFFFF，转化为无符号数会得到<span class="math inline">\(2^{32}-1\)</span>，即C语言在转化时，只是对相同的位表示，采用不用的解释，从而得到有符号或无符号数。从而我们可以定义<span class="math inline">\(T2U_w(x) := B2U_w(T2B_w(x))\)</span>，<span class="math inline">\(U2T_w(x):=B2T_w(U2B_w(x))\)</span></p>
+$T2U_w(x) = {
+<span class="math display">\[\begin{array}{l} x + 2^w,&amp; x &lt; 0 \\ x, &amp;x &gt;=0  \end{array}\]</span>
+<p>. $</p>
+$U2T_w(u) = {
+<span class="math display">\[\begin{array}{l} u,&amp; u \leq TMax_w \\ u-2^w, &amp;u &gt; TMax_w  \end{array}\]</span>
+<p>. $</p>
+<h5 id="扩展一个数字的位表示">扩展一个数字的位表示</h5>
+<p>如果要把字长较长的整数转化为字长较短的，显然在某些情况下是会出现溢出而无法表示的。如果要把字长较短的整数扩展为字长较长的，这总是可以做到的。</p>
+<p>对无符号数只需进行零扩展，即将<span class="math inline">\(w\)</span>位的位向量<span class="math inline">\(\vec{u}=[u_{w-1},u_{w-2}, \cdots, u_0]\)</span>扩展为<span class="math inline">\(w&#39;(w&#39; &gt; w)\)</span>位的位向量<span class="math inline">\(\vec{u}&#39; = [0, \cdots, 0, u_{w-1}, u_{w-2}, \cdots, u_0]\)</span></p>
+<p>对补码数进行符号扩展，即将<span class="math inline">\(w\)</span>位的位向量<span class="math inline">\(\vec{x}=[x_{w-1},x_{w-2}, \cdots, x_0]\)</span>扩展为<span class="math inline">\(w&#39;(w&#39; &gt; w)\)</span>位的位向量<span class="math inline">\(\vec{x}&#39; = [x_{w-1}, \cdots, x_{w-1}, x_{w-1}, x_{w-2}, \cdots, x_0]\)</span></p>
+<p>容易验证对补码数采取符号扩展后，整数值不变。</p>
+<h5 id="截断数字">截断数字</h5>
+<p>对一个整数做截断时，可能会出现溢出改变它的值。</p>
+<p>对无符号数和补码数进行截断的方式相同，即将<span class="math inline">\(w\)</span>位的位向量<span class="math inline">\(\vec{x}=[x_{w-1},x_{w-2}, \cdots, x_0]\)</span>，截断为<span class="math inline">\(k\)</span>位的位向量<span class="math inline">\(\vec{x}&#39; = [x_{k-1},x_{k-2}, \cdots, x_0]\)</span>，之后按照无符号数或补码数的方式，对该<span class="math inline">\(k\)</span>位的位向量进行解释得到对应的整数值。</p>
+<h4 id="整数运算">整数运算</h4>
+<h5 id="加法">加法</h5>
+<p>无符号数加法</p>
+<p><span class="math inline">\(x+_w^uy = \left\{ \begin{array}{l} x+y, &amp; x+y &lt; 2^w &amp; Normal \\ x+y-2^w,&amp;2^w \leq x+y &lt; 2^{w+1} &amp; Overflow \end{array} \right.\)</span></p>
+<p>无符号数加法逆元</p>
+<p><span class="math inline">\(-^u_wx = \left\{ \begin{array}{l}x, &amp; x = 0 \\ 2^w - x, &amp; x &gt; 0 \end{array} \right.\)</span></p>
+<p>补码加法</p>
+<p><span class="math inline">\(x+_w^ty = \left\{\begin{array}{l}x+y-2^w, &amp; 2^{w-1} \leq x+y &amp; positive\ overflow \\ x+y, &amp; -2^{w-1} \leq x+y &lt; w^{w-1} &amp; normal \\ x+y + 2^w, &amp; x+y &lt; -2^{w-1} &amp; negative \ overflow \end{array} \right.\)</span></p>
+<p>补码加法逆元</p>
+<p><span class="math inline">\(-_w^tx = \left\{ \begin{array}{l}TMin_w, &amp; x = TMin_w \\ -x, &amp; x &gt; TMin_w \end{array} \right.\)</span></p>
+<h5 id="乘法">乘法</h5>
+<p>无符号乘法</p>
+<p><span class="math inline">\(x*_w^uy = (x \cdot y) mod 2^w\)</span></p>
+<p>补码乘法</p>
+<p><span class="math inline">\(x*_w^ty = U2T_w((x*_w^u y) mod 2^w)\)</span></p>
+<p>把补码位的<span class="math inline">\(1\)</span>视为<span class="math inline">\(-1\)</span>（因为补码位的权重是<span class="math inline">\(-2^{w-1}\)</span>），即可利用乘法竖式的形式进行补码的乘法运算，得到补码乘法结果的二进制表示。</p>
+<p>乘除以常数</p>
+<p>乘以或除以2的幂可以通过移位得到，同时由于整数乘除法指令比较慢，乘法需要10个甚至更多的时钟周期，除法更是需要30个甚至更多的时钟周期，而加减和移位运算只需要1个时钟周期，因此编译器在编译时，会尝试用移位和加减法运算组合来代替乘除法，如x*14，编译器可以将其替换为(x&lt;&lt;4) - (x&lt;&lt;1)。</p>
+<p>在进行右移时，无论正负数都采取向下取整，即7&gt;&gt;1 = 3，-9&gt;&gt;2 = -2，如果希望向上取整，则需要利用一个小trick，通过加上一个偏置来实现，即<span class="math inline">\(\lceil \frac{x}{y} \rceil = \lfloor \frac{x+y-1}{y} \rfloor\)</span></p>
+<h4 id="浮点数">浮点数</h4>
+<h5 id="ieee浮点数表示">IEEE浮点数表示</h5>
+<p>IEEE浮点数标准采用<span class="math inline">\(V = (-1)^s \times 2^E \times M\)</span>的形式来表示一个数。</p>
+<p>一个单独的符号位<span class="math inline">\(s\)</span>直接编码符号<span class="math inline">\(s\)</span>，<span class="math inline">\(k\)</span>位阶码字段<span class="math inline">\(exp=e_{k-1}\cdots e_1 e_0\)</span>编码阶码<span class="math inline">\(E\)</span>，<span class="math inline">\(n\)</span>位小数字段<span class="math inline">\(frac = f_{n-1}\cdots f_1 f_0\)</span>编码尾数<span class="math inline">\(M\)</span>。</p>
+<p>在C语言里，单精度浮点数（float）的s、exp和frac字段分别为1位、k=8位和n=23位，总共为一个32位的表示；双精度浮点数的s、exp和frac字段分别为1位、k=11位和n=52位，总共为一个64位的表示。</p>
+<p>根据exp的值，被编码的值可以分为以下几种情况：</p>
+<ol type="1">
+<li><p>Normalized Values</p>
+<p>当exp不全为1且不全为0时，exp的位按照无符号整数进行解释得到e，e的范围在<span class="math inline">\(1～2^{k}-2\)</span>，通过减去一个偏置（Bias）得到<span class="math inline">\(E\)</span>的值，<span class="math inline">\(Bias = 2^{k-1}-1\)</span>，<span class="math inline">\(E = e-Bias\)</span>，从而<span class="math inline">\(E\)</span>的范围为<span class="math inline">\([-2^{k-1}+2 , 2^{k-1}-1]\)</span>，对于单精度而言是<span class="math inline">\(-126～+127\)</span>，对于双精度而言是<span class="math inline">\(-1022 ～ +1023\)</span>.</p>
+<p>小数字段frac被解释为小数值f，其二进制表示为<span class="math inline">\(0.f_{n-1} \cdots f_1 f_0\)</span>，尾数定义为<span class="math inline">\(M = 1+f\)</span>。这种定义方式同样是一种trick，因为我们总是能调整<span class="math inline">\(E\)</span>的值，使得<span class="math inline">\(M\)</span>在范围<span class="math inline">\(1 \leq M &lt; 2\)</span>中，这样<span class="math inline">\(M\)</span>总是能表示为<span class="math inline">\(1.f_{n-1} \cdots f_1 f_0\)</span>，利用这种技巧，我们可以获得一个额外的精度位，而不需要去表示这个<span class="math inline">\(1\)</span>，这表示方式称为implied leading 1.</p></li>
+<li><p>Denormalized Values</p>
+<p>当exp的位表示全为0时，阶码值为<span class="math inline">\(E = 1-Bias\)</span>，而尾数<span class="math inline">\(M = f\)</span>，通过这种设定，我们能发现浮点数值的增长与二进制位的增长是一致的。不考虑符号位，这种情况下最小的数可以表示0，而在Normalized的情况下显然无法表示0，这种情况的最大数为<span class="math inline">\(00\cdots 0 1 \cdots 1\)</span>，表示<span class="math inline">\(V = 2^{1-(2^{k-1}-1)} \cdot(1-2^{-n})\)</span>，在Normalized的情况下，最小数为<span class="math inline">\(00 \cdots 1 0 \cdots 0\)</span>，此时<span class="math inline">\(V = 2^{1-(2^{k-1}-1)} \cdot (1+0)\)</span>，从而保证了浮点数定义的连续性。</p></li>
+<li><p>Special Values</p>
+<p>当exp的位表示全为1时，如果frac的位表示全为0，则当<span class="math inline">\(s=0\)</span>时代表<span class="math inline">\(+\infty\)</span>，当<span class="math inline">\(s = 1\)</span>时代表<span class="math inline">\(- \infty\)</span>。如果frac的位表示不全为0，则结果值代表NaN（Not a Number）</p></li>
+</ol>
+<p>截取书中的图片（一个8位的浮点数表示，1位符号位，4位指数位，3位小数位）作为位表示的例子</p>
+<p><img src="/Users/sheldon/Blog/source/images/《深入理解计算机系统》学习笔记/8bits_expr.png" alt="8bits_expr" style="zoom:50%;" /></p>
+<h5 id="舍入">舍入</h5>
+<p>常用的4种方式：Round-to-even, Round-toward-zero, Round-down, Round-up</p>
+<p>后三种方式容易理解，第一种方式即我们常说的四舍五入，但是要向偶数舍入，即1.5和2.5舍入后都得到2，3.145和3.135舍入后都得到3.14。</p>
+<h5 id="浮点运算">浮点运算</h5>
+<p>要注意浮点数运算不满足结合律，比如<span class="math inline">\((3.14+1e50)-1e50\)</span>会得到<span class="math inline">\(0\)</span>，但是<span class="math inline">\(3.14+(1e50-1e50)\)</span>会得到<span class="math inline">\(3.14\)</span>，这是由于浮点精度的误差导致的。</p>
+]]></content>
+      <categories>
+        <category>笔记</category>
+      </categories>
+      <tags>
+        <tag>CS</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>基于Hexo+Github搭建个人博客</title>
     <url>/2021/10/31/%E5%9F%BA%E4%BA%8EHexo+Github%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/</url>
     <content><![CDATA[<p>本文在mac OS11.6环境下进行配置，出现的一些问题在文末进行总结。</p>
