@@ -798,9 +798,7 @@
 <p>对于C语言来说，只从位级的角度来看，比如有符号数<span class="math inline">\(-1\)</span>的补码表示为0xFFFFFFFF，转化为无符号数会得到<span class="math inline">\(2^{32}-1\)</span>，即C语言在转化时，只是对相同的位表示，采用不用的解释，从而得到有符号或无符号数。从而我们可以定义<span class="math inline">\(T2U_w(x) := B2U_w(T2B_w(x))\)</span>，<span class="math inline">\(U2T_w(x):=B2T_w(U2B_w(x))\)</span></p>
 <p>同时我们容易观察到上述函数具有以下性质：</p>
 <p><span class="math inline">\(T2U_w(x) = \left\{ \begin{array}{l}x+2^w, &amp; x &lt; 0 \\ x, &amp; x \geq 0 \end{array} \right.\)</span></p>
-$U2T_w(u) = {
-<span class="math display">\[\begin{array}{l} u,&amp; u \leq TMax_w \\ u-2^w, &amp;u &gt; TMax_w  \end{array}\]</span>
-<p>. $</p>
+<p><span class="math inline">\(U2T_w(u) = \left\{ \begin{array}{l}u, &amp; u \leq TMax_w \\ u-2^w, &amp; u &gt; TMax_w \end{array} \right.\)</span></p>
 <h5 id="扩展一个数字的位表示">扩展一个数字的位表示</h5>
 <p>如果要把字长较长的整数转化为字长较短的，显然在某些情况下是会出现溢出而无法表示的。如果要把字长较短的整数扩展为字长较长的，这总是可以做到的。</p>
 <p>对无符号数只需进行零扩展，即将<span class="math inline">\(w\)</span>位的位向量<span class="math inline">\(\vec{u}=[u_{w-1},u_{w-2}, \cdots, u_0]\)</span>扩展为<span class="math inline">\(w&#39;(w&#39; &gt; w)\)</span>位的位向量<span class="math inline">\(\vec{u}&#39; = [0, \cdots, 0, u_{w-1}, u_{w-2}, \cdots, u_0]\)</span></p>
@@ -856,6 +854,120 @@ $U2T_w(u) = {
       </categories>
       <tags>
         <tag>CS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>基于Hexo+Github搭建个人博客</title>
+    <url>/2021/10/31/%E5%9F%BA%E4%BA%8EHexo+Github%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/</url>
+    <content><![CDATA[<p>本文在mac OS11.6环境下进行配置，出现的一些问题在文末进行总结。</p>
+<h5 id="安装node.js">安装Node.js</h5>
+<p>可通过在terminal中运行</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">brew install node.js</span><br></pre></td></tr></table></figure>
+<p>安装Node.js，可通过</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">node -v</span><br></pre></td></tr></table></figure>
+<p>查看node版本，确认是否成功安装。</p>
+<figure>
+<img src="/images/截屏2021-10-31%20下午9.01.46.png" alt="node版本" /><figcaption aria-hidden="true">node版本</figcaption>
+</figure>
+<span id="more"></span>
+<h5 id="安装git">安装git</h5>
+<p>通过安装Xcode Command Line Tools即带有git，可通过</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git --version</span><br></pre></td></tr></table></figure>
+<p>查看git的版本，确认是否成功安装。</p>
+<figure>
+<img src="/images/截屏2021-10-31%20下午9.02.07.png" alt="git版本" /><figcaption aria-hidden="true">git版本</figcaption>
+</figure>
+<h5 id="注册获取github仓库">注册获取GitHub仓库</h5>
+<p>注册一个github账号，在Your repositories里新建一个仓库，其中repository name填username.github.io</p>
+<figure>
+<img src="/images/截屏2021-10-31%20下午9.08.01.png" alt="创建GitHub仓库" /><figcaption aria-hidden="true">创建GitHub仓库</figcaption>
+</figure>
+<h5 id="安装hexo">安装Hexo</h5>
+<p>在你要存储你的博客文件的地方开始安装Hexo，可通过</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">npm i hexo-cli -g</span><br></pre></td></tr></table></figure>
+<p>安装Hexo。</p>
+<figure>
+<img src="/images/截屏2021-10-31%20下午9.10.47.png" alt="安装Hexo" /><figcaption aria-hidden="true">安装Hexo</figcaption>
+</figure>
+<p>之后通过</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo -v</span><br></pre></td></tr></table></figure>
+<p>确认Hexo版本从而确认是否成功安装。</p>
+<figure>
+<img src="/images/截屏2021-10-31%20下午9.12.37.png" alt="Hexo版本" /><figcaption aria-hidden="true">Hexo版本</figcaption>
+</figure>
+<h5 id="创建博客文件">创建博客文件</h5>
+<p>可通过</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo init Blog</span><br></pre></td></tr></table></figure>
+<p>在当前位置初始化一个名字为Blog的文件夹。</p>
+<p>通过</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cd Blog</span><br></pre></td></tr></table></figure>
+<p>进入Blog文件夹，接着输入</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">npm install</span><br></pre></td></tr></table></figure>
+<p>安装必需的组件。</p>
+<figure>
+<img src="/images/截屏2021-10-31%20下午9.16.05.png" alt="安装必需组件" /><figcaption aria-hidden="true">安装必需组件</figcaption>
+</figure>
+<h5 id="利用hexo初始文件生成本地网页">利用Hexo初始文件生成本地网页</h5>
+<p>通过</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo g</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo s</span><br></pre></td></tr></table></figure>
+<p>生成本地网页并部署至本地服务器。<img src="/images/截屏2021-10-31%20下午9.17.38.png" alt="部署本地网页" /></p>
+<p>这时通过http://localhost:4000即可进入我们的博客预览。</p>
+<figure>
+<img src="/images/截屏2021-10-31%20下午9.19.42.png" alt="博客预览" /><figcaption aria-hidden="true">博客预览</figcaption>
+</figure>
+<p>上图所示即为Hexo提供的初始模版。</p>
+<h5 id="将本地网页部署到github上">将本地网页部署到GitHub上</h5>
+<p>进入博客文件夹位置（上文的Blog）运行如下命令</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git config --global user.name &quot;yourname&quot;</span><br><span class="line">git config --global user.email &quot;youremail&quot;</span><br></pre></td></tr></table></figure>
+<p>之后通过下列命令生成密钥SSH key</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ssh-keygen -t rsa -C &quot;youremail&quot;</span><br></pre></td></tr></table></figure>
+<p>选择文件夹与输入密码和确认密码时都可不填，回车三次即可。</p>
+<p>之后通过下列命令</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cat ~/.ssh/id_rsa.pub</span><br></pre></td></tr></table></figure>
+<p>可返回密钥，将该段内容复制。</p>
+<p>进入GitHub，头像下方的settings，点击SSH and GPG keys，新建一个SSH，Title可随意，Key中填入上面复制的内容。</p>
+<p>回到Terminal输入</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ssh -T git@github.com</span><br></pre></td></tr></table></figure>
+<p>出现下图所示内容则代表GitHub成功与Blog文件夹连接。</p>
+<p><img src="/images/截屏2021-10-31%20下午9.32.30.png" /></p>
+<p>之后通过</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">vim _config.yml</span><br></pre></td></tr></table></figure>
+<p>进入_config.yml进行修改，将最后一行deploy补充为</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">deploy:</span><br><span class="line">  type: git</span><br><span class="line">  repository: git@github.com:yourname/yourname.github.io</span><br><span class="line">  branch: master</span><br></pre></td></tr></table></figure>
+<figure>
+<img src="/images/截屏2021-10-31%20下午9.35.28.png" alt="修改_config.yml" /><figcaption aria-hidden="true">修改_config.yml</figcaption>
+</figure>
+<p>之后保存退出即可。</p>
+<p>最后安装一个拓展，通过下列命令实现</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">npm i hexo-deployer-git</span><br></pre></td></tr></table></figure>
+<p>最后通过下列命令即可将博客部署到Github网页上</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo g</span><br><span class="line">hexo d</span><br></pre></td></tr></table></figure>
+<p>稍等一会即可通过yourname.github.io访问你的博客啦！</p>
+<p>如果部署失败可通过</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo clean</span><br><span class="line">hexo g</span><br><span class="line">hexo d</span><br></pre></td></tr></table></figure>
+<p>再次尝试。</p>
+<h5 id="模版修改">模版修改</h5>
+<p>当然Hexo初始的模版太丑啦，功能也不完全，我们可以到Hexo官网挑选自己喜欢的主题。</p>
+<p>之后通过该主题的官方文档即可完成模版的配置。</p>
+<p>个人比较喜欢的几个模版：Maupassant、NexT、Purer</p>
+<h5 id="博文上传">博文上传</h5>
+<p>将你的文章的.md文件放入Blog文件下的source/_posts即可。</p>
+<h5 id="问题总结">问题总结</h5>
+<p>1.从GitHub获取文件时出现unable to access</p>
+<p>可使用</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">export http_proxy=http://proxyAddress:port</span><br></pre></td></tr></table></figure>
+<p>让Terminal使用代理，此命令只对当前Terminal生效，若想获取永久代理，可自行Google。</p>
+<p>2.安装hero-renderer-sass失败，网络上的常见解决方案对我无效</p>
+<p>目前暂未解决该问题，猜想是默认安装的Node.js版本与默认安装的sass版本不匹配。</p>
+<p>3.本地网页预览正确，部署到网页上后显示有问题</p>
+<p>通过修改站点配置文件_config,yml中的网页url解决。</p>
+]]></content>
+      <categories>
+        <category>萌新之始</category>
+      </categories>
+      <tags>
+        <tag>个人博客</tag>
       </tags>
   </entry>
   <entry>
@@ -1016,120 +1128,6 @@ $U2T_w(u) = {
       </categories>
       <tags>
         <tag>数学</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>基于Hexo+Github搭建个人博客</title>
-    <url>/2021/10/31/%E5%9F%BA%E4%BA%8EHexo+Github%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/</url>
-    <content><![CDATA[<p>本文在mac OS11.6环境下进行配置，出现的一些问题在文末进行总结。</p>
-<h5 id="安装node.js">安装Node.js</h5>
-<p>可通过在terminal中运行</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">brew install node.js</span><br></pre></td></tr></table></figure>
-<p>安装Node.js，可通过</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">node -v</span><br></pre></td></tr></table></figure>
-<p>查看node版本，确认是否成功安装。</p>
-<figure>
-<img src="/images/截屏2021-10-31%20下午9.01.46.png" alt="node版本" /><figcaption aria-hidden="true">node版本</figcaption>
-</figure>
-<span id="more"></span>
-<h5 id="安装git">安装git</h5>
-<p>通过安装Xcode Command Line Tools即带有git，可通过</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git --version</span><br></pre></td></tr></table></figure>
-<p>查看git的版本，确认是否成功安装。</p>
-<figure>
-<img src="/images/截屏2021-10-31%20下午9.02.07.png" alt="git版本" /><figcaption aria-hidden="true">git版本</figcaption>
-</figure>
-<h5 id="注册获取github仓库">注册获取GitHub仓库</h5>
-<p>注册一个github账号，在Your repositories里新建一个仓库，其中repository name填username.github.io</p>
-<figure>
-<img src="/images/截屏2021-10-31%20下午9.08.01.png" alt="创建GitHub仓库" /><figcaption aria-hidden="true">创建GitHub仓库</figcaption>
-</figure>
-<h5 id="安装hexo">安装Hexo</h5>
-<p>在你要存储你的博客文件的地方开始安装Hexo，可通过</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">npm i hexo-cli -g</span><br></pre></td></tr></table></figure>
-<p>安装Hexo。</p>
-<figure>
-<img src="/images/截屏2021-10-31%20下午9.10.47.png" alt="安装Hexo" /><figcaption aria-hidden="true">安装Hexo</figcaption>
-</figure>
-<p>之后通过</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo -v</span><br></pre></td></tr></table></figure>
-<p>确认Hexo版本从而确认是否成功安装。</p>
-<figure>
-<img src="/images/截屏2021-10-31%20下午9.12.37.png" alt="Hexo版本" /><figcaption aria-hidden="true">Hexo版本</figcaption>
-</figure>
-<h5 id="创建博客文件">创建博客文件</h5>
-<p>可通过</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo init Blog</span><br></pre></td></tr></table></figure>
-<p>在当前位置初始化一个名字为Blog的文件夹。</p>
-<p>通过</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cd Blog</span><br></pre></td></tr></table></figure>
-<p>进入Blog文件夹，接着输入</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">npm install</span><br></pre></td></tr></table></figure>
-<p>安装必需的组件。</p>
-<figure>
-<img src="/images/截屏2021-10-31%20下午9.16.05.png" alt="安装必需组件" /><figcaption aria-hidden="true">安装必需组件</figcaption>
-</figure>
-<h5 id="利用hexo初始文件生成本地网页">利用Hexo初始文件生成本地网页</h5>
-<p>通过</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo g</span><br></pre></td></tr></table></figure>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo s</span><br></pre></td></tr></table></figure>
-<p>生成本地网页并部署至本地服务器。<img src="/images/截屏2021-10-31%20下午9.17.38.png" alt="部署本地网页" /></p>
-<p>这时通过http://localhost:4000即可进入我们的博客预览。</p>
-<figure>
-<img src="/images/截屏2021-10-31%20下午9.19.42.png" alt="博客预览" /><figcaption aria-hidden="true">博客预览</figcaption>
-</figure>
-<p>上图所示即为Hexo提供的初始模版。</p>
-<h5 id="将本地网页部署到github上">将本地网页部署到GitHub上</h5>
-<p>进入博客文件夹位置（上文的Blog）运行如下命令</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git config --global user.name &quot;yourname&quot;</span><br><span class="line">git config --global user.email &quot;youremail&quot;</span><br></pre></td></tr></table></figure>
-<p>之后通过下列命令生成密钥SSH key</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ssh-keygen -t rsa -C &quot;youremail&quot;</span><br></pre></td></tr></table></figure>
-<p>选择文件夹与输入密码和确认密码时都可不填，回车三次即可。</p>
-<p>之后通过下列命令</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cat ~/.ssh/id_rsa.pub</span><br></pre></td></tr></table></figure>
-<p>可返回密钥，将该段内容复制。</p>
-<p>进入GitHub，头像下方的settings，点击SSH and GPG keys，新建一个SSH，Title可随意，Key中填入上面复制的内容。</p>
-<p>回到Terminal输入</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ssh -T git@github.com</span><br></pre></td></tr></table></figure>
-<p>出现下图所示内容则代表GitHub成功与Blog文件夹连接。</p>
-<p><img src="/images/截屏2021-10-31%20下午9.32.30.png" /></p>
-<p>之后通过</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">vim _config.yml</span><br></pre></td></tr></table></figure>
-<p>进入_config.yml进行修改，将最后一行deploy补充为</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">deploy:</span><br><span class="line">  type: git</span><br><span class="line">  repository: git@github.com:yourname/yourname.github.io</span><br><span class="line">  branch: master</span><br></pre></td></tr></table></figure>
-<figure>
-<img src="/images/截屏2021-10-31%20下午9.35.28.png" alt="修改_config.yml" /><figcaption aria-hidden="true">修改_config.yml</figcaption>
-</figure>
-<p>之后保存退出即可。</p>
-<p>最后安装一个拓展，通过下列命令实现</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">npm i hexo-deployer-git</span><br></pre></td></tr></table></figure>
-<p>最后通过下列命令即可将博客部署到Github网页上</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo g</span><br><span class="line">hexo d</span><br></pre></td></tr></table></figure>
-<p>稍等一会即可通过yourname.github.io访问你的博客啦！</p>
-<p>如果部署失败可通过</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo clean</span><br><span class="line">hexo g</span><br><span class="line">hexo d</span><br></pre></td></tr></table></figure>
-<p>再次尝试。</p>
-<h5 id="模版修改">模版修改</h5>
-<p>当然Hexo初始的模版太丑啦，功能也不完全，我们可以到Hexo官网挑选自己喜欢的主题。</p>
-<p>之后通过该主题的官方文档即可完成模版的配置。</p>
-<p>个人比较喜欢的几个模版：Maupassant、NexT、Purer</p>
-<h5 id="博文上传">博文上传</h5>
-<p>将你的文章的.md文件放入Blog文件下的source/_posts即可。</p>
-<h5 id="问题总结">问题总结</h5>
-<p>1.从GitHub获取文件时出现unable to access</p>
-<p>可使用</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">export http_proxy=http://proxyAddress:port</span><br></pre></td></tr></table></figure>
-<p>让Terminal使用代理，此命令只对当前Terminal生效，若想获取永久代理，可自行Google。</p>
-<p>2.安装hero-renderer-sass失败，网络上的常见解决方案对我无效</p>
-<p>目前暂未解决该问题，猜想是默认安装的Node.js版本与默认安装的sass版本不匹配。</p>
-<p>3.本地网页预览正确，部署到网页上后显示有问题</p>
-<p>通过修改站点配置文件_config,yml中的网页url解决。</p>
-]]></content>
-      <categories>
-        <category>萌新之始</category>
-      </categories>
-      <tags>
-        <tag>个人博客</tag>
       </tags>
   </entry>
 </search>
