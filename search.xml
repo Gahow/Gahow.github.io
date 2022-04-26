@@ -823,6 +823,329 @@
       </tags>
   </entry>
   <entry>
+    <title>《深入理解计算机系统》学习笔记</title>
+    <url>/2022/03/31/%E3%80%8A%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E3%80%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
+    <content><![CDATA[<h3 id="第二章-信息的表示与处理">第二章 信息的表示与处理</h3>
+<h4 id="信息存储">信息存储</h4>
+<p>大多数计算机使用<span class="math inline">\(8\)</span>位（bit）的块，称为字节（byte），作为最小的可寻址的内存单位，而不是访问内存中单独的位。机器级程序将内存视为一个非常大的字节数组，称为虚拟内存（virtual memory）。</p>
+<p>每台计算机都有一个字长（word size），虚拟地址是以字来编码的，对于一个字长为<span class="math inline">\(w\)</span>位的机器，虚拟地址的范围为<span class="math inline">\(0 ～ 2^w-1\)</span>。所以对于一个<span class="math inline">\(32\)</span>位字长的机器而言，字长限制了虚拟地址的空间为<span class="math inline">\(2^{32}\)</span>，即为<span class="math inline">\(4GB\)</span>。我们知道当代一些程序可能跑起来就需要占用近<span class="math inline">\(10GB\)</span>的内存，显然<span class="math inline">\(32\)</span>位的远古机器是支持不了的。</p>
+<p>对于一个<span class="math inline">\(w\)</span>位的整数，其位表示位<span class="math inline">\([x_{w-1}, x_{w-2}, \cdots, x_1, x_0]\)</span>，其中<span class="math inline">\(x_{w-1}\)</span>是最高有效位，<span class="math inline">\(x_0\)</span>是最低有效位。通常<span class="math inline">\(w\)</span>是<span class="math inline">\(8\)</span>的倍数，这些位就能被分组为字节，其中最高有效字节为<span class="math inline">\([x_{w-1},x_{w-2}, \cdots , x_{w-8}]\)</span>，最低有效字节为<span class="math inline">\([x_7, x_6, \cdots, x_0]\)</span>。</p>
+<span id="more"></span>
+<p>机器存储字节有两种不同的方法：一种称为小端法（little endian），即最低有效字节存储在前，一种称为大端法（big endian），即最高有效字节存储在前。（这两个术语命名的来源在书中有介绍，还挺有趣的，有兴趣的可以翻翻书或自己查一下）。引用书中的例子和图片，考虑0x12345678的存储，两种不同方式的存储如下图所示。对于大部分的计算机，似乎都是采取小端法进行存储。</p>
+<p><img src="/images/《深入理解计算机系统》学习笔记/little&big_endian.png" alt="little&big_endian"></p>
+<h4 id="c语言中的移位运算">C语言中的移位运算</h4>
+<h5 id="左移运算">左移运算</h5>
+<p>对于一个位表示为<span class="math inline">\([x_{w-1}, x_{w-2}, \cdots, x_0]\)</span>的操作数<span class="math inline">\(x\)</span>，x&lt;&lt;k会得到一个位表示为<span class="math inline">\([x_{w-k-1}, x_{w-k-2}, \cdots, x_0, 0, \cdots, 0]\)</span>的值。</p>
+<h5 id="右移运算">右移运算</h5>
+<p>分为两种形式：逻辑右移与算术右移，逻辑右移在左端补<span class="math inline">\(k\)</span>个<span class="math inline">\(0\)</span>，而算术右移在左端补<span class="math inline">\(k\)</span>个最高有效位的值。进行运算x&gt;&gt;k，逻辑右移得到结果为<span class="math inline">\([0, \cdots, 0, x_{w-1}, x_{w-2}, \cdots, x_k]\)</span>，算术右移得到结果为<span class="math inline">\([x_{w-1}, \cdots, x_{w-1}, x_{w-1},x_{w-2}, \cdots, x_k]\)</span>。在C语言中，默认对unsigned类型的数进行逻辑右移，对signed类型的数进行算数右移。</p>
+<h4 id="整数表示">整数表示</h4>
+<p>记位向量<span class="math inline">\(\vec{x} = [x_{w-1}, x_{w-2}, \cdots, x_0]\)</span></p>
+<h5 id="无符号数编码">无符号数编码</h5>
+<p><span class="math inline">\(B2U_w(\vec{x}) := \sum\limits_{i = 0}^{w-1}x_i 2^i\)</span></p>
+<h5 id="补码编码">补码编码</h5>
+<p><span class="math inline">\(B2T_w(\vec{x}) := -x_{w-1}2^{w-1} + \sum\limits_{i = 0}^{w-2}x_i 2^i\)</span></p>
+<h5 id="有符号数与无符号数之间的转换">有符号数与无符号数之间的转换</h5>
+<p>对于C语言来说，只从位级的角度来看，比如有符号数<span class="math inline">\(-1\)</span>的补码表示为0xFFFFFFFF，转化为无符号数会得到<span class="math inline">\(2^{32}-1\)</span>，即C语言在转化时，只是对相同的位表示，采用不用的解释，从而得到有符号或无符号数。从而我们可以定义<span class="math inline">\(T2U_w(x) := B2U_w(T2B_w(x))\)</span>，<span class="math inline">\(U2T_w(x):=B2T_w(U2B_w(x))\)</span></p>
+<p>同时我们容易观察到上述函数具有以下性质：</p>
+<p><span class="math inline">\(T2U_w(x) = \left\{ \begin{array}{l}x+2^w, &amp; x &lt; 0 \\ x, &amp; x \geq 0 \end{array} \right.\)</span></p>
+<p><span class="math inline">\(U2T_w(u) = \left\{ \begin{array}{l}u, &amp; u \leq TMax_w \\ u-2^w, &amp; u &gt; TMax_w \end{array} \right.\)</span></p>
+<h5 id="扩展一个数字的位表示">扩展一个数字的位表示</h5>
+<p>如果要把字长较长的整数转化为字长较短的，显然在某些情况下是会出现溢出而无法表示的。如果要把字长较短的整数扩展为字长较长的，这总是可以做到的。</p>
+<p>对无符号数只需进行零扩展，即将<span class="math inline">\(w\)</span>位的位向量<span class="math inline">\(\vec{u}=[u_{w-1},u_{w-2}, \cdots, u_0]\)</span>扩展为<span class="math inline">\(w&#39;(w&#39; &gt; w)\)</span>位的位向量<span class="math inline">\(\vec{u}&#39; = [0, \cdots, 0, u_{w-1}, u_{w-2}, \cdots, u_0]\)</span></p>
+<p>对补码数进行符号扩展，即将<span class="math inline">\(w\)</span>位的位向量<span class="math inline">\(\vec{x}=[x_{w-1},x_{w-2}, \cdots, x_0]\)</span>扩展为<span class="math inline">\(w&#39;(w&#39; &gt; w)\)</span>位的位向量<span class="math inline">\(\vec{x}&#39; = [x_{w-1}, \cdots, x_{w-1}, x_{w-1}, x_{w-2}, \cdots, x_0]\)</span></p>
+<p>容易验证对补码数采取符号扩展后，整数值不变。</p>
+<h5 id="截断数字">截断数字</h5>
+<p>对一个整数做截断时，可能会出现溢出改变它的值。</p>
+<p>对无符号数和补码数进行截断的方式相同，即将<span class="math inline">\(w\)</span>位的位向量<span class="math inline">\(\vec{x}=[x_{w-1},x_{w-2}, \cdots, x_0]\)</span>，截断为<span class="math inline">\(k\)</span>位的位向量<span class="math inline">\(\vec{x}&#39; = [x_{k-1},x_{k-2}, \cdots, x_0]\)</span>，之后按照无符号数或补码数的方式，对该<span class="math inline">\(k\)</span>位的位向量进行解释得到对应的整数值。</p>
+<h4 id="整数运算">整数运算</h4>
+<h5 id="加法">加法</h5>
+<p>无符号数加法</p>
+<p><span class="math inline">\(x+_w^uy = \left\{ \begin{array}{l} x+y, &amp; x+y &lt; 2^w &amp; Normal \\ x+y-2^w,&amp;2^w \leq x+y &lt; 2^{w+1} &amp; Overflow \end{array} \right.\)</span></p>
+<p>无符号数加法逆元</p>
+<p><span class="math inline">\(-^u_wx = \left\{ \begin{array}{l}x, &amp; x = 0 \\ 2^w - x, &amp; x &gt; 0 \end{array} \right.\)</span></p>
+<p>补码加法</p>
+<p><span class="math inline">\(x+_w^ty = \left\{\begin{array}{l}x+y-2^w, &amp; 2^{w-1} \leq x+y &amp; positive\ overflow \\ x+y, &amp; -2^{w-1} \leq x+y &lt; w^{w-1} &amp; normal \\ x+y + 2^w, &amp; x+y &lt; -2^{w-1} &amp; negative \ overflow \end{array} \right.\)</span></p>
+<p>补码加法逆元</p>
+<p><span class="math inline">\(-_w^tx = \left\{ \begin{array}{l}TMin_w, &amp; x = TMin_w \\ -x, &amp; x &gt; TMin_w \end{array} \right.\)</span></p>
+<h5 id="乘法">乘法</h5>
+<p>无符号乘法</p>
+<p><span class="math inline">\(x*_w^uy = (x \cdot y) mod 2^w\)</span></p>
+<p>补码乘法</p>
+<p><span class="math inline">\(x*_w^ty = U2T_w((x*_w^u y) mod 2^w)\)</span></p>
+<p>把补码位的<span class="math inline">\(1\)</span>视为<span class="math inline">\(-1\)</span>（因为补码位的权重是<span class="math inline">\(-2^{w-1}\)</span>），即可利用乘法竖式的形式进行补码的乘法运算，得到补码乘法结果的二进制表示。</p>
+<p>乘除以常数</p>
+<p>乘以或除以2的幂可以通过移位得到，同时由于整数乘除法指令比较慢，乘法需要10个甚至更多的时钟周期，除法更是需要30个甚至更多的时钟周期，而加减和移位运算只需要1个时钟周期，因此编译器在编译时，会尝试用移位和加减法运算组合来代替乘除法，如x*14，编译器可以将其替换为(x&lt;&lt;4) - (x&lt;&lt;1)。</p>
+<p>在进行右移时，无论正负数都采取向下取整，即7&gt;&gt;1 = 3，-9&gt;&gt;2 = -2，如果希望向上取整，则需要利用一个小trick，通过加上一个偏置来实现，即<span class="math inline">\(\lceil \frac{x}{y} \rceil = \lfloor \frac{x+y-1}{y} \rfloor\)</span></p>
+<h4 id="浮点数">浮点数</h4>
+<h5 id="ieee浮点数表示">IEEE浮点数表示</h5>
+<p>IEEE浮点数标准采用<span class="math inline">\(V = (-1)^s \times 2^E \times M\)</span>的形式来表示一个数。</p>
+<p>一个单独的符号位<span class="math inline">\(s\)</span>直接编码符号<span class="math inline">\(s\)</span>，<span class="math inline">\(k\)</span>位阶码字段<span class="math inline">\(exp=e_{k-1}\cdots e_1 e_0\)</span>编码阶码<span class="math inline">\(E\)</span>，<span class="math inline">\(n\)</span>位小数字段<span class="math inline">\(frac = f_{n-1}\cdots f_1 f_0\)</span>编码尾数<span class="math inline">\(M\)</span>。</p>
+<p>在C语言里，单精度浮点数（float）的s、exp和frac字段分别为1位、k=8位和n=23位，总共为一个32位的表示；双精度浮点数的s、exp和frac字段分别为1位、k=11位和n=52位，总共为一个64位的表示。</p>
+<p>根据exp的值，被编码的值可以分为以下几种情况：</p>
+<ol type="1">
+<li><p>Normalized Values</p>
+<p>当exp不全为1且不全为0时，exp的位按照无符号整数进行解释得到e，e的范围在<span class="math inline">\(1～2^{k}-2\)</span>，通过减去一个偏置（Bias）得到<span class="math inline">\(E\)</span>的值，<span class="math inline">\(Bias = 2^{k-1}-1\)</span>，<span class="math inline">\(E = e-Bias\)</span>，从而<span class="math inline">\(E\)</span>的范围为<span class="math inline">\([-2^{k-1}+2 , 2^{k-1}-1]\)</span>，对于单精度而言是<span class="math inline">\(-126～+127\)</span>，对于双精度而言是<span class="math inline">\(-1022 ～ +1023\)</span>.</p>
+<p>小数字段frac被解释为小数值f，其二进制表示为<span class="math inline">\(0.f_{n-1} \cdots f_1 f_0\)</span>，尾数定义为<span class="math inline">\(M = 1+f\)</span>。这种定义方式同样是一种trick，因为我们总是能调整<span class="math inline">\(E\)</span>的值，使得<span class="math inline">\(M\)</span>在范围<span class="math inline">\(1 \leq M &lt; 2\)</span>中，这样<span class="math inline">\(M\)</span>总是能表示为<span class="math inline">\(1.f_{n-1} \cdots f_1 f_0\)</span>，利用这种技巧，我们可以获得一个额外的精度位，而不需要去表示这个<span class="math inline">\(1\)</span>，这表示方式称为implied leading 1.</p></li>
+<li><p>Denormalized Values</p>
+<p>当exp的位表示全为0时，阶码值为<span class="math inline">\(E = 1-Bias\)</span>，而尾数<span class="math inline">\(M = f\)</span>，通过这种设定，我们能发现浮点数值的增长与二进制位的增长是一致的。不考虑符号位，这种情况下最小的数可以表示0，而在Normalized的情况下显然无法表示0，这种情况的最大数为<span class="math inline">\(00\cdots 0 1 \cdots 1\)</span>，表示<span class="math inline">\(V = 2^{1-(2^{k-1}-1)} \cdot(1-2^{-n})\)</span>，在Normalized的情况下，最小数为<span class="math inline">\(00 \cdots 1 0 \cdots 0\)</span>，此时<span class="math inline">\(V = 2^{1-(2^{k-1}-1)} \cdot (1+0)\)</span>，从而保证了浮点数定义的连续性。</p></li>
+<li><p>Special Values</p>
+<p>当exp的位表示全为1时，如果frac的位表示全为0，则当<span class="math inline">\(s=0\)</span>时代表<span class="math inline">\(+\infty\)</span>，当<span class="math inline">\(s = 1\)</span>时代表<span class="math inline">\(- \infty\)</span>。如果frac的位表示不全为0，则结果值代表NaN（Not a Number）</p></li>
+</ol>
+<p>截取书中的图片（一个8位的浮点数表示，1位符号位，4位指数位，3位小数位）作为位表示的例子</p>
+<p><img src="/images/《深入理解计算机系统》学习笔记/8bits_expr.png" alt="8bits_expr" style="zoom:50%;" /></p>
+<h5 id="舍入">舍入</h5>
+<p>常用的4种方式：Round-to-even, Round-toward-zero, Round-down, Round-up</p>
+<p>后三种方式容易理解，第一种方式即我们常说的四舍五入，但是要向偶数舍入，即1.5和2.5舍入后都得到2，3.145和3.135舍入后都得到3.14。</p>
+<h5 id="浮点运算">浮点运算</h5>
+<p>要注意浮点数运算不满足结合律，比如<span class="math inline">\((3.14+1e50)-1e50\)</span>会得到<span class="math inline">\(0\)</span>，但是<span class="math inline">\(3.14+(1e50-1e50)\)</span>会得到<span class="math inline">\(3.14\)</span>，这是由于浮点精度的误差导致的。</p>
+<h3 id="第三章-程序的机器级表示">第三章 程序的机器级表示</h3>
+<h4 id="程序编码">程序编码</h4>
+<p>命令行编译两个文件<code>p1.c</code>, <code>p2.c</code>，使用<code>gcc p1.c p2.c -Og -o p</code>，编译选项<code>-Og</code>会生成符合原始C代码整体结构的机器代码，更高的优化等级可使用<code>-O1</code>, <code>-O2</code>等，但更高的优化等级会使代码严重变形。编译选项<code>-o p</code>生成可执行文件命名为<code>p</code></p>
+<p>gcc命令在编码是共有4个步骤。一、C预处理器扩展源代码，插入所有用<code>#include</code>命令指定的文件，扩展所有用<code>#define</code>声明的宏。二、编译器产生两个源文件的汇编代码，名字分别为<code>p1.s</code>和<code>p2.s</code>。三、汇编器会将汇编代码转化成二进制目标代码文件<code>p1.o</code>和<code>p2.o</code>。四、链接器将两个目标代码文件与实现库函数的代码合并，产生最终的可执行文件<code>p</code>。</p>
+<p>使用<code>-S</code>选项，就可以得到编译器产生的汇编代码，<code>gcc -Og -S mstore.c</code>即可得到汇编文件<code>mstore.s</code></p>
+<p>对于可执行文件，可通过反汇编器将机器代码转化为一种类似汇编代码的格式。可以使用带<code>-d</code>选项的的 OBJDUMP（object dump）程序。<code>objdump -d mstore.o</code></p>
+<h4 id="数据格式">数据格式</h4>
+<p>参考书中的表格如下</p>
+<p><img src="/Users/sheldon/Blog/source/images/《深入理解计算机系统》学习笔记/sizes_of_C_data_types.png" alt="sizes_of_C_data_types" style="zoom:50%;" /></p>
+<p>虽然<code>int</code>和<code>double</code>有相同的后缀，但并不会产生歧义，因为整数和浮点数使用的是一组完全不同的指令和寄存器。</p>
+<h4 id="访问信息">访问信息</h4>
+<h5 id="整数寄存器">整数寄存器</h5>
+<p>首先给出 x86-64架构下的一组16个存储64位值的通用目的寄存器。这些寄存器的演化历史：从最开始的8060中有8个16位寄存器，即%ax到%bp，当扩展到IA32架构时，寄存器扩展为了32位的寄存器，即%eax到%ebp，扩展到x86-64时，原来的8个寄存器扩展为64位，即%rax到%rbp，同时还增加了8个寄存器，命名为%r8到%r15。</p>
+<p><img src="/Users/sheldon/Blog/source/images/《深入理解计算机系统》学习笔记/Interger+register.png" alt="Interger+register" style="zoom:50%;" /></p>
+<h5 id="获取操作数">获取操作数</h5>
+<p>操作数有三种类型。</p>
+<p>第一种是立即数 (immediate) ，表示常数值，写法是 '$' 后面跟一个标准C表示法表示的整数。</p>
+<p>第二种是寄存器 (register) ，表示读取某个寄存器的内容，根据指令的不同，取寄存器中的低位1字节、2字节、4字节或8字节作为一个操作数。</p>
+<p>第三种是内存引用 (memory) ，根据计算出的地址，访问某内存位置的值。最一般的形式为<span class="math inline">\(Imm(r_b, r_i, s)\)</span>，其中<span class="math inline">\(Imm\)</span>为立即数偏移值，<span class="math inline">\(r_b\)</span>为基址寄存器，<span class="math inline">\(r_i\)</span>为变址寄存器，<span class="math inline">\(s\)</span>为比例因子。有效地址计算为<span class="math inline">\(Imm + R[r_b]+R[r_i] \cdot s\)</span>。根据情况可省略其中的某些部分。</p>
+<h5 id="数据传送指令">数据传送指令</h5>
+<p>最简单的数据传送指令——MOV类，由4条指令组成：<code>movb</code>、<code>movw</code>、<code>movl</code>、<code>movq</code>。他们的区别在于操作的数据大小不同，分别是1、2、4、8字节。指令 <code>MOV S, D</code>表示S是源，D是目标。源操作数可以是立即数、存储在寄存器中或内存中，目标操作数要么是寄存器，要么是内存地址，但是两个操作数不能都是内存地址，即 MOV 类命令不能将一个值直接从一个内存位置复制到另一个内存位置，必须通过寄存器中转。</p>
+<p>MOV 指令在更新目标操作数时只会更新指定的寄存器字节或内存位置，唯一的例外是<code>movl</code>在以寄存器为目标时，会把该寄存器的高位4字节都设置为0.给出书中的例子如下。</p>
+<p><img src="/Users/sheldon/Blog/source/images/《深入理解计算机系统》学习笔记/mov.png" alt="mov" style="zoom:50%;" /></p>
+<p>还有两类数据移动指令，MOVZ 类中的指令会把剩余的高位字节填充为0，MOVS 类会把高位做符号扩展。</p>
+<h5 id="压入和弹出栈数据">压入和弹出栈数据</h5>
+<p>push操作将数据压入栈中，pop操作将数据弹出栈。在x86-64中，程序栈存放在内存的某个区域。一个寄存器$rsp始终保存着栈顶元素的地址。</p>
+<p>对于指令<code>pushq $rbp</code>，相当于<code>subq $8,%rsp</code>与<code>movq %rbp,(%rsp)</code></p>
+<p>对于指令<code>popq %rax</code>，相当于<code>movq (%rsp),%rax</code>与<code>addq $8,%rsp</code></p>
+<h4 id="算术和逻辑操作">算术和逻辑操作</h4>
+<p>如下是各类算术和逻辑操作的类，他们同样对不同字节有不同的形式。</p>
+<p><img src="/Users/sheldon/Blog/source/images/《深入理解计算机系统》学习笔记/interger_arith_op.png" alt="interger_arith_op" style="zoom:50%;" /></p>
+<p>需要注意的是加载有效地址 (load effective address) 指令<code>leaq</code>，可以用来简洁的做算术运算，如果寄存器%rdx的值为x，那么<code>leaq 7(%rds,%rdx,4),%rax</code>，会将寄存器%rax的值设置为5x+7</p>
+<h4 id="控制">控制</h4>
+<h5 id="条件码">条件码</h5>
+<p>除了整数寄存器，CPU还维护着一组单个位的条件码 (condition code) 寄存器，它们描述了最近的算术或逻辑操作的属性，通过检测这些寄存器来执行条件分支指令，最常用的有：</p>
+<p>CF (carry flag) ：进位标志。最近的操作使最高位产生了进位。</p>
+<p>ZF (zero flag) ：零标志。最近的操作得到的结果为0。</p>
+<p>SF (sign flag) ：符号标志。最近的操作得到的结果为负数。</p>
+<p>OF (overflow flag) ：溢出标志。最近的操作导致一个补码的溢出。</p>
+<p><code>leaq</code>指令不改变任何条件码。</p>
+<p>有两类指令只设置条件码而不改变任何其他寄存器，CMP指令根据两操作数之差来设置条件码，<code>CMP A,B</code>基于<code>B - A</code>进行判断，因此要注意<code>cmp</code>的比较顺序，是后一个比前一个。TEST指令根据两操作数的按位与来设置条件码，<code>TEST A,B</code>基于<code>A &amp; B</code>进行判断。</p>
+<h5 id="访问条件码">访问条件码</h5>
+<p>一类SET指令根据条件码的组合设置值。具体入下图所示。</p>
+<p><img src="/Users/sheldon/Blog/source/images/《深入理解计算机系统》学习笔记/set_instruction.png" alt="set_instruction" style="zoom:50%;" /></p>
+<h5 id="跳转指令">跳转指令</h5>
+<p>跳转 (jump) 指令会导致执行切换到一个全新的位置，在汇编代码中，这些跳转的目的地通常用一个标号 (label) 表明。如下面的汇编代码序列。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">  movq $0, %rax</span><br><span class="line">  jmp .L1</span><br><span class="line">  movq (%rax), %rdx</span><br><span class="line">.L1:</span><br><span class="line">  popq %rdx</span><br></pre></td></tr></table></figure>
+<p>程序会跳过<code>movq</code>指令。除了给出标号的直接跳转，程序也可以间接跳转，写法是 '*' 后面跟一个操作数指示符。如<code>jmp *%rax</code>会以%rax中的值作为跳转目标，<code>jmp *(%rax)</code>会以%rax中的值作为地址，读取该地址指向的值。</p>
+<p>跳转指令还可以是有条件的，具体如下图所示。</p>
+<p><img src="/Users/sheldon/Blog/source/images/《深入理解计算机系统》学习笔记/jump_instruction.png" alt="jump_instruction" style="zoom:50%;" /></p>
+<p>跳转指令有几种不同的编码，常用的是PC相对地址 (PC relative) ，地址偏移量可以是1、2或4字节，还有一种是绝对地址，用4字节直接指定跳转目标。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">4004d0: 48 89 f8	mov		%rdi,%rax</span><br><span class="line">4004d3: eb 03		jmp		4004d8 &lt;loop+0x8&gt;</span><br><span class="line">4004d5: 48 d1 f8	sar		%rax</span><br><span class="line">4004d8: 48 85 c0	test	%rax,%rax</span><br><span class="line">4004db: 7f f8		jg		4004d5 &lt;loop+0x5&gt;</span><br><span class="line">4004dd: f3 c3		repz retq</span><br></pre></td></tr></table></figure>
+<p>绝对地址即<code>jmp</code>指令后显示的地址值，相对地址可以根据编码算出，第2行的<code>jmp</code>对应的偏移值为0x03，故0x4004d5+0x03 = 0x4004d8，同样的，第5行的<code>jg</code>对应的偏移值为0xf8 (即十进制的-8)，故0x4004dd+0xf8 = 0x4004d5，通过偏移值即可算出跳转的地址。</p>
+<h5 id="使用条件控制来实现条件分支">使用条件控制来实现条件分支</h5>
+<p>使用书本的例子如下。</p>
+<p><img src="/Users/sheldon/Blog/source/images/《深入理解计算机系统》学习笔记/conditional_state.png" alt="conditional_state" style="zoom:50%;" /></p>
+<h5 id="使用条件传送来实现条件分支">使用条件传送来实现条件分支</h5>
+<p>条件传送能够提高代码的并行性，从而提高效率。处理器通过使用流水线 (pipelining) 来获得高性能，在流水线中，一条指令的处理要经过一系列的阶段，每个阶段执行所需操作的一小部分（如，从内存取指令，确定指令类型，从内存读数据，执行算术运算，向内存写数据，更新程序计数器等）。这种方法通过重叠连续指令的步骤来获得高性能，如，取一条指令的同时，执行它前一条指令的算术运算。要做到这一点，要求事先知道需要执行的指令序列，这样才能保证流水线中充满了待执行的指令。但当指令遇到分支时，只有当分支条件的值确定后，才能决定分支往哪走。处理器采用了十分精密的分支预测逻辑来预测跳转的方向，并执行预测结果的指令，但是如果预测错误，处理器就会丢掉当前做的所有工作，重新从正确的位置开始用指令去填充流水线。这将导致程序性能严重下降。</p>
+<p>下面给出条件传送的代码示例。</p>
+<p><img src="/Users/sheldon/Blog/source/images/《深入理解计算机系统》学习笔记/contional_assignment.png" alt="contional_assignment" style="zoom:50%;" /></p>
+<h5 id="循环">循环</h5>
+<ol type="1">
+<li><p>do-while循环</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="comment">// do-while statements</span></span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">    body-<span class="function">statement</span></span><br><span class="line"><span class="function">    <span class="title">while</span><span class="params">(test-expr)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// goto statements</span></span><br><span class="line">loop:</span><br><span class="line">	body-statement</span><br><span class="line">    t = test-expr;</span><br><span class="line">	<span class="keyword">if</span> (t)</span><br><span class="line">        <span class="keyword">goto</span> loop;</span><br></pre></td></tr></table></figure></li>
+<li><p>while循环</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="comment">// while statements</span></span><br><span class="line"><span class="keyword">while</span> (test-expr)</span><br><span class="line">    body-statement</span><br><span class="line"></span><br><span class="line"><span class="comment">// jump to middle</span></span><br><span class="line">    <span class="keyword">goto</span> test;</span><br><span class="line">loop:</span><br><span class="line">	body-statement</span><br><span class="line">test:</span><br><span class="line">	t = test-expr;</span><br><span class="line">	<span class="keyword">if</span> (t)</span><br><span class="line">        <span class="keyword">goto</span> loop;</span><br><span class="line"></span><br><span class="line"><span class="comment">// guarded do</span></span><br><span class="line">t = test-expr;</span><br><span class="line"><span class="keyword">if</span> (!t)</span><br><span class="line">    <span class="keyword">goto</span> done;</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">    body-<span class="function">statement</span></span><br><span class="line"><span class="function">    <span class="title">while</span> <span class="params">(test-expr)</span></span>;</span><br><span class="line">done:</span><br></pre></td></tr></table></figure></li>
+<li><p>for循环</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="comment">// for statements</span></span><br><span class="line"><span class="keyword">for</span> (init-expr; test-expr; update-expr)</span><br><span class="line">    body-statement</span><br><span class="line"></span><br><span class="line"><span class="comment">// while statements</span></span><br><span class="line">init-expr;</span><br><span class="line"><span class="keyword">while</span> (test-expr) &#123;</span><br><span class="line">    body-statement</span><br><span class="line">    update-expr;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// jump to middle</span></span><br><span class="line">	init-expr;</span><br><span class="line">	<span class="keyword">goto</span> test;</span><br><span class="line">loop:</span><br><span class="line">	body-statement</span><br><span class="line">    update-expr;</span><br><span class="line">test:</span><br><span class="line">	t = test-expr;</span><br><span class="line">	<span class="keyword">if</span> (t)</span><br><span class="line">        <span class="keyword">goto</span> loop;</span><br><span class="line"></span><br><span class="line"><span class="comment">// guarded do</span></span><br><span class="line">	init-expr;</span><br><span class="line">	t = test-expr;</span><br><span class="line">	<span class="keyword">if</span> (!t)</span><br><span class="line">        <span class="keyword">goto</span> done;</span><br><span class="line">loop:</span><br><span class="line">	body-statement</span><br><span class="line">    update-expr;</span><br><span class="line">	t = test-expr;</span><br><span class="line">    <span class="keyword">if</span> (t)</span><br><span class="line">        <span class="keyword">goto</span> loop;</span><br><span class="line">done:</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h5 id="switch语句">switch语句</h5>
+<p>switch语句通过使用跳转表 (jump table) 这种数据结构使实现更加高效。gcc会根据分支的数量和开关值的稀疏程度来翻译switch语句，当分支情况较多，且值的范围跨度比较小时，就会使用跳转表。选取书中的例子如下。</p>
+<p><img src="/Users/sheldon/Blog/source/images/《深入理解计算机系统》学习笔记/switch_statement.png" alt="switch_statement" style="zoom:50%;" /></p>
+<p><img src="/Users/sheldon/Blog/source/images/《深入理解计算机系统》学习笔记/switch_assembly.png" alt="switch_assembly" style="zoom:50%;" /></p>
+<h4 id="进程">进程</h4>
+<h5 id="运行时栈">运行时栈</h5>
+<p>栈和程序寄存器存放着传递控制和数据、分配内存所需要的信息。当x86-64过程需要的存储空间超过寄存器能够存放的大小时，就会在栈上分配空间。这个部分称为过程的栈帧 (stack fram) 。</p>
+<p><img src="/Users/sheldon/Blog/source/images/《深入理解计算机系统》学习笔记/stack_frame_structure.png" alt="stack_frame_structure" style="zoom:50%;" /></p>
+<h5 id="转移控制">转移控制</h5>
+<p>将控制从P转移到Q只需要简单地把程序计数器 (PC) 设置为Q的代码的起始位置。但当从Q返回P时，处理器必须记录好它需要继续P的执行的代码位置，在x86-64中，这个信息是由指令<code>call Q</code>调用过程Q来记录的。</p>
+<h5 id="数据传送">数据传送</h5>
+<p>在x86-64中，最多可以通过寄存器传递6个整型（整数和指针）参数。且寄存器的使用是有特殊顺序的，按照%rdi, %rsi, %rdx, %rcx, %r8, %r9进行调用。</p>
+<p>如果函数有大于6个整型参数，超出的部分就需要通过栈来传递。第7～n个参数存储在栈中，每个数据的占用地址都向8的倍数对齐，在参数都存储完毕后，再调用<code>call</code>将返回地址压入栈中，并将指令控制转移。</p>
+<h5 id="寄存器中的局部存储空间">寄存器中的局部存储空间</h5>
+<p>我们要确保一个过程P调用另一个过程Q时，Q的行为不会改变P稍后将要使用的寄存器中的值。为此x86-64采用了一组统一的寄存器使用惯例。</p>
+<p>对于寄存器%rbx、%rbp和%r12～%r15中的值，被调用者Q不会修改它们。要么是Q根据不会使用这些寄存器，要么是在使用前，会先将寄存器中的初始值压入栈中，在使用了寄存器，改变了该寄存器的值之后，再从栈中弹出初始值存入寄存器中，从而保证该寄存器的值在返回到P时不变。</p>
+<p>对于其余寄存器，除了栈顶指针%rsp，都属于任何过程都可修改的寄存器。</p>
+<h4 id="数组分配和访问">数组分配和访问</h4>
+<p>通常使用<code>leaq</code>来访问数组元素，设 A 是一个 int 型一维数组，想获取 E[i]，E 的地址存放在寄存器 %rdx 中，而 i 存放在寄存器 %rcx 中，则指令<code>leaq (%rdx, %rcx, 4), %eax</code>即可将 E[i] 存放至 %eax 中。</p>
+<p>对二维数组 <code>T D[R][C]</code> 设数据类型 T 的字节大小为 L，则<span class="math inline">\(\&amp;D[i][j] = x_0 + L(C \cdot i + j)\)</span>，其中<span class="math inline">\(x_0\)</span>为数组 D 的首地址。</p>
+<h4 id="结构与联合">结构与联合</h4>
+<p>结构体分配一片内存空间。要注意的是，许多计算机系统对基本数据类型的合法地址做出了一些限制，通常对一个占用 K 字节的数据类型，要求其起始地址为 K 的倍数。</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">S1</span> &#123;</span></span><br><span class="line">    <span class="keyword">int</span> i;</span><br><span class="line">    <span class="keyword">char</span> c;</span><br><span class="line">    <span class="keyword">int</span> j;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">/* </span></span><br><span class="line"><span class="comment">	占用的内存空间本应该为</span></span><br><span class="line"><span class="comment">   0    4 5    9</span></span><br><span class="line"><span class="comment">	---- - ----</span></span><br><span class="line"><span class="comment">   |i   |c|j   |</span></span><br><span class="line"><span class="comment">    ---- - ----</span></span><br><span class="line"><span class="comment">    但由于内存对齐，实际上为</span></span><br><span class="line"><span class="comment">   0    4    8    12</span></span><br><span class="line"><span class="comment">    ---- ---- ----</span></span><br><span class="line"><span class="comment">   |i   |c   |j   |</span></span><br><span class="line"><span class="comment">    ---- ---- ----</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+<p>对于联合中定义的多个变量，占用的内存空间为其中最多的一个，每次只是根据调用的值不同，选择不同的解释方式，不改变这段内存空间的二进制表示。因此联合可将一个整数值，按二进制位解释为浮点数，做出转换。如下所示。</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">union</span> &#123;</span></span><br><span class="line">    <span class="keyword">int</span> a;</span><br><span class="line">    <span class="keyword">float</span> f;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">float</span> <span class="title">i2f</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">    <span class="class"><span class="keyword">union</span> <span class="title">tmp</span>;</span></span><br><span class="line">    tmp.a = n;</span><br><span class="line">   	<span class="keyword">return</span> tmp.f;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="使用gdb调试">使用GDB调试</h4>
+<p>一些GDB的调试命令</p>
+<p><img src="/Users/sheldon/Blog/source/images/《深入理解计算机系统》学习笔记/gdb_cmd.png" alt="gdb_cmd" style="zoom:50%;" /></p>
+<h4 id="内存越界引用和缓冲区溢出">内存越界引用和缓冲区溢出</h4>
+<p>通常在栈中分配一个字符数组保存一个字符串时，如果用 gets() 函数读入，如果字符串的长度超出了为数组分配的空间，就会导致内存越界访问，更严重时如果读入的字符串覆盖了返回地址，就会导致缓冲区溢出。函数无法找到该返回的位置。</p>
+<p>更致命的是可以给程序输入一个字符串，这个字符串保护一些可执行代码的字节编码，称为攻击代码，还有一些字节会覆盖原本的返回地址，从而使程序在返回时跳转到攻击代码。</p>
+<p>一些对抗缓冲区溢出攻击的方法：</p>
+<ol type="1">
+<li><p>栈随机化</p>
+<p>在远古的机器上，栈的位置是相当固定的。因此，如果一个攻击者确定了一个常见的 Web服务器所使用的栈空间，那就可以对很多的机器都发起攻击，即许多系统都容易受到同一种病毒的攻击，这种现象称为安全单一化 (security monoculture) .</p>
+<p>栈随机化的思想即是让程序每次运行时，栈的位置都有所变化，使得不是很多机器都容易受到单一的攻击。但是攻击者总是可以用暴力破解这种随机化。</p></li>
+<li><p>栈破坏检测</p>
+<p>GCC在产生的代码中加入栈保护机制，其思想是在返回地址与局部缓冲区中插入一段特殊的 canary 值。（这个名字的来源是矿工在下矿井的时候往往会带一只金丝雀，因为其对有毒气体比较敏感，帮助侦测是不是有有毒气体）之后在程序需要返回时，判断 canary 的值是否发生了变化，如果发生了变化，证明发生了缓冲区溢出，则让程序异常中止。</p></li>
+<li><p>限制可执行代码区域</p>
+<p>这种思想是限制栈中的哪些内存区域是可执行的，哪些是不可执行的，这样即是被注入了攻击代码，这段代码只要不在可执行的内存区域内，自然也无法被执行。</p></li>
+</ol>
+<h4 id="支持变长栈帧">支持变长栈帧</h4>
+<p>为了管理变长栈帧，x86-64 代码使用寄存器%rbp作为帧指针 (frame pointer) ，有时也称为基指针 (base pointer)。用于记录一个栈帧的起始地址，在程序需要返回时，只需要将%rsp设置为%rbp，并弹出%rbp即可。</p>
+<h4 id="浮点代码">浮点代码</h4>
+<h5 id="一组浮点数寄存器ymm-256位">一组浮点数寄存器YMM (256位)</h5>
+<p><img src="/Users/sheldon/Blog/source/images/《深入理解计算机系统》学习笔记/media_register.png" alt="media_register" style="zoom:50%;" /></p>
+<h5 id="浮点数移动指令">浮点数移动指令</h5>
+<p><img src="/Users/sheldon/Blog/source/images/《深入理解计算机系统》学习笔记/float_move.png" alt="float_move" style="zoom:50%;" /></p>
+<h5 id="浮点数类型转换指令">浮点数类型转换指令</h5>
+<p><img src="/Users/sheldon/Blog/source/images/《深入理解计算机系统》学习笔记/float_int_conversion.png" alt="float_int_conversion" style="zoom:50%;" /></p>
+<h5 id="浮点数算术运算指令">浮点数算术运算指令</h5>
+<p><img src="/Users/sheldon/Blog/source/images/《深入理解计算机系统》学习笔记/float_arith_op.png" alt="float_arith_op" style="zoom:50%;" /></p>
+<h5 id="浮点数位运算指令">浮点数位运算指令</h5>
+<p><img src="/Users/sheldon/Blog/source/images/《深入理解计算机系统》学习笔记/float_bit_op.png" alt="float_bit_op" style="zoom:50%;" /></p>
+<h5 id="浮点数比较指令">浮点数比较指令</h5>
+<p><img src="/Users/sheldon/Blog/source/images/《深入理解计算机系统》学习笔记/float_cmp.png" alt="float_cmp" style="zoom:50%;" /></p>
+]]></content>
+      <categories>
+        <category>笔记</category>
+      </categories>
+      <tags>
+        <tag>CS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>基于Hexo+Github搭建个人博客</title>
+    <url>/2021/10/31/%E5%9F%BA%E4%BA%8EHexo+Github%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/</url>
+    <content><![CDATA[<p>本文在mac OS11.6环境下进行配置，出现的一些问题在文末进行总结。</p>
+<h5 id="安装node.js">安装Node.js</h5>
+<p>可通过在terminal中运行</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">brew install node.js</span><br></pre></td></tr></table></figure>
+<p>安装Node.js，可通过</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">node -v</span><br></pre></td></tr></table></figure>
+<p>查看node版本，确认是否成功安装。</p>
+<figure>
+<img src="/images/截屏2021-10-31%20下午9.01.46.png" alt="node版本" /><figcaption aria-hidden="true">node版本</figcaption>
+</figure>
+<span id="more"></span>
+<h5 id="安装git">安装git</h5>
+<p>通过安装Xcode Command Line Tools即带有git，可通过</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git --version</span><br></pre></td></tr></table></figure>
+<p>查看git的版本，确认是否成功安装。</p>
+<figure>
+<img src="/images/截屏2021-10-31%20下午9.02.07.png" alt="git版本" /><figcaption aria-hidden="true">git版本</figcaption>
+</figure>
+<h5 id="注册获取github仓库">注册获取GitHub仓库</h5>
+<p>注册一个github账号，在Your repositories里新建一个仓库，其中repository name填username.github.io</p>
+<figure>
+<img src="/images/截屏2021-10-31%20下午9.08.01.png" alt="创建GitHub仓库" /><figcaption aria-hidden="true">创建GitHub仓库</figcaption>
+</figure>
+<h5 id="安装hexo">安装Hexo</h5>
+<p>在你要存储你的博客文件的地方开始安装Hexo，可通过</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">npm i hexo-cli -g</span><br></pre></td></tr></table></figure>
+<p>安装Hexo。</p>
+<figure>
+<img src="/images/截屏2021-10-31%20下午9.10.47.png" alt="安装Hexo" /><figcaption aria-hidden="true">安装Hexo</figcaption>
+</figure>
+<p>之后通过</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo -v</span><br></pre></td></tr></table></figure>
+<p>确认Hexo版本从而确认是否成功安装。</p>
+<figure>
+<img src="/images/截屏2021-10-31%20下午9.12.37.png" alt="Hexo版本" /><figcaption aria-hidden="true">Hexo版本</figcaption>
+</figure>
+<h5 id="创建博客文件">创建博客文件</h5>
+<p>可通过</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo init Blog</span><br></pre></td></tr></table></figure>
+<p>在当前位置初始化一个名字为Blog的文件夹。</p>
+<p>通过</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cd Blog</span><br></pre></td></tr></table></figure>
+<p>进入Blog文件夹，接着输入</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">npm install</span><br></pre></td></tr></table></figure>
+<p>安装必需的组件。</p>
+<figure>
+<img src="/images/截屏2021-10-31%20下午9.16.05.png" alt="安装必需组件" /><figcaption aria-hidden="true">安装必需组件</figcaption>
+</figure>
+<h5 id="利用hexo初始文件生成本地网页">利用Hexo初始文件生成本地网页</h5>
+<p>通过</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo g</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo s</span><br></pre></td></tr></table></figure>
+<p>生成本地网页并部署至本地服务器。<img src="/images/截屏2021-10-31%20下午9.17.38.png" alt="部署本地网页" /></p>
+<p>这时通过http://localhost:4000即可进入我们的博客预览。</p>
+<figure>
+<img src="/images/截屏2021-10-31%20下午9.19.42.png" alt="博客预览" /><figcaption aria-hidden="true">博客预览</figcaption>
+</figure>
+<p>上图所示即为Hexo提供的初始模版。</p>
+<h5 id="将本地网页部署到github上">将本地网页部署到GitHub上</h5>
+<p>进入博客文件夹位置（上文的Blog）运行如下命令</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git config --global user.name &quot;yourname&quot;</span><br><span class="line">git config --global user.email &quot;youremail&quot;</span><br></pre></td></tr></table></figure>
+<p>之后通过下列命令生成密钥SSH key</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ssh-keygen -t rsa -C &quot;youremail&quot;</span><br></pre></td></tr></table></figure>
+<p>选择文件夹与输入密码和确认密码时都可不填，回车三次即可。</p>
+<p>之后通过下列命令</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cat ~/.ssh/id_rsa.pub</span><br></pre></td></tr></table></figure>
+<p>可返回密钥，将该段内容复制。</p>
+<p>进入GitHub，头像下方的settings，点击SSH and GPG keys，新建一个SSH，Title可随意，Key中填入上面复制的内容。</p>
+<p>回到Terminal输入</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ssh -T git@github.com</span><br></pre></td></tr></table></figure>
+<p>出现下图所示内容则代表GitHub成功与Blog文件夹连接。</p>
+<p><img src="/images/截屏2021-10-31%20下午9.32.30.png" /></p>
+<p>之后通过</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">vim _config.yml</span><br></pre></td></tr></table></figure>
+<p>进入_config.yml进行修改，将最后一行deploy补充为</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">deploy:</span><br><span class="line">  type: git</span><br><span class="line">  repository: git@github.com:yourname/yourname.github.io</span><br><span class="line">  branch: master</span><br></pre></td></tr></table></figure>
+<figure>
+<img src="/images/截屏2021-10-31%20下午9.35.28.png" alt="修改_config.yml" /><figcaption aria-hidden="true">修改_config.yml</figcaption>
+</figure>
+<p>之后保存退出即可。</p>
+<p>最后安装一个拓展，通过下列命令实现</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">npm i hexo-deployer-git</span><br></pre></td></tr></table></figure>
+<p>最后通过下列命令即可将博客部署到Github网页上</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo g</span><br><span class="line">hexo d</span><br></pre></td></tr></table></figure>
+<p>稍等一会即可通过yourname.github.io访问你的博客啦！</p>
+<p>如果部署失败可通过</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo clean</span><br><span class="line">hexo g</span><br><span class="line">hexo d</span><br></pre></td></tr></table></figure>
+<p>再次尝试。</p>
+<h5 id="模版修改">模版修改</h5>
+<p>当然Hexo初始的模版太丑啦，功能也不完全，我们可以到Hexo官网挑选自己喜欢的主题。</p>
+<p>之后通过该主题的官方文档即可完成模版的配置。</p>
+<p>个人比较喜欢的几个模版：Maupassant、NexT、Purer</p>
+<h5 id="博文上传">博文上传</h5>
+<p>将你的文章的.md文件放入Blog文件下的source/_posts即可。</p>
+<h5 id="问题总结">问题总结</h5>
+<p>1.从GitHub获取文件时出现unable to access</p>
+<p>可使用</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">export http_proxy=http://proxyAddress:port</span><br></pre></td></tr></table></figure>
+<p>让Terminal使用代理，此命令只对当前Terminal生效，若想获取永久代理，可自行Google。</p>
+<p>2.安装hero-renderer-sass失败，网络上的常见解决方案对我无效</p>
+<p>目前暂未解决该问题，猜想是默认安装的Node.js版本与默认安装的sass版本不匹配。</p>
+<p>3.本地网页预览正确，部署到网页上后显示有问题</p>
+<p>通过修改站点配置文件_config,yml中的网页url解决。</p>
+]]></content>
+      <categories>
+        <category>萌新之始</category>
+      </categories>
+      <tags>
+        <tag>个人博客</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>《常微分方程》学习笔记</title>
     <url>/2022/01/06/%E5%B8%B8%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B%E7%AC%94%E8%AE%B0/</url>
     <content><![CDATA[<h4 id="变量分离法">变量分离法</h4>
@@ -980,204 +1303,6 @@
       </categories>
       <tags>
         <tag>数学</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>《深入理解计算机系统》学习笔记</title>
-    <url>/2022/03/31/%E3%80%8A%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E3%80%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
-    <content><![CDATA[<h3 id="第二章-信息的表示与处理">第二章 信息的表示与处理</h3>
-<h4 id="信息存储">信息存储</h4>
-<p>大多数计算机使用<span class="math inline">\(8\)</span>位（bit）的块，称为字节（byte），作为最小的可寻址的内存单位，而不是访问内存中单独的位。机器级程序将内存视为一个非常大的字节数组，称为虚拟内存（virtual memory）。</p>
-<p>每台计算机都有一个字长（word size），虚拟地址是以字来编码的，对于一个字长为<span class="math inline">\(w\)</span>位的机器，虚拟地址的范围为<span class="math inline">\(0 ～ 2^w-1\)</span>。所以对于一个<span class="math inline">\(32\)</span>位字长的机器而言，字长限制了虚拟地址的空间为<span class="math inline">\(2^{32}\)</span>，即为<span class="math inline">\(4GB\)</span>。我们知道当代一些程序可能跑起来就需要占用近<span class="math inline">\(10GB\)</span>的内存，显然<span class="math inline">\(32\)</span>位的远古机器是支持不了的。</p>
-<p>对于一个<span class="math inline">\(w\)</span>位的整数，其位表示位<span class="math inline">\([x_{w-1}, x_{w-2}, \cdots, x_1, x_0]\)</span>，其中<span class="math inline">\(x_{w-1}\)</span>是最高有效位，<span class="math inline">\(x_0\)</span>是最低有效位。通常<span class="math inline">\(w\)</span>是<span class="math inline">\(8\)</span>的倍数，这些位就能被分组为字节，其中最高有效字节为<span class="math inline">\([x_{w-1},x_{w-2}, \cdots , x_{w-8}]\)</span>，最低有效字节为<span class="math inline">\([x_7, x_6, \cdots, x_0]\)</span>。</p>
-<span id="more"></span>
-<p>机器存储字节有两种不同的方法：一种称为小端法（little endian），即最低有效字节存储在前，一种称为大端法（big endian），即最高有效字节存储在前。（这两个术语命名的来源在书中有介绍，还挺有趣的，有兴趣的可以翻翻书或自己查一下）。引用书中的例子和图片，考虑0x12345678的存储，两种不同方式的存储如下图所示。对于大部分的计算机，似乎都是采取小端法进行存储。</p>
-<p><img src="/images/《深入理解计算机系统》学习笔记/little&big_endian.png" alt="little&big_endian"></p>
-<h4 id="c语言中的移位运算">C语言中的移位运算</h4>
-<h5 id="左移运算">左移运算</h5>
-<p>对于一个位表示为<span class="math inline">\([x_{w-1}, x_{w-2}, \cdots, x_0]\)</span>的操作数<span class="math inline">\(x\)</span>，x&lt;&lt;k会得到一个位表示为<span class="math inline">\([x_{w-k-1}, x_{w-k-2}, \cdots, x_0, 0, \cdots, 0]\)</span>的值。</p>
-<h5 id="右移运算">右移运算</h5>
-<p>分为两种形式：逻辑右移与算术右移，逻辑右移在左端补<span class="math inline">\(k\)</span>个<span class="math inline">\(0\)</span>，而算术右移在左端补<span class="math inline">\(k\)</span>个最高有效位的值。进行运算x&gt;&gt;k，逻辑右移得到结果为<span class="math inline">\([0, \cdots, 0, x_{w-1}, x_{w-2}, \cdots, x_k]\)</span>，算术右移得到结果为<span class="math inline">\([x_{w-1}, \cdots, x_{w-1}, x_{w-1},x_{w-2}, \cdots, x_k]\)</span>。在C语言中，默认对unsigned类型的数进行逻辑右移，对signed类型的数进行算数右移。</p>
-<h4 id="整数表示">整数表示</h4>
-<p>记位向量<span class="math inline">\(\vec{x} = [x_{w-1}, x_{w-2}, \cdots, x_0]\)</span></p>
-<h5 id="无符号数编码">无符号数编码</h5>
-<p><span class="math inline">\(B2U_w(\vec{x}) := \sum\limits_{i = 0}^{w-1}x_i 2^i\)</span></p>
-<h5 id="补码编码">补码编码</h5>
-<p><span class="math inline">\(B2T_w(\vec{x}) := -x_{w-1}2^{w-1} + \sum\limits_{i = 0}^{w-2}x_i 2^i\)</span></p>
-<h5 id="有符号数与无符号数之间的转换">有符号数与无符号数之间的转换</h5>
-<p>对于C语言来说，只从位级的角度来看，比如有符号数<span class="math inline">\(-1\)</span>的补码表示为0xFFFFFFFF，转化为无符号数会得到<span class="math inline">\(2^{32}-1\)</span>，即C语言在转化时，只是对相同的位表示，采用不用的解释，从而得到有符号或无符号数。从而我们可以定义<span class="math inline">\(T2U_w(x) := B2U_w(T2B_w(x))\)</span>，<span class="math inline">\(U2T_w(x):=B2T_w(U2B_w(x))\)</span></p>
-<p>同时我们容易观察到上述函数具有以下性质：</p>
-<p><span class="math inline">\(T2U_w(x) = \left\{ \begin{array}{l}x+2^w, &amp; x &lt; 0 \\ x, &amp; x \geq 0 \end{array} \right.\)</span></p>
-<p><span class="math inline">\(U2T_w(u) = \left\{ \begin{array}{l}u, &amp; u \leq TMax_w \\ u-2^w, &amp; u &gt; TMax_w \end{array} \right.\)</span></p>
-<h5 id="扩展一个数字的位表示">扩展一个数字的位表示</h5>
-<p>如果要把字长较长的整数转化为字长较短的，显然在某些情况下是会出现溢出而无法表示的。如果要把字长较短的整数扩展为字长较长的，这总是可以做到的。</p>
-<p>对无符号数只需进行零扩展，即将<span class="math inline">\(w\)</span>位的位向量<span class="math inline">\(\vec{u}=[u_{w-1},u_{w-2}, \cdots, u_0]\)</span>扩展为<span class="math inline">\(w&#39;(w&#39; &gt; w)\)</span>位的位向量<span class="math inline">\(\vec{u}&#39; = [0, \cdots, 0, u_{w-1}, u_{w-2}, \cdots, u_0]\)</span></p>
-<p>对补码数进行符号扩展，即将<span class="math inline">\(w\)</span>位的位向量<span class="math inline">\(\vec{x}=[x_{w-1},x_{w-2}, \cdots, x_0]\)</span>扩展为<span class="math inline">\(w&#39;(w&#39; &gt; w)\)</span>位的位向量<span class="math inline">\(\vec{x}&#39; = [x_{w-1}, \cdots, x_{w-1}, x_{w-1}, x_{w-2}, \cdots, x_0]\)</span></p>
-<p>容易验证对补码数采取符号扩展后，整数值不变。</p>
-<h5 id="截断数字">截断数字</h5>
-<p>对一个整数做截断时，可能会出现溢出改变它的值。</p>
-<p>对无符号数和补码数进行截断的方式相同，即将<span class="math inline">\(w\)</span>位的位向量<span class="math inline">\(\vec{x}=[x_{w-1},x_{w-2}, \cdots, x_0]\)</span>，截断为<span class="math inline">\(k\)</span>位的位向量<span class="math inline">\(\vec{x}&#39; = [x_{k-1},x_{k-2}, \cdots, x_0]\)</span>，之后按照无符号数或补码数的方式，对该<span class="math inline">\(k\)</span>位的位向量进行解释得到对应的整数值。</p>
-<h4 id="整数运算">整数运算</h4>
-<h5 id="加法">加法</h5>
-<p>无符号数加法</p>
-<p><span class="math inline">\(x+_w^uy = \left\{ \begin{array}{l} x+y, &amp; x+y &lt; 2^w &amp; Normal \\ x+y-2^w,&amp;2^w \leq x+y &lt; 2^{w+1} &amp; Overflow \end{array} \right.\)</span></p>
-<p>无符号数加法逆元</p>
-<p><span class="math inline">\(-^u_wx = \left\{ \begin{array}{l}x, &amp; x = 0 \\ 2^w - x, &amp; x &gt; 0 \end{array} \right.\)</span></p>
-<p>补码加法</p>
-<p><span class="math inline">\(x+_w^ty = \left\{\begin{array}{l}x+y-2^w, &amp; 2^{w-1} \leq x+y &amp; positive\ overflow \\ x+y, &amp; -2^{w-1} \leq x+y &lt; w^{w-1} &amp; normal \\ x+y + 2^w, &amp; x+y &lt; -2^{w-1} &amp; negative \ overflow \end{array} \right.\)</span></p>
-<p>补码加法逆元</p>
-<p><span class="math inline">\(-_w^tx = \left\{ \begin{array}{l}TMin_w, &amp; x = TMin_w \\ -x, &amp; x &gt; TMin_w \end{array} \right.\)</span></p>
-<h5 id="乘法">乘法</h5>
-<p>无符号乘法</p>
-<p><span class="math inline">\(x*_w^uy = (x \cdot y) mod 2^w\)</span></p>
-<p>补码乘法</p>
-<p><span class="math inline">\(x*_w^ty = U2T_w((x*_w^u y) mod 2^w)\)</span></p>
-<p>把补码位的<span class="math inline">\(1\)</span>视为<span class="math inline">\(-1\)</span>（因为补码位的权重是<span class="math inline">\(-2^{w-1}\)</span>），即可利用乘法竖式的形式进行补码的乘法运算，得到补码乘法结果的二进制表示。</p>
-<p>乘除以常数</p>
-<p>乘以或除以2的幂可以通过移位得到，同时由于整数乘除法指令比较慢，乘法需要10个甚至更多的时钟周期，除法更是需要30个甚至更多的时钟周期，而加减和移位运算只需要1个时钟周期，因此编译器在编译时，会尝试用移位和加减法运算组合来代替乘除法，如x*14，编译器可以将其替换为(x&lt;&lt;4) - (x&lt;&lt;1)。</p>
-<p>在进行右移时，无论正负数都采取向下取整，即7&gt;&gt;1 = 3，-9&gt;&gt;2 = -2，如果希望向上取整，则需要利用一个小trick，通过加上一个偏置来实现，即<span class="math inline">\(\lceil \frac{x}{y} \rceil = \lfloor \frac{x+y-1}{y} \rfloor\)</span></p>
-<h4 id="浮点数">浮点数</h4>
-<h5 id="ieee浮点数表示">IEEE浮点数表示</h5>
-<p>IEEE浮点数标准采用<span class="math inline">\(V = (-1)^s \times 2^E \times M\)</span>的形式来表示一个数。</p>
-<p>一个单独的符号位<span class="math inline">\(s\)</span>直接编码符号<span class="math inline">\(s\)</span>，<span class="math inline">\(k\)</span>位阶码字段<span class="math inline">\(exp=e_{k-1}\cdots e_1 e_0\)</span>编码阶码<span class="math inline">\(E\)</span>，<span class="math inline">\(n\)</span>位小数字段<span class="math inline">\(frac = f_{n-1}\cdots f_1 f_0\)</span>编码尾数<span class="math inline">\(M\)</span>。</p>
-<p>在C语言里，单精度浮点数（float）的s、exp和frac字段分别为1位、k=8位和n=23位，总共为一个32位的表示；双精度浮点数的s、exp和frac字段分别为1位、k=11位和n=52位，总共为一个64位的表示。</p>
-<p>根据exp的值，被编码的值可以分为以下几种情况：</p>
-<ol type="1">
-<li><p>Normalized Values</p>
-<p>当exp不全为1且不全为0时，exp的位按照无符号整数进行解释得到e，e的范围在<span class="math inline">\(1～2^{k}-2\)</span>，通过减去一个偏置（Bias）得到<span class="math inline">\(E\)</span>的值，<span class="math inline">\(Bias = 2^{k-1}-1\)</span>，<span class="math inline">\(E = e-Bias\)</span>，从而<span class="math inline">\(E\)</span>的范围为<span class="math inline">\([-2^{k-1}+2 , 2^{k-1}-1]\)</span>，对于单精度而言是<span class="math inline">\(-126～+127\)</span>，对于双精度而言是<span class="math inline">\(-1022 ～ +1023\)</span>.</p>
-<p>小数字段frac被解释为小数值f，其二进制表示为<span class="math inline">\(0.f_{n-1} \cdots f_1 f_0\)</span>，尾数定义为<span class="math inline">\(M = 1+f\)</span>。这种定义方式同样是一种trick，因为我们总是能调整<span class="math inline">\(E\)</span>的值，使得<span class="math inline">\(M\)</span>在范围<span class="math inline">\(1 \leq M &lt; 2\)</span>中，这样<span class="math inline">\(M\)</span>总是能表示为<span class="math inline">\(1.f_{n-1} \cdots f_1 f_0\)</span>，利用这种技巧，我们可以获得一个额外的精度位，而不需要去表示这个<span class="math inline">\(1\)</span>，这表示方式称为implied leading 1.</p></li>
-<li><p>Denormalized Values</p>
-<p>当exp的位表示全为0时，阶码值为<span class="math inline">\(E = 1-Bias\)</span>，而尾数<span class="math inline">\(M = f\)</span>，通过这种设定，我们能发现浮点数值的增长与二进制位的增长是一致的。不考虑符号位，这种情况下最小的数可以表示0，而在Normalized的情况下显然无法表示0，这种情况的最大数为<span class="math inline">\(00\cdots 0 1 \cdots 1\)</span>，表示<span class="math inline">\(V = 2^{1-(2^{k-1}-1)} \cdot(1-2^{-n})\)</span>，在Normalized的情况下，最小数为<span class="math inline">\(00 \cdots 1 0 \cdots 0\)</span>，此时<span class="math inline">\(V = 2^{1-(2^{k-1}-1)} \cdot (1+0)\)</span>，从而保证了浮点数定义的连续性。</p></li>
-<li><p>Special Values</p>
-<p>当exp的位表示全为1时，如果frac的位表示全为0，则当<span class="math inline">\(s=0\)</span>时代表<span class="math inline">\(+\infty\)</span>，当<span class="math inline">\(s = 1\)</span>时代表<span class="math inline">\(- \infty\)</span>。如果frac的位表示不全为0，则结果值代表NaN（Not a Number）</p></li>
-</ol>
-<p>截取书中的图片（一个8位的浮点数表示，1位符号位，4位指数位，3位小数位）作为位表示的例子</p>
-<p><img src="/images/《深入理解计算机系统》学习笔记/8bits_expr.png" alt="8bits_expr" style="zoom:50%;" /></p>
-<h5 id="舍入">舍入</h5>
-<p>常用的4种方式：Round-to-even, Round-toward-zero, Round-down, Round-up</p>
-<p>后三种方式容易理解，第一种方式即我们常说的四舍五入，但是要向偶数舍入，即1.5和2.5舍入后都得到2，3.145和3.135舍入后都得到3.14。</p>
-<h5 id="浮点运算">浮点运算</h5>
-<p>要注意浮点数运算不满足结合律，比如<span class="math inline">\((3.14+1e50)-1e50\)</span>会得到<span class="math inline">\(0\)</span>，但是<span class="math inline">\(3.14+(1e50-1e50)\)</span>会得到<span class="math inline">\(3.14\)</span>，这是由于浮点精度的误差导致的。</p>
-]]></content>
-      <categories>
-        <category>笔记</category>
-      </categories>
-      <tags>
-        <tag>CS</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>基于Hexo+Github搭建个人博客</title>
-    <url>/2021/10/31/%E5%9F%BA%E4%BA%8EHexo+Github%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/</url>
-    <content><![CDATA[<p>本文在mac OS11.6环境下进行配置，出现的一些问题在文末进行总结。</p>
-<h5 id="安装node.js">安装Node.js</h5>
-<p>可通过在terminal中运行</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">brew install node.js</span><br></pre></td></tr></table></figure>
-<p>安装Node.js，可通过</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">node -v</span><br></pre></td></tr></table></figure>
-<p>查看node版本，确认是否成功安装。</p>
-<figure>
-<img src="/images/截屏2021-10-31%20下午9.01.46.png" alt="node版本" /><figcaption aria-hidden="true">node版本</figcaption>
-</figure>
-<span id="more"></span>
-<h5 id="安装git">安装git</h5>
-<p>通过安装Xcode Command Line Tools即带有git，可通过</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git --version</span><br></pre></td></tr></table></figure>
-<p>查看git的版本，确认是否成功安装。</p>
-<figure>
-<img src="/images/截屏2021-10-31%20下午9.02.07.png" alt="git版本" /><figcaption aria-hidden="true">git版本</figcaption>
-</figure>
-<h5 id="注册获取github仓库">注册获取GitHub仓库</h5>
-<p>注册一个github账号，在Your repositories里新建一个仓库，其中repository name填username.github.io</p>
-<figure>
-<img src="/images/截屏2021-10-31%20下午9.08.01.png" alt="创建GitHub仓库" /><figcaption aria-hidden="true">创建GitHub仓库</figcaption>
-</figure>
-<h5 id="安装hexo">安装Hexo</h5>
-<p>在你要存储你的博客文件的地方开始安装Hexo，可通过</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">npm i hexo-cli -g</span><br></pre></td></tr></table></figure>
-<p>安装Hexo。</p>
-<figure>
-<img src="/images/截屏2021-10-31%20下午9.10.47.png" alt="安装Hexo" /><figcaption aria-hidden="true">安装Hexo</figcaption>
-</figure>
-<p>之后通过</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo -v</span><br></pre></td></tr></table></figure>
-<p>确认Hexo版本从而确认是否成功安装。</p>
-<figure>
-<img src="/images/截屏2021-10-31%20下午9.12.37.png" alt="Hexo版本" /><figcaption aria-hidden="true">Hexo版本</figcaption>
-</figure>
-<h5 id="创建博客文件">创建博客文件</h5>
-<p>可通过</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo init Blog</span><br></pre></td></tr></table></figure>
-<p>在当前位置初始化一个名字为Blog的文件夹。</p>
-<p>通过</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cd Blog</span><br></pre></td></tr></table></figure>
-<p>进入Blog文件夹，接着输入</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">npm install</span><br></pre></td></tr></table></figure>
-<p>安装必需的组件。</p>
-<figure>
-<img src="/images/截屏2021-10-31%20下午9.16.05.png" alt="安装必需组件" /><figcaption aria-hidden="true">安装必需组件</figcaption>
-</figure>
-<h5 id="利用hexo初始文件生成本地网页">利用Hexo初始文件生成本地网页</h5>
-<p>通过</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo g</span><br></pre></td></tr></table></figure>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo s</span><br></pre></td></tr></table></figure>
-<p>生成本地网页并部署至本地服务器。<img src="/images/截屏2021-10-31%20下午9.17.38.png" alt="部署本地网页" /></p>
-<p>这时通过http://localhost:4000即可进入我们的博客预览。</p>
-<figure>
-<img src="/images/截屏2021-10-31%20下午9.19.42.png" alt="博客预览" /><figcaption aria-hidden="true">博客预览</figcaption>
-</figure>
-<p>上图所示即为Hexo提供的初始模版。</p>
-<h5 id="将本地网页部署到github上">将本地网页部署到GitHub上</h5>
-<p>进入博客文件夹位置（上文的Blog）运行如下命令</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git config --global user.name &quot;yourname&quot;</span><br><span class="line">git config --global user.email &quot;youremail&quot;</span><br></pre></td></tr></table></figure>
-<p>之后通过下列命令生成密钥SSH key</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ssh-keygen -t rsa -C &quot;youremail&quot;</span><br></pre></td></tr></table></figure>
-<p>选择文件夹与输入密码和确认密码时都可不填，回车三次即可。</p>
-<p>之后通过下列命令</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cat ~/.ssh/id_rsa.pub</span><br></pre></td></tr></table></figure>
-<p>可返回密钥，将该段内容复制。</p>
-<p>进入GitHub，头像下方的settings，点击SSH and GPG keys，新建一个SSH，Title可随意，Key中填入上面复制的内容。</p>
-<p>回到Terminal输入</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ssh -T git@github.com</span><br></pre></td></tr></table></figure>
-<p>出现下图所示内容则代表GitHub成功与Blog文件夹连接。</p>
-<p><img src="/images/截屏2021-10-31%20下午9.32.30.png" /></p>
-<p>之后通过</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">vim _config.yml</span><br></pre></td></tr></table></figure>
-<p>进入_config.yml进行修改，将最后一行deploy补充为</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">deploy:</span><br><span class="line">  type: git</span><br><span class="line">  repository: git@github.com:yourname/yourname.github.io</span><br><span class="line">  branch: master</span><br></pre></td></tr></table></figure>
-<figure>
-<img src="/images/截屏2021-10-31%20下午9.35.28.png" alt="修改_config.yml" /><figcaption aria-hidden="true">修改_config.yml</figcaption>
-</figure>
-<p>之后保存退出即可。</p>
-<p>最后安装一个拓展，通过下列命令实现</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">npm i hexo-deployer-git</span><br></pre></td></tr></table></figure>
-<p>最后通过下列命令即可将博客部署到Github网页上</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo g</span><br><span class="line">hexo d</span><br></pre></td></tr></table></figure>
-<p>稍等一会即可通过yourname.github.io访问你的博客啦！</p>
-<p>如果部署失败可通过</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo clean</span><br><span class="line">hexo g</span><br><span class="line">hexo d</span><br></pre></td></tr></table></figure>
-<p>再次尝试。</p>
-<h5 id="模版修改">模版修改</h5>
-<p>当然Hexo初始的模版太丑啦，功能也不完全，我们可以到Hexo官网挑选自己喜欢的主题。</p>
-<p>之后通过该主题的官方文档即可完成模版的配置。</p>
-<p>个人比较喜欢的几个模版：Maupassant、NexT、Purer</p>
-<h5 id="博文上传">博文上传</h5>
-<p>将你的文章的.md文件放入Blog文件下的source/_posts即可。</p>
-<h5 id="问题总结">问题总结</h5>
-<p>1.从GitHub获取文件时出现unable to access</p>
-<p>可使用</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">export http_proxy=http://proxyAddress:port</span><br></pre></td></tr></table></figure>
-<p>让Terminal使用代理，此命令只对当前Terminal生效，若想获取永久代理，可自行Google。</p>
-<p>2.安装hero-renderer-sass失败，网络上的常见解决方案对我无效</p>
-<p>目前暂未解决该问题，猜想是默认安装的Node.js版本与默认安装的sass版本不匹配。</p>
-<p>3.本地网页预览正确，部署到网页上后显示有问题</p>
-<p>通过修改站点配置文件_config,yml中的网页url解决。</p>
-]]></content>
-      <categories>
-        <category>萌新之始</category>
-      </categories>
-      <tags>
-        <tag>个人博客</tag>
       </tags>
   </entry>
 </search>
