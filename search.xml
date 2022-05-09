@@ -855,9 +855,9 @@
 <p>指导书中给出了<code>touch2(unsigned val)</code>函数，我们知道需要传入一个参数，而且参数必须和给我们的cookie相等，才能运行<code>validate(2)</code>从而通过第二题。同时我们知道调用<code>touch2</code>时，传入的参数是存在<code>%rdi</code>中的。（可以复习一下，调用函数时，整数或指针的参数不超过6个时，按照%rdi, %rsi, %rdx, %rcx, %r8, %r9的顺序进行调用）因此我们需要做的就是先让<code>%rdi</code>存储我们的cookie值，再调用<code>touch2</code>函数，相比上一题，就是多了一步需要先传一次值。查找一下知道<code>touch2</code>函数的位置在<code>0x4017ec</code>中。此时我们希望我们的程序能先运行<code>movq $0x59b997fa, %rdi</code>，那就需要将这个指令注入程序里，那该放在哪里呢？最简单的想法是不是把这几条指令放在我们的输入的buf中。在我们给<code>%rdi</code>赋值为我们的cookie后，还需要跳转到<code>touch2</code>，所以我们需要执行的汇编指令应该是以下几条</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">movq $0x59b997fa, %rdi</span><br><span class="line">pushq $0x4017ec</span><br><span class="line">ret</span><br></pre></td></tr></table></figure>
 <p>指导书中给了我们提示，我们可以将上述汇编指令存入<code>asm2.s</code>文件中，使用<code>gcc -c asm2.s</code>得到<code>asm2.0</code>，再使用<code>objdump -d asm2.o</code>即可反汇编得到上述指令的机器码。</p>
-<p><img src="images/《CSAPP》实验解析/attack_touch2.png" alt="attack_touch2" style="zoom:50%;" /></p>
+<p><img src="/images/《CSAPP》实验解析/attack_touch2.png" alt="attack_touch2" style="zoom:50%;" /></p>
 <p>因此我们可以在输入的内容中插入上述的指令，再修改ret的地址，让其跳转到我们输入指令的位置。最简单的位置肯定是将上述指令放在<code>getbuf</code>分配的栈的栈顶，因为我们可以直接查看到这个位置是什么。在0x4017a8处分配了栈空间之后，我们可以利用gdb调试工具，在0x4017ac处打个断点，再运行程序至断点后，查看一下%rsp的位置，即是我们注入代码的位置，如下图所示，%rsp位于0x5561dc78</p>
-<p><img src="images/《CSAPP》实验解析/attack_gdb.png" alt="attack_gdb" style="zoom:50%;" /></p>
+<p><img src="/images/《CSAPP》实验解析/attack_gdb.png" alt="attack_gdb" style="zoom:50%;" /></p>
 <p>因此我们可以新建<code>touch2.txt</code>文件，内容如下</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">48 c7 c7 fa 97 b9 59 68</span><br><span class="line">ec 17 40 00 c3 00 00 00</span><br><span class="line">00 00 00 00 00 00 00 00</span><br><span class="line">00 00 00 00 00 00 00 00</span><br><span class="line">00 00 00 00 00 00 00 00</span><br><span class="line">78 dc 61 55 00 00 00 00</span><br></pre></td></tr></table></figure>
 <p>同第一题的操作，即可通过第二题。</p>
