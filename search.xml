@@ -646,7 +646,9 @@
 <p>移动到文件头<code>gg</code> 移动到文件尾<code>G</code></p>
 <p>当一行长文字被显示为两行时，如下图所示，若要让光标从<code>t</code>移动到<code>y</code>，直接按<code>j</code>是无法实现的</p>
 <p>到视角上的下一行<code>gj</code> 视角上的上一行<code>gk</code></p>
-<p><img src="/Users/sheldon/Library/Application Support/typora-user-images/截屏2022-01-17 上午9.59.40.png" alt="截屏2022-01-17 上午9.59.40" style="zoom:50%;" /></p>
+<figure>
+<img src="/images/截屏2022-01-17%20上午9.59.40.png" alt="截屏2022-01-17 上午9.59.40" /><figcaption aria-hidden="true">截屏2022-01-17 上午9.59.40</figcaption>
+</figure>
 <h4 id="vim文本搜索与替换">vim文本搜索与替换</h4>
 <p><code>:set hlsearch</code>可以设置为将搜索结果高亮显示</p>
 <p>搜索文本<code>/</code> 到下一个搜索到的文本<code>n</code> 到上一个搜索到的文本<code>N</code></p>
@@ -768,6 +770,280 @@
       </categories>
       <tags>
         <tag>编辑器</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>《常微分方程》学习笔记</title>
+    <url>/2022/01/06/%E5%B8%B8%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B%E7%AC%94%E8%AE%B0/</url>
+    <content><![CDATA[<h4 id="变量分离法">变量分离法</h4>
+<h5 id="变量分离方程fracdydx-fxgy">变量分离方程：<span class="math inline">\(\frac{dy}{dx} = f(x)g(y)\)</span></h5>
+<p>当<span class="math inline">\(g(y) \neq 0\)</span>，<span class="math inline">\(\frac{dy}{g(y)} = f(x)dx\)</span>，解为<span class="math inline">\(\int\frac{1}{g(y)}dy = \int f(x)dx +c\)</span></p>
+<p>若<span class="math inline">\(g(y_0) = 0\)</span>，则<span class="math inline">\(y = y_0\)</span>也是方程的解</p>
+<p><span class="math inline">\(Ex.\)</span> <span class="math inline">\(\frac{dy}{dx} = 2x(1-y^2)^{\frac{1}{2}}\)</span></p>
+<span id="more"></span>
+<h5 id="齐次方程fracdydx-gfracyx">齐次方程：<span class="math inline">\(\frac{dy}{dx} = g(\frac{y}{x})\)</span></h5>
+<p>令<span class="math inline">\(u=\frac{y}{x}\)</span>，则<span class="math inline">\(x\frac{du}{dx}+u=g(u)\)</span>，从而<span class="math inline">\(\frac{du}{dx} = \frac{g(u)-u}{x}\)</span>即为变量分离方程</p>
+<p><span class="math inline">\(Ex.\)</span> <span class="math inline">\(x\frac{dy}{dx} = y+\sqrt{x^2-y^2}\)</span></p>
+<p><span class="math inline">\(Ex.\)</span> <span class="math inline">\(\frac{dy}{dx} = \frac{2xye^{(\frac{x}{y})^2}}{y^2+y^2e^{(\frac{x}{y})^2}+2x^2e^{(\frac{x}{y})^2}}\)</span></p>
+<h5 id="形如fracdydx-fraca_1xb_1yc_1a_2xb_2yc_2">形如<span class="math inline">\(\frac{dy}{dx} = \frac{a_1x+b_1y+c_1}{a_2x+b_2y+c_2}\)</span></h5>
+<p>利用平移变换可化为齐次方程</p>
+<p><span class="math inline">\(Ex.\)</span> <span class="math inline">\(\frac{dy}{dx} = \frac{2x-y+1}{x-2y+1}\)</span></p>
+<h4 id="一阶线性微分方程常数变易法">一阶线性微分方程常数变易法</h4>
+<p><span class="math inline">\(y&#39; = P(x)y+Q(x)\)</span></p>
+<p>当<span class="math inline">\(Q(x) = 0\)</span>时，可化为变量分离方程，解为<span class="math inline">\(y=Ce^{\int P(x)dx}\)</span></p>
+<p>通过常数变易<span class="math inline">\(y(x) = C(x)e^{\int P(x)dx}\)</span>代入方程中，可解得<span class="math inline">\(C(x) = \int Q(x)e^{-\int P(x)dx}dx+k\)</span></p>
+<p>因此原方程通解为<span class="math inline">\(y = e^{\int P(x)dx}(\int Q(x)e^{-P(x)dx}dx+k)\)</span></p>
+<p><span class="math inline">\(Ex.\)</span> <span class="math inline">\(\frac{dy}{dx}-\frac{n}{x}y = e^xx^n\)</span></p>
+<p><span class="math inline">\(Ex.\)</span> <span class="math inline">\(\frac{dy}{dx}=\frac{y}{x+y^3}\)</span></p>
+<p><span class="math inline">\(Bernoulli\)</span>方程：<span class="math inline">\(\frac{dy}{dx} = P(x)y+Q(x)y^n\)</span></p>
+<p>两边同乘<span class="math inline">\(y^{-n}\)</span>，可得<span class="math inline">\(y^{-n}\frac{dy}{dx} = P(x)y^{1-n}+Q(x)\)</span></p>
+<p>令<span class="math inline">\(z = y^{1-n}\)</span>，则<span class="math inline">\(\frac{dz}{dx} = (1-n)P(x)z+(1-n)Q(x)\)</span></p>
+<p><span class="math inline">\(Ex.\)</span> <span class="math inline">\(\frac{dy}{dx} = \frac{x^4+y^3}{xy^2}\)</span></p>
+<p><span class="math inline">\(Riccati\)</span>方程：<span class="math inline">\(\frac{dy}{dx} = P(x)y+Q(x)y^2+f(x)\)</span></p>
+<p>一般无法精确求解，但若已知一个特解<span class="math inline">\(y^*(x)\)</span>，做变换<span class="math inline">\(y = z+y^*(x)\)</span>，可将方程化为<span class="math inline">\(\frac{dz}{dx} = (P(x)+2Q(x)y^*(x))z+Q(x)z^2\)</span>，即为<span class="math inline">\(n=2\)</span>的<span class="math inline">\(Bernoulli\)</span>方程</p>
+<p><span class="math inline">\(Ex.\)</span> <span class="math inline">\(\frac{dy}{dx}+y^2-3ysinx=cosx-2sin^2x\)</span></p>
+<h4 id="恰当方程与积分因子法">恰当方程与积分因子法</h4>
+<p>恰当方程：<span class="math inline">\(M(x,y)dx+N(x,y)dy=0\)</span>满足<span class="math inline">\(M(x,y)dx+N(x,y)dy=du(x,y) = \frac{\partial u}{\partial x}dx+\frac{\partial u}{\partial y}dy\)</span></p>
+<p>恰当方程的充要条件<span class="math inline">\(\frac{\partial M}{\partial y} = \frac{\partial N}{\partial x}\)</span></p>
+<p>恰当方程的解：观察法或<span class="math inline">\(u(x,y) = \int M(x,y)dx+\int[N(x,y)-\frac{\partial}{\partial y}\int M(x,y)dx]dy\)</span></p>
+<p><span class="math inline">\(Ex.\)</span> <span class="math inline">\([\frac{y^2}{(x-y)^2}-\frac{1}{x^2}]dx+[\frac{1}{y}-\frac{x^2}{(x-y)^2}]dy=0\)</span></p>
+<p>若存在连续可微函数<span class="math inline">\(\mu = \mu(x,y) \neq 0\)</span>，使得<span class="math inline">\(\mu M(x,y)dx+\mu N(x,y)dy=0\)</span>为恰当方程，则称<span class="math inline">\(\mu\)</span>为积分因子</p>
+<p>积分因子的求法</p>
+<p>（1）<span class="math inline">\(\frac{\frac{\partial M}{\partial y}-\frac{\partial N}{\partial x}}{N} = \psi(x)\)</span>或<span class="math inline">\(\frac{\frac{\partial M}{\partial y}-\frac{\partial N}{\partial x}}{-M} = \psi(y)\)</span></p>
+<p>积分因子为<span class="math inline">\(\mu = e^{\int \psi(x)dx}\)</span>或<span class="math inline">\(\mu = e^{\psi(y)dy}\)</span></p>
+<p>（2）<span class="math inline">\(\frac{\frac{\partial M}{\partial y}-\frac{\partial N}{\partial x}}{N\frac{\partial z}{\partial x}-M\frac{\partial z}{\partial y}} = f(z)\)</span></p>
+<p>则<span class="math inline">\(\mu = e^{\int f(z)dz}\)</span></p>
+<p><span class="math inline">\(Ex.\)</span> <span class="math inline">\(ydx+(y-x)dy=0\)</span></p>
+<p>分组积分因子法</p>
+<p>求出每组的积分因子<span class="math inline">\(\mu _1,\mu_2\)</span>与对应的恰当函数<span class="math inline">\(u_1,u_2\)</span>，寻找<span class="math inline">\(\phi, \psi\)</span>，使<span class="math inline">\(\mu = \mu_1\phi(u_1) = \mu_2 \psi(u_2)\)</span></p>
+<p><span class="math inline">\(Ex.\)</span> <span class="math inline">\((5xy-3y^3)dx+(3x^2-7xy^2)=0\)</span></p>
+<h4 id="一阶隐式方程求法">一阶隐式方程求法</h4>
+<p>（1）<span class="math inline">\(y = f(x,y&#39;)\)</span>或<span class="math inline">\(x = f(y, y&#39;)\)</span></p>
+<p>令<span class="math inline">\(y&#39; = p\)</span>，有<span class="math inline">\(y = f(x,p)\)</span>，两边求导得<span class="math inline">\(p = \frac{\partial f}{\partial x} + \frac{dp}{dx}\frac{\partial f}{\partial p}\)</span></p>
+<p>即<span class="math inline">\(\frac{dp}{dx} = \frac{p-\frac{\partial f}{\partial x}}{\frac{\partial f}{\partial p}}\)</span></p>
+<p>从而解出<span class="math inline">\(p = \phi(x, C)\)</span>，代入即得<span class="math inline">\(y = f(x, \phi(x, C))\)</span></p>
+<p><span class="math inline">\(Ex.\)</span> <span class="math inline">\(y = -(\frac{dy}{dx})^2-x\frac{dy}{dx}-\frac{x^2}{2}\)</span></p>
+<p>（2）<span class="math inline">\(f(x,y&#39;)=0\)</span>或<span class="math inline">\(f(y,y&#39;)=0\)</span></p>
+<p>设参数形式为<span class="math inline">\(x = \phi(t), \ p = \psi(t)\)</span>，则<span class="math inline">\(y = \int \psi(t)\phi&#39;(t)dt + C\)</span></p>
+<p>即原方程通解为<span class="math inline">\(\left \{ \begin{array}{lr} x = \phi(t) \\ y = \int \psi(t)\phi&#39;(t)dt +C \end{array} \right.\)</span></p>
+<p><span class="math inline">\(Ex.\)</span> <span class="math inline">\((y&#39;)^3-x^3(1-y&#39;)=0\)</span></p>
+<h4 id="n阶常系数齐线性微分方程解法">n阶常系数齐线性微分方程解法</h4>
+<p><span class="math inline">\(y^{(n)}+a_1y^{(n-1)}+...+a_{n-1}y&#39;+a_ny = 0\)</span></p>
+<p>令<span class="math inline">\(F(\lambda) = \lambda ^n + a_1 \lambda ^{n-1}+...+a_{n-1}\lambda + a_n = 0\)</span>，解出特征根</p>
+<p>（1）特征根都为单根</p>
+<p>设特征根为<span class="math inline">\(\lambda_1,...\lambda_n\)</span></p>
+<p>则原方程通解为<span class="math inline">\(y = c_1e^{\lambda_1x}+c_2e^{\lambda_2x}+...+c_ne^{\lambda_nx}\)</span></p>
+<p>若<span class="math inline">\(\lambda_i = \alpha_i + i \beta_i\)</span>为复根，则<span class="math inline">\(\lambda_i&#39; = \alpha_i-i\beta_i\)</span>也是特征根，故可用<span class="math inline">\(e^{\alpha_ix}cos\beta_ix,\ e^{\alpha_ix}sin\beta_ix\)</span>替代<span class="math inline">\(e^{\lambda_ix},e^{\lambda_i&#39;x}\)</span></p>
+<p>（2）特征根有重根</p>
+<p>设特征方程有<span class="math inline">\(k_i\)</span>重特征根<span class="math inline">\(\lambda_i\)</span>，则方程有<span class="math inline">\(k_i\)</span>个线性无关的解</p>
+<p><span class="math inline">\(e^{\lambda_ix},xe^{\lambda_ix},...,x^{k_i-1}e^{\lambda_ix}\)</span></p>
+<p>若<span class="math inline">\(\lambda_i = \alpha_i+i\beta_i\)</span>，则有解</p>
+<p><span class="math inline">\(e^{\alpha_ix}cos\beta_ix,xe^{\alpha_ix}cos\beta_ix,...,x^{k_i-1}e^{\alpha_ix}cos\beta_ix\)</span></p>
+<p><span class="math inline">\(e^{\alpha_ix}sin\beta_ix,xe^{\alpha_ix}sin\beta_ix,...,x^{k_i-1}e^{\alpha_ix}sin\beta_ix\)</span></p>
+<p><span class="math inline">\(Ex.\)</span> <span class="math inline">\(y^{(7)}-3y^{(6)}+5y^{(5)}-7y^{(4)}+7y^{(3)}-5y^{(2)}+3y&#39;-y=0\)</span></p>
+<p><span class="math inline">\(Euler\)</span>方程：<span class="math inline">\(x^n\frac{d^n y}{dx^n}+a_1x^{n-1}\frac{d^{n-1}y}{dx^{n-1}}+...+a_{n-1}x\frac{dy}{dx}+a_ny = 0\)</span></p>
+<p>做换元<span class="math inline">\(x = e^t\)</span>，有<span class="math inline">\(x^k\frac{d^ky}{dx^k} = D(D-1)...(D-k+1)y\)</span>，<span class="math inline">\(D=\frac{d}{dt}\)</span></p>
+<p>即可将<span class="math inline">\(Euler\)</span>方程变为常系数齐线性微分方程</p>
+<p>即解<span class="math inline">\(F(\lambda) = \lambda(\lambda-1)...(\lambda-n+1)+a_1\lambda(\lambda-1)...(\lambda-n+2)+...+a_{n-1}\lambda+a_n = 0\)</span></p>
+<p>对<span class="math inline">\(k_i\)</span>重根<span class="math inline">\(\lambda_i\)</span>，对应的解为</p>
+<p><span class="math inline">\(x^{\lambda_i},(ln|x|)x^{\lambda_i},...,(ln|x|)^{k_i-1}x^{\lambda_i}\)</span></p>
+<p>若<span class="math inline">\(\lambda_i=\alpha_i+i\beta_i\)</span>，对应有解</p>
+<p><span class="math inline">\(x^{\alpha_i}cos(\beta_iln|x|),x^{\alpha_i}ln|x|cos(\beta_iln|x|),...,x^{\alpha_i}(ln|x|)^{k_i-1}cos(\beta_iln|x|)\)</span></p>
+<p><span class="math inline">\(x^{\alpha_i}sin(\beta_iln|x|),x^{\alpha_i}ln|x|sin(\beta_iln|x|),...,x^{\alpha_i}(ln|x|)^{k_i-1}sin(\beta_iln|x|)\)</span></p>
+<p><span class="math inline">\(Ex.\)</span> <span class="math inline">\(x^2\frac{d^2y}{dx^2}-3x\frac{dy}{dx}+4y=0\)</span></p>
+<h4 id="n阶常系数非齐线性微分方程解法">n阶常系数非齐线性微分方程解法</h4>
+<p>常系数非齐线性微分方程：<span class="math inline">\(y^{(n)}+a_1y^{(n-1)}+...+a_{n-1}y&#39;+a_ny = f(x)\)</span></p>
+<h5 id="常数变易法">常数变易法</h5>
+<p>对<span class="math inline">\(f(x) = 0\)</span>解出<span class="math inline">\(y(x) = C_1y_1(x)+...+C_ny_n(x)\)</span></p>
+<p>将常数变易<span class="math inline">\(y(x) = C_1(x)y_1(x)+...+C_n(x)y_n(x)\)</span></p>
+<p>对<span class="math inline">\(y(x)\)</span>两边求导得<span class="math inline">\(y&#39;(x) = C_1(x)y&#39;_1(x)+...+C_n(x)y&#39;_n(x)+C_1&#39;(x)y_1(x)+...+C_n&#39;(x)y_n(x)\)</span></p>
+<p>令<span class="math inline">\(C_1&#39;(x)y_1(x)+...+C_n&#39;(x)y_n&#39;(x)=0\)</span></p>
+<p>如此求<span class="math inline">\(n-1\)</span>次，得到<span class="math inline">\(n-1\)</span>个方程</p>
+<p>最后关于<span class="math inline">\(x\)</span>求导可得<span class="math inline">\(C_1&#39;(x)y_1^{(n-1)}(x)+...+C&#39;_n(x)y_n^{(n-1)}(x) = f(x)\)</span></p>
+<p>通过解下列线性方程组即可求得<span class="math inline">\(C_1(x),...C_n(x)\)</span></p>
+<p><span class="math inline">\(\left\{\begin{array}{lr} C_1&#39;(x)y_1(x)+...+C_n&#39;(x)y_n(x) = 0 \\ C_1&#39;(x)y_1&#39;(x)+...+C_n&#39;(x)y_n&#39;(x) = 0 \\ ...... \\ C_1&#39;(x)y_1^{(n-2)}(x)+...+C_n&#39;(x)y_n^{(n-2)}(x) = 0 \\ C_1&#39;(x)y_1^{(n-1)}(x)+...+C_n&#39;(x)y_n^{(n-1)}(x) = f(x) \end{array} \right.\)</span></p>
+<p><span class="math inline">\(Ex.\)</span> <span class="math inline">\(\frac{d^2y}{dx^2}+4y=xsin2x\)</span></p>
+<h5 id="比较系数法">比较系数法</h5>
+<p>若<span class="math inline">\(f(x) = (b_0x^m+b_1x^{m-1}+...+b_{m-1}x+b_m)e^{rx}\)</span>，则方程有形如：<span class="math inline">\(y=x^k(B_0x^m+B_1x^{m-1}+...+B_{m-1}x+B_m)e^{rx}\)</span>的特解，其中<span class="math inline">\(k\)</span>为特征方程<span class="math inline">\(F(\lambda)=0\)</span>的根<span class="math inline">\(\lambda=r\)</span>的重数，当<span class="math inline">\(r\)</span>不是特征根时，取<span class="math inline">\(k=0\)</span></p>
+<p>若<span class="math inline">\(f(x) = [A_m(x)cos\beta x + B_n(x)sin\beta x]e^{\alpha x}\)</span>，其中<span class="math inline">\(\alpha,\beta\)</span>为实常数，<span class="math inline">\(A_m(x),B_n(x)\)</span>分别为<span class="math inline">\(x\)</span>的<span class="math inline">\(m,n\)</span>次实系数多项式，则方程有形如：</p>
+<p><span class="math inline">\(y = x^k[C_s(x)cos\beta x+D_s(x)sin \beta x]e^{\alpha x}\)</span>的特解，其中<span class="math inline">\(k\)</span>为特征根<span class="math inline">\(\alpha+i\beta\)</span>的重数，当$+i<span class="math inline">\(不是特征根时，取\)</span>k=0<span class="math inline">\(，\)</span>C_s(x),D_s(x)<span class="math inline">\(为\)</span>s<span class="math inline">\(次待定实系数多项式，\)</span>s = max { m,n }$</p>
+<p><span class="math inline">\(Ex.\)</span> <span class="math inline">\(y^{(4)}-2y&#39;&#39;+y=x^2-3\)</span></p>
+<p><span class="math inline">\(Ex.\)</span> <span class="math inline">\(y&#39;&#39;&#39;-y=(x+1)e^x\)</span></p>
+<p><span class="math inline">\(Ex.\)</span> <span class="math inline">\(y&#39;&#39;-2y&#39;+2y=xe^xcosx\)</span></p>
+<h5 id="复数法">复数法</h5>
+<p>若<span class="math inline">\(f(x) = A(x)e^{\alpha x}cos\beta x\)</span>或<span class="math inline">\(f(x) = A(x)e^{\alpha x}sin \beta x\)</span></p>
+<p>则原方程的特解为方程<span class="math inline">\(y^{(n)}+a_1y^{(n-1)}+...+a_{n-1}y&#39;+a_ny = f(x)\)</span>特解的实部或虚部</p>
+<p><span class="math inline">\(Ex.\)</span> <span class="math inline">\(y&#39;&#39;+9y=xsin3x\)</span></p>
+<h5 id="叠加原理法">叠加原理法</h5>
+<p><span class="math inline">\(Ex.\)</span> <span class="math inline">\(y&#39;&#39;+y=sinx-cos2x\)</span></p>
+<h4 id="laplace变换法求解n阶线性微分方程的初值问题"><span class="math inline">\(Laplace\)</span>变换法求解n阶线性微分方程的初值问题</h4>
+<p>在有定义的条件下，<span class="math inline">\(F(s) = \int _0 ^{+\infty} e^{-sx}f(x)dx\)</span>为<span class="math inline">\(f(x)\)</span>的<span class="math inline">\(Laplace\)</span>变换，记为<span class="math inline">\(L[f(x)] = F(s)\)</span></p>
+<p><span class="math inline">\(Laplace\)</span>变换的性质：</p>
+<p>（1）线性性质：<span class="math inline">\(L[\alpha f(x) + \beta g(x)] = \alpha L[f(x)]+\beta L[g(x)]\)</span></p>
+<p>（2）原函数微分性质：记<span class="math inline">\(L[f(x)] = F(s)\)</span>，则<span class="math inline">\(L[f&#39;(x)] = sF(s)-f(0)\)</span></p>
+<p>一般地，<span class="math inline">\(L[f^{(n)}(x)] = s^nF(s)-s^{n-1}f(0)-s^{n-2}f&#39;(0)-...-f^{(n-1)}(0)\)</span></p>
+<p>（3）像函数微分性质：<span class="math inline">\(F&#39;(s) = -L[xf(x)]\)</span></p>
+<p>一般地，<span class="math inline">\(F^{(n)}(s) = (-1)^n L[x^nf(x)]\)</span></p>
+<p>（4）位移性质：<span class="math inline">\(L[e^{ax}f(x)] = F(s-a)\)</span></p>
+<p>（5）卷积性质</p>
+<p>常见函数的<span class="math inline">\(Laplace\)</span>变换</p>
+<p><span class="math inline">\(L[1] = \frac{1}{s}\)</span></p>
+<p><span class="math inline">\(L[x^n] = \frac{n!}{s^{n+1}}\)</span></p>
+<p><span class="math inline">\(L[x^ne^{ax}] = \frac{n!}{(s-a)^{n+1}}\)</span></p>
+<p><span class="math inline">\(L[e^{ax}] = \frac{1}{s-a}\)</span></p>
+<p><span class="math inline">\(L[sinkx] = \frac{k}{s^2+k^2}\)</span></p>
+<p><span class="math inline">\(L[coskx] =\frac{s}{s^2+k^2}\)</span></p>
+<p><span class="math inline">\(L[xsinkx] = \frac{2sk}{(s^2+k^2)^2}\)</span></p>
+<p><span class="math inline">\(L[xcoskx] = \frac{s^2-k^2}{(s^2+k^2)^2}\)</span></p>
+<p>应用<span class="math inline">\(Laplace\)</span>变换解方程的解法</p>
+<p>记<span class="math inline">\(L[y(x)] = Y(s)\)</span>，在微分方程两边取<span class="math inline">\(Laplace\)</span>变换，代入初值条件，整理得到<span class="math inline">\(Y(s)\)</span>的表达式，将<span class="math inline">\(Y(s)\)</span>变形为容易得到<span class="math inline">\(Laplace\)</span>逆变换的形式，再做<span class="math inline">\(Laplace\)</span>逆变换，即可解得<span class="math inline">\(y(x)\)</span></p>
+<p><span class="math inline">\(Ex.\)</span> 方程<span class="math inline">\(y&#39;&#39;+2y&#39;-3y=e^{-x}\)</span>，满足初始条件<span class="math inline">\(y(0) = 0,y&#39;(0) = 1\)</span>，求<span class="math inline">\(y(x)\)</span></p>
+<h4 id="高阶微分方程降阶法">高阶微分方程降阶法</h4>
+<h5 id="换元">换元</h5>
+<p><span class="math inline">\(Ex.\)</span> <span class="math inline">\(\frac{d^5y}{dx^5}-\frac{1}{x}\frac{d^4y}{dx^4} = 0\)</span></p>
+<h5 id="凑微分">凑微分</h5>
+<p><span class="math inline">\(Ex.\)</span> <span class="math inline">\(yy&#39;&#39;-(y&#39;)^2=0\)</span></p>
+<h5 id="齐次方程换元法">齐次方程换元法</h5>
+<p>若<span class="math inline">\(F(x,y,y&#39;,...,y^{(n)})\)</span>关于<span class="math inline">\(y\)</span>与<span class="math inline">\(y\)</span>的各阶导数是齐次的，则可做换元<span class="math inline">\(y=e^{\int zdx}\)</span>，代入解出<span class="math inline">\(z\)</span></p>
+<p><span class="math inline">\(Ex.\)</span> <span class="math inline">\(yy&#39;&#39;-(y&#39;)^2=0\)</span></p>
+<h5 id="通过已知解降阶">通过已知解降阶</h5>
+<p>已知<span class="math inline">\(y_0\)</span>为方程的解，通过换元<span class="math inline">\(y = y_0u\)</span>，代入方程即可实现降阶</p>
+<p>特别地，设<span class="math inline">\(y_1(x) \neq 0\)</span>是二阶变系数微分方程<span class="math inline">\(y&#39;&#39;+a_1y&#39;+a_2y=0\)</span>的解，则方程另一与<span class="math inline">\(y_1\)</span>线性无关的解为<span class="math inline">\(y_1 \int \frac{1}{y_1^2}e^{-\int a_1(x)dx}dx\)</span>，即方程的通解为<span class="math inline">\(y=C_1y_1+C_2y_1 \int \frac{1}{y_1^2}e^{-a_1(x)dx}dx\)</span></p>
+<p><span class="math inline">\(Ex.\)</span> <span class="math inline">\(x\frac{d^3y}{dx^3}+3\frac{d^2y}{dx^2}-x\frac{dy}{dx}-y=0\)</span>有特解<span class="math inline">\(y_0=\frac{1}{x}\)</span>，求其通解</p>
+<h5 id="幂级数解法">幂级数解法</h5>
+<h4 id="常系数齐线性微分方程组解法">常系数齐线性微分方程组解法</h4>
+<p><span class="math inline">\(\frac{d \boldsymbol{x}}{dt} = A\boldsymbol{x}\)</span>，<span class="math inline">\(A=(a_{ij})_{(n \times n)}\)</span>为常数矩阵</p>
+<h5 id="特征向量法">特征向量法</h5>
+<p>如果矩阵<span class="math inline">\(A\)</span>有<span class="math inline">\(n\)</span>个线性无关的特征向量<span class="math inline">\(\boldsymbol{u}_1,\boldsymbol{u}_2,...,\boldsymbol{u}_n\)</span>，对应的特征值为<span class="math inline">\(\lambda_1,\lambda_2,...\lambda_n\)</span>（不必互不相同），则有基解矩阵<span class="math inline">\(\boldsymbol{\Phi}(t) = [e^{\lambda_1t}\boldsymbol{u}_1,e^{\lambda_2t}\boldsymbol{u}_2,...,e^{\lambda_nt}\boldsymbol{u}_n]\)</span></p>
+<p><span class="math inline">\(Ex.\)</span> <span class="math inline">\(\frac{d\boldsymbol{x}}{dt} = \left( \begin{array}{**} 3 &amp; -1 &amp; 1 \\ -1&amp; 5&amp; -1\\1 &amp; -1 &amp; 3 \end{array} \right)\boldsymbol{x}\)</span></p>
+<p><span class="math inline">\(Ex.\)</span> <span class="math inline">\(\frac{d\boldsymbol{x}}{dt} = \left( \begin{array}{**} 1 &amp; 1 \\ -1&amp; 1 \end{array} \right)\boldsymbol{x}\)</span></p>
+<h5 id="jordan标准形法"><span class="math inline">\(Jordan\)</span>标准形法</h5>
+<h5 id="hamilton-cayley法"><span class="math inline">\(Hamilton-Cayley\)</span>法</h5>
+<p>设<span class="math inline">\(\lambda_1,...\lambda_n\)</span>为<span class="math inline">\(A\)</span>的特征值（可以有相同的），令</p>
+<p><span class="math inline">\(\left \{ \begin{array}{lr} Q_0 = E \\ Q_1 = (A-\lambda_1E)Q_0 \\ ...... \\ Q_{n-1} = (A-\lambda_{n-1}E)Q_{n-2} \end{array} \right.\)</span></p>
+<p>令</p>
+<p><span class="math inline">\(\left \{ \begin{array}{lr} r_1(t) = e^{\lambda_1t} \\ r_2(t) = \int _0 ^t e^{\lambda_2(t-s)}r_1(s)ds \\ ...... \\ r_n(t) = \int_0^t e^{\lambda_n(t-s)}r_{n-1}(s)ds \end{array} \right.\)</span></p>
+<p>则方程的基解矩阵为<span class="math inline">\(e^{At} = r_1(t)Q_0 + r_2(t)Q_1 +...+r_n(t)Q_{n-1}\)</span></p>
+]]></content>
+      <categories>
+        <category>笔记</category>
+      </categories>
+      <tags>
+        <tag>数学</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>基于Hexo+Github搭建个人博客</title>
+    <url>/2021/10/31/%E5%9F%BA%E4%BA%8EHexo+Github%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/</url>
+    <content><![CDATA[<p>本文在mac OS11.6环境下进行配置，出现的一些问题在文末进行总结。</p>
+<h5 id="安装node.js">安装Node.js</h5>
+<p>可通过在terminal中运行</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">brew install node.js</span><br></pre></td></tr></table></figure>
+<p>安装Node.js，可通过</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">node -v</span><br></pre></td></tr></table></figure>
+<p>查看node版本，确认是否成功安装。</p>
+<figure>
+<img src="/images/截屏2021-10-31%20下午9.01.46.png" alt="node版本" /><figcaption aria-hidden="true">node版本</figcaption>
+</figure>
+<span id="more"></span>
+<h5 id="安装git">安装git</h5>
+<p>通过安装Xcode Command Line Tools即带有git，可通过</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git --version</span><br></pre></td></tr></table></figure>
+<p>查看git的版本，确认是否成功安装。</p>
+<figure>
+<img src="/images/截屏2021-10-31%20下午9.02.07.png" alt="git版本" /><figcaption aria-hidden="true">git版本</figcaption>
+</figure>
+<h5 id="注册获取github仓库">注册获取GitHub仓库</h5>
+<p>注册一个github账号，在Your repositories里新建一个仓库，其中repository name填username.github.io</p>
+<figure>
+<img src="/images/截屏2021-10-31%20下午9.08.01.png" alt="创建GitHub仓库" /><figcaption aria-hidden="true">创建GitHub仓库</figcaption>
+</figure>
+<h5 id="安装hexo">安装Hexo</h5>
+<p>在你要存储你的博客文件的地方开始安装Hexo，可通过</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">npm i hexo-cli -g</span><br></pre></td></tr></table></figure>
+<p>安装Hexo。</p>
+<figure>
+<img src="/images/截屏2021-10-31%20下午9.10.47.png" alt="安装Hexo" /><figcaption aria-hidden="true">安装Hexo</figcaption>
+</figure>
+<p>之后通过</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo -v</span><br></pre></td></tr></table></figure>
+<p>确认Hexo版本从而确认是否成功安装。</p>
+<figure>
+<img src="/images/截屏2021-10-31%20下午9.12.37.png" alt="Hexo版本" /><figcaption aria-hidden="true">Hexo版本</figcaption>
+</figure>
+<h5 id="创建博客文件">创建博客文件</h5>
+<p>可通过</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo init Blog</span><br></pre></td></tr></table></figure>
+<p>在当前位置初始化一个名字为Blog的文件夹。</p>
+<p>通过</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cd Blog</span><br></pre></td></tr></table></figure>
+<p>进入Blog文件夹，接着输入</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">npm install</span><br></pre></td></tr></table></figure>
+<p>安装必需的组件。</p>
+<figure>
+<img src="/images/截屏2021-10-31%20下午9.16.05.png" alt="安装必需组件" /><figcaption aria-hidden="true">安装必需组件</figcaption>
+</figure>
+<h5 id="利用hexo初始文件生成本地网页">利用Hexo初始文件生成本地网页</h5>
+<p>通过</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo g</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo s</span><br></pre></td></tr></table></figure>
+<p>生成本地网页并部署至本地服务器。<img src="/images/截屏2021-10-31%20下午9.17.38.png" alt="部署本地网页" /></p>
+<p>这时通过http://localhost:4000即可进入我们的博客预览。</p>
+<figure>
+<img src="/images/截屏2021-10-31%20下午9.19.42.png" alt="博客预览" /><figcaption aria-hidden="true">博客预览</figcaption>
+</figure>
+<p>上图所示即为Hexo提供的初始模版。</p>
+<h5 id="将本地网页部署到github上">将本地网页部署到GitHub上</h5>
+<p>进入博客文件夹位置（上文的Blog）运行如下命令</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git config --global user.name &quot;yourname&quot;</span><br><span class="line">git config --global user.email &quot;youremail&quot;</span><br></pre></td></tr></table></figure>
+<p>之后通过下列命令生成密钥SSH key</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ssh-keygen -t rsa -C &quot;youremail&quot;</span><br></pre></td></tr></table></figure>
+<p>选择文件夹与输入密码和确认密码时都可不填，回车三次即可。</p>
+<p>之后通过下列命令</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cat ~/.ssh/id_rsa.pub</span><br></pre></td></tr></table></figure>
+<p>可返回密钥，将该段内容复制。</p>
+<p>进入GitHub，头像下方的settings，点击SSH and GPG keys，新建一个SSH，Title可随意，Key中填入上面复制的内容。</p>
+<p>回到Terminal输入</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ssh -T git@github.com</span><br></pre></td></tr></table></figure>
+<p>出现下图所示内容则代表GitHub成功与Blog文件夹连接。</p>
+<p><img src="/images/截屏2021-10-31%20下午9.32.30.png" /></p>
+<p>之后通过</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">vim _config.yml</span><br></pre></td></tr></table></figure>
+<p>进入_config.yml进行修改，将最后一行deploy补充为</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">deploy:</span><br><span class="line">  type: git</span><br><span class="line">  repository: git@github.com:yourname/yourname.github.io</span><br><span class="line">  branch: master</span><br></pre></td></tr></table></figure>
+<figure>
+<img src="/images/截屏2021-10-31%20下午9.35.28.png" alt="修改_config.yml" /><figcaption aria-hidden="true">修改_config.yml</figcaption>
+</figure>
+<p>之后保存退出即可。</p>
+<p>最后安装一个拓展，通过下列命令实现</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">npm i hexo-deployer-git</span><br></pre></td></tr></table></figure>
+<p>最后通过下列命令即可将博客部署到Github网页上</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo g</span><br><span class="line">hexo d</span><br></pre></td></tr></table></figure>
+<p>稍等一会即可通过yourname.github.io访问你的博客啦！</p>
+<p>如果部署失败可通过</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo clean</span><br><span class="line">hexo g</span><br><span class="line">hexo d</span><br></pre></td></tr></table></figure>
+<p>再次尝试。</p>
+<h5 id="模版修改">模版修改</h5>
+<p>当然Hexo初始的模版太丑啦，功能也不完全，我们可以到Hexo官网挑选自己喜欢的主题。</p>
+<p>之后通过该主题的官方文档即可完成模版的配置。</p>
+<p>个人比较喜欢的几个模版：Maupassant、NexT、Purer</p>
+<h5 id="博文上传">博文上传</h5>
+<p>将你的文章的.md文件放入Blog文件下的source/_posts即可。</p>
+<h5 id="问题总结">问题总结</h5>
+<p>1.从GitHub获取文件时出现unable to access</p>
+<p>可使用</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">export http_proxy=http://proxyAddress:port</span><br></pre></td></tr></table></figure>
+<p>让Terminal使用代理，此命令只对当前Terminal生效，若想获取永久代理，可自行Google。</p>
+<p>2.安装hero-renderer-sass失败，网络上的常见解决方案对我无效</p>
+<p>目前暂未解决该问题，猜想是默认安装的Node.js版本与默认安装的sass版本不匹配。</p>
+<p>3.本地网页预览正确，部署到网页上后显示有问题</p>
+<p>通过修改站点配置文件_config,yml中的网页url解决。</p>
+]]></content>
+      <categories>
+        <category>萌新之始</category>
+      </categories>
+      <tags>
+        <tag>个人博客</tag>
       </tags>
   </entry>
   <entry>
@@ -942,120 +1218,6 @@
       </categories>
       <tags>
         <tag>CS</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>基于Hexo+Github搭建个人博客</title>
-    <url>/2021/10/31/%E5%9F%BA%E4%BA%8EHexo+Github%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/</url>
-    <content><![CDATA[<p>本文在mac OS11.6环境下进行配置，出现的一些问题在文末进行总结。</p>
-<h5 id="安装node.js">安装Node.js</h5>
-<p>可通过在terminal中运行</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">brew install node.js</span><br></pre></td></tr></table></figure>
-<p>安装Node.js，可通过</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">node -v</span><br></pre></td></tr></table></figure>
-<p>查看node版本，确认是否成功安装。</p>
-<figure>
-<img src="/images/截屏2021-10-31%20下午9.01.46.png" alt="node版本" /><figcaption aria-hidden="true">node版本</figcaption>
-</figure>
-<span id="more"></span>
-<h5 id="安装git">安装git</h5>
-<p>通过安装Xcode Command Line Tools即带有git，可通过</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git --version</span><br></pre></td></tr></table></figure>
-<p>查看git的版本，确认是否成功安装。</p>
-<figure>
-<img src="/images/截屏2021-10-31%20下午9.02.07.png" alt="git版本" /><figcaption aria-hidden="true">git版本</figcaption>
-</figure>
-<h5 id="注册获取github仓库">注册获取GitHub仓库</h5>
-<p>注册一个github账号，在Your repositories里新建一个仓库，其中repository name填username.github.io</p>
-<figure>
-<img src="/images/截屏2021-10-31%20下午9.08.01.png" alt="创建GitHub仓库" /><figcaption aria-hidden="true">创建GitHub仓库</figcaption>
-</figure>
-<h5 id="安装hexo">安装Hexo</h5>
-<p>在你要存储你的博客文件的地方开始安装Hexo，可通过</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">npm i hexo-cli -g</span><br></pre></td></tr></table></figure>
-<p>安装Hexo。</p>
-<figure>
-<img src="/images/截屏2021-10-31%20下午9.10.47.png" alt="安装Hexo" /><figcaption aria-hidden="true">安装Hexo</figcaption>
-</figure>
-<p>之后通过</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo -v</span><br></pre></td></tr></table></figure>
-<p>确认Hexo版本从而确认是否成功安装。</p>
-<figure>
-<img src="/images/截屏2021-10-31%20下午9.12.37.png" alt="Hexo版本" /><figcaption aria-hidden="true">Hexo版本</figcaption>
-</figure>
-<h5 id="创建博客文件">创建博客文件</h5>
-<p>可通过</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo init Blog</span><br></pre></td></tr></table></figure>
-<p>在当前位置初始化一个名字为Blog的文件夹。</p>
-<p>通过</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cd Blog</span><br></pre></td></tr></table></figure>
-<p>进入Blog文件夹，接着输入</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">npm install</span><br></pre></td></tr></table></figure>
-<p>安装必需的组件。</p>
-<figure>
-<img src="/images/截屏2021-10-31%20下午9.16.05.png" alt="安装必需组件" /><figcaption aria-hidden="true">安装必需组件</figcaption>
-</figure>
-<h5 id="利用hexo初始文件生成本地网页">利用Hexo初始文件生成本地网页</h5>
-<p>通过</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo g</span><br></pre></td></tr></table></figure>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo s</span><br></pre></td></tr></table></figure>
-<p>生成本地网页并部署至本地服务器。<img src="/images/截屏2021-10-31%20下午9.17.38.png" alt="部署本地网页" /></p>
-<p>这时通过http://localhost:4000即可进入我们的博客预览。</p>
-<figure>
-<img src="/images/截屏2021-10-31%20下午9.19.42.png" alt="博客预览" /><figcaption aria-hidden="true">博客预览</figcaption>
-</figure>
-<p>上图所示即为Hexo提供的初始模版。</p>
-<h5 id="将本地网页部署到github上">将本地网页部署到GitHub上</h5>
-<p>进入博客文件夹位置（上文的Blog）运行如下命令</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git config --global user.name &quot;yourname&quot;</span><br><span class="line">git config --global user.email &quot;youremail&quot;</span><br></pre></td></tr></table></figure>
-<p>之后通过下列命令生成密钥SSH key</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ssh-keygen -t rsa -C &quot;youremail&quot;</span><br></pre></td></tr></table></figure>
-<p>选择文件夹与输入密码和确认密码时都可不填，回车三次即可。</p>
-<p>之后通过下列命令</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cat ~/.ssh/id_rsa.pub</span><br></pre></td></tr></table></figure>
-<p>可返回密钥，将该段内容复制。</p>
-<p>进入GitHub，头像下方的settings，点击SSH and GPG keys，新建一个SSH，Title可随意，Key中填入上面复制的内容。</p>
-<p>回到Terminal输入</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ssh -T git@github.com</span><br></pre></td></tr></table></figure>
-<p>出现下图所示内容则代表GitHub成功与Blog文件夹连接。</p>
-<p><img src="/images/截屏2021-10-31%20下午9.32.30.png" /></p>
-<p>之后通过</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">vim _config.yml</span><br></pre></td></tr></table></figure>
-<p>进入_config.yml进行修改，将最后一行deploy补充为</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">deploy:</span><br><span class="line">  type: git</span><br><span class="line">  repository: git@github.com:yourname/yourname.github.io</span><br><span class="line">  branch: master</span><br></pre></td></tr></table></figure>
-<figure>
-<img src="/images/截屏2021-10-31%20下午9.35.28.png" alt="修改_config.yml" /><figcaption aria-hidden="true">修改_config.yml</figcaption>
-</figure>
-<p>之后保存退出即可。</p>
-<p>最后安装一个拓展，通过下列命令实现</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">npm i hexo-deployer-git</span><br></pre></td></tr></table></figure>
-<p>最后通过下列命令即可将博客部署到Github网页上</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo g</span><br><span class="line">hexo d</span><br></pre></td></tr></table></figure>
-<p>稍等一会即可通过yourname.github.io访问你的博客啦！</p>
-<p>如果部署失败可通过</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo clean</span><br><span class="line">hexo g</span><br><span class="line">hexo d</span><br></pre></td></tr></table></figure>
-<p>再次尝试。</p>
-<h5 id="模版修改">模版修改</h5>
-<p>当然Hexo初始的模版太丑啦，功能也不完全，我们可以到Hexo官网挑选自己喜欢的主题。</p>
-<p>之后通过该主题的官方文档即可完成模版的配置。</p>
-<p>个人比较喜欢的几个模版：Maupassant、NexT、Purer</p>
-<h5 id="博文上传">博文上传</h5>
-<p>将你的文章的.md文件放入Blog文件下的source/_posts即可。</p>
-<h5 id="问题总结">问题总结</h5>
-<p>1.从GitHub获取文件时出现unable to access</p>
-<p>可使用</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">export http_proxy=http://proxyAddress:port</span><br></pre></td></tr></table></figure>
-<p>让Terminal使用代理，此命令只对当前Terminal生效，若想获取永久代理，可自行Google。</p>
-<p>2.安装hero-renderer-sass失败，网络上的常见解决方案对我无效</p>
-<p>目前暂未解决该问题，猜想是默认安装的Node.js版本与默认安装的sass版本不匹配。</p>
-<p>3.本地网页预览正确，部署到网页上后显示有问题</p>
-<p>通过修改站点配置文件_config,yml中的网页url解决。</p>
-]]></content>
-      <categories>
-        <category>萌新之始</category>
-      </categories>
-      <tags>
-        <tag>个人博客</tag>
       </tags>
   </entry>
   <entry>
@@ -1438,166 +1600,6 @@
       </categories>
       <tags>
         <tag>CS</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>《常微分方程》学习笔记</title>
-    <url>/2022/01/06/%E5%B8%B8%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B%E7%AC%94%E8%AE%B0/</url>
-    <content><![CDATA[<h4 id="变量分离法">变量分离法</h4>
-<h5 id="变量分离方程fracdydx-fxgy">变量分离方程：<span class="math inline">\(\frac{dy}{dx} = f(x)g(y)\)</span></h5>
-<p>当<span class="math inline">\(g(y) \neq 0\)</span>，<span class="math inline">\(\frac{dy}{g(y)} = f(x)dx\)</span>，解为<span class="math inline">\(\int\frac{1}{g(y)}dy = \int f(x)dx +c\)</span></p>
-<p>若<span class="math inline">\(g(y_0) = 0\)</span>，则<span class="math inline">\(y = y_0\)</span>也是方程的解</p>
-<p><span class="math inline">\(Ex.\)</span> <span class="math inline">\(\frac{dy}{dx} = 2x(1-y^2)^{\frac{1}{2}}\)</span></p>
-<span id="more"></span>
-<h5 id="齐次方程fracdydx-gfracyx">齐次方程：<span class="math inline">\(\frac{dy}{dx} = g(\frac{y}{x})\)</span></h5>
-<p>令<span class="math inline">\(u=\frac{y}{x}\)</span>，则<span class="math inline">\(x\frac{du}{dx}+u=g(u)\)</span>，从而<span class="math inline">\(\frac{du}{dx} = \frac{g(u)-u}{x}\)</span>即为变量分离方程</p>
-<p><span class="math inline">\(Ex.\)</span> <span class="math inline">\(x\frac{dy}{dx} = y+\sqrt{x^2-y^2}\)</span></p>
-<p><span class="math inline">\(Ex.\)</span> <span class="math inline">\(\frac{dy}{dx} = \frac{2xye^{(\frac{x}{y})^2}}{y^2+y^2e^{(\frac{x}{y})^2}+2x^2e^{(\frac{x}{y})^2}}\)</span></p>
-<h5 id="形如fracdydx-fraca_1xb_1yc_1a_2xb_2yc_2">形如<span class="math inline">\(\frac{dy}{dx} = \frac{a_1x+b_1y+c_1}{a_2x+b_2y+c_2}\)</span></h5>
-<p>利用平移变换可化为齐次方程</p>
-<p><span class="math inline">\(Ex.\)</span> <span class="math inline">\(\frac{dy}{dx} = \frac{2x-y+1}{x-2y+1}\)</span></p>
-<h4 id="一阶线性微分方程常数变易法">一阶线性微分方程常数变易法</h4>
-<p><span class="math inline">\(y&#39; = P(x)y+Q(x)\)</span></p>
-<p>当<span class="math inline">\(Q(x) = 0\)</span>时，可化为变量分离方程，解为<span class="math inline">\(y=Ce^{\int P(x)dx}\)</span></p>
-<p>通过常数变易<span class="math inline">\(y(x) = C(x)e^{\int P(x)dx}\)</span>代入方程中，可解得<span class="math inline">\(C(x) = \int Q(x)e^{-\int P(x)dx}dx+k\)</span></p>
-<p>因此原方程通解为<span class="math inline">\(y = e^{\int P(x)dx}(\int Q(x)e^{-P(x)dx}dx+k)\)</span></p>
-<p><span class="math inline">\(Ex.\)</span> <span class="math inline">\(\frac{dy}{dx}-\frac{n}{x}y = e^xx^n\)</span></p>
-<p><span class="math inline">\(Ex.\)</span> <span class="math inline">\(\frac{dy}{dx}=\frac{y}{x+y^3}\)</span></p>
-<p><span class="math inline">\(Bernoulli\)</span>方程：<span class="math inline">\(\frac{dy}{dx} = P(x)y+Q(x)y^n\)</span></p>
-<p>两边同乘<span class="math inline">\(y^{-n}\)</span>，可得<span class="math inline">\(y^{-n}\frac{dy}{dx} = P(x)y^{1-n}+Q(x)\)</span></p>
-<p>令<span class="math inline">\(z = y^{1-n}\)</span>，则<span class="math inline">\(\frac{dz}{dx} = (1-n)P(x)z+(1-n)Q(x)\)</span></p>
-<p><span class="math inline">\(Ex.\)</span> <span class="math inline">\(\frac{dy}{dx} = \frac{x^4+y^3}{xy^2}\)</span></p>
-<p><span class="math inline">\(Riccati\)</span>方程：<span class="math inline">\(\frac{dy}{dx} = P(x)y+Q(x)y^2+f(x)\)</span></p>
-<p>一般无法精确求解，但若已知一个特解<span class="math inline">\(y^*(x)\)</span>，做变换<span class="math inline">\(y = z+y^*(x)\)</span>，可将方程化为<span class="math inline">\(\frac{dz}{dx} = (P(x)+2Q(x)y^*(x))z+Q(x)z^2\)</span>，即为<span class="math inline">\(n=2\)</span>的<span class="math inline">\(Bernoulli\)</span>方程</p>
-<p><span class="math inline">\(Ex.\)</span> <span class="math inline">\(\frac{dy}{dx}+y^2-3ysinx=cosx-2sin^2x\)</span></p>
-<h4 id="恰当方程与积分因子法">恰当方程与积分因子法</h4>
-<p>恰当方程：<span class="math inline">\(M(x,y)dx+N(x,y)dy=0\)</span>满足<span class="math inline">\(M(x,y)dx+N(x,y)dy=du(x,y) = \frac{\partial u}{\partial x}dx+\frac{\partial u}{\partial y}dy\)</span></p>
-<p>恰当方程的充要条件<span class="math inline">\(\frac{\partial M}{\partial y} = \frac{\partial N}{\partial x}\)</span></p>
-<p>恰当方程的解：观察法或<span class="math inline">\(u(x,y) = \int M(x,y)dx+\int[N(x,y)-\frac{\partial}{\partial y}\int M(x,y)dx]dy\)</span></p>
-<p><span class="math inline">\(Ex.\)</span> <span class="math inline">\([\frac{y^2}{(x-y)^2}-\frac{1}{x^2}]dx+[\frac{1}{y}-\frac{x^2}{(x-y)^2}]dy=0\)</span></p>
-<p>若存在连续可微函数<span class="math inline">\(\mu = \mu(x,y) \neq 0\)</span>，使得<span class="math inline">\(\mu M(x,y)dx+\mu N(x,y)dy=0\)</span>为恰当方程，则称<span class="math inline">\(\mu\)</span>为积分因子</p>
-<p>积分因子的求法</p>
-<p>（1）<span class="math inline">\(\frac{\frac{\partial M}{\partial y}-\frac{\partial N}{\partial x}}{N} = \psi(x)\)</span>或<span class="math inline">\(\frac{\frac{\partial M}{\partial y}-\frac{\partial N}{\partial x}}{-M} = \psi(y)\)</span></p>
-<p>积分因子为<span class="math inline">\(\mu = e^{\int \psi(x)dx}\)</span>或<span class="math inline">\(\mu = e^{\psi(y)dy}\)</span></p>
-<p>（2）<span class="math inline">\(\frac{\frac{\partial M}{\partial y}-\frac{\partial N}{\partial x}}{N\frac{\partial z}{\partial x}-M\frac{\partial z}{\partial y}} = f(z)\)</span></p>
-<p>则<span class="math inline">\(\mu = e^{\int f(z)dz}\)</span></p>
-<p><span class="math inline">\(Ex.\)</span> <span class="math inline">\(ydx+(y-x)dy=0\)</span></p>
-<p>分组积分因子法</p>
-<p>求出每组的积分因子<span class="math inline">\(\mu _1,\mu_2\)</span>与对应的恰当函数<span class="math inline">\(u_1,u_2\)</span>，寻找<span class="math inline">\(\phi, \psi\)</span>，使<span class="math inline">\(\mu = \mu_1\phi(u_1) = \mu_2 \psi(u_2)\)</span></p>
-<p><span class="math inline">\(Ex.\)</span> <span class="math inline">\((5xy-3y^3)dx+(3x^2-7xy^2)=0\)</span></p>
-<h4 id="一阶隐式方程求法">一阶隐式方程求法</h4>
-<p>（1）<span class="math inline">\(y = f(x,y&#39;)\)</span>或<span class="math inline">\(x = f(y, y&#39;)\)</span></p>
-<p>令<span class="math inline">\(y&#39; = p\)</span>，有<span class="math inline">\(y = f(x,p)\)</span>，两边求导得<span class="math inline">\(p = \frac{\partial f}{\partial x} + \frac{dp}{dx}\frac{\partial f}{\partial p}\)</span></p>
-<p>即<span class="math inline">\(\frac{dp}{dx} = \frac{p-\frac{\partial f}{\partial x}}{\frac{\partial f}{\partial p}}\)</span></p>
-<p>从而解出<span class="math inline">\(p = \phi(x, C)\)</span>，代入即得<span class="math inline">\(y = f(x, \phi(x, C))\)</span></p>
-<p><span class="math inline">\(Ex.\)</span> <span class="math inline">\(y = -(\frac{dy}{dx})^2-x\frac{dy}{dx}-\frac{x^2}{2}\)</span></p>
-<p>（2）<span class="math inline">\(f(x,y&#39;)=0\)</span>或<span class="math inline">\(f(y,y&#39;)=0\)</span></p>
-<p>设参数形式为<span class="math inline">\(x = \phi(t), \ p = \psi(t)\)</span>，则<span class="math inline">\(y = \int \psi(t)\phi&#39;(t)dt + C\)</span></p>
-<p>即原方程通解为<span class="math inline">\(\left \{ \begin{array}{lr} x = \phi(t) \\ y = \int \psi(t)\phi&#39;(t)dt +C \end{array} \right.\)</span></p>
-<p><span class="math inline">\(Ex.\)</span> <span class="math inline">\((y&#39;)^3-x^3(1-y&#39;)=0\)</span></p>
-<h4 id="n阶常系数齐线性微分方程解法">n阶常系数齐线性微分方程解法</h4>
-<p><span class="math inline">\(y^{(n)}+a_1y^{(n-1)}+...+a_{n-1}y&#39;+a_ny = 0\)</span></p>
-<p>令<span class="math inline">\(F(\lambda) = \lambda ^n + a_1 \lambda ^{n-1}+...+a_{n-1}\lambda + a_n = 0\)</span>，解出特征根</p>
-<p>（1）特征根都为单根</p>
-<p>设特征根为<span class="math inline">\(\lambda_1,...\lambda_n\)</span></p>
-<p>则原方程通解为<span class="math inline">\(y = c_1e^{\lambda_1x}+c_2e^{\lambda_2x}+...+c_ne^{\lambda_nx}\)</span></p>
-<p>若<span class="math inline">\(\lambda_i = \alpha_i + i \beta_i\)</span>为复根，则<span class="math inline">\(\lambda_i&#39; = \alpha_i-i\beta_i\)</span>也是特征根，故可用<span class="math inline">\(e^{\alpha_ix}cos\beta_ix,\ e^{\alpha_ix}sin\beta_ix\)</span>替代<span class="math inline">\(e^{\lambda_ix},e^{\lambda_i&#39;x}\)</span></p>
-<p>（2）特征根有重根</p>
-<p>设特征方程有<span class="math inline">\(k_i\)</span>重特征根<span class="math inline">\(\lambda_i\)</span>，则方程有<span class="math inline">\(k_i\)</span>个线性无关的解</p>
-<p><span class="math inline">\(e^{\lambda_ix},xe^{\lambda_ix},...,x^{k_i-1}e^{\lambda_ix}\)</span></p>
-<p>若<span class="math inline">\(\lambda_i = \alpha_i+i\beta_i\)</span>，则有解</p>
-<p><span class="math inline">\(e^{\alpha_ix}cos\beta_ix,xe^{\alpha_ix}cos\beta_ix,...,x^{k_i-1}e^{\alpha_ix}cos\beta_ix\)</span></p>
-<p><span class="math inline">\(e^{\alpha_ix}sin\beta_ix,xe^{\alpha_ix}sin\beta_ix,...,x^{k_i-1}e^{\alpha_ix}sin\beta_ix\)</span></p>
-<p><span class="math inline">\(Ex.\)</span> <span class="math inline">\(y^{(7)}-3y^{(6)}+5y^{(5)}-7y^{(4)}+7y^{(3)}-5y^{(2)}+3y&#39;-y=0\)</span></p>
-<p><span class="math inline">\(Euler\)</span>方程：<span class="math inline">\(x^n\frac{d^n y}{dx^n}+a_1x^{n-1}\frac{d^{n-1}y}{dx^{n-1}}+...+a_{n-1}x\frac{dy}{dx}+a_ny = 0\)</span></p>
-<p>做换元<span class="math inline">\(x = e^t\)</span>，有<span class="math inline">\(x^k\frac{d^ky}{dx^k} = D(D-1)...(D-k+1)y\)</span>，<span class="math inline">\(D=\frac{d}{dt}\)</span></p>
-<p>即可将<span class="math inline">\(Euler\)</span>方程变为常系数齐线性微分方程</p>
-<p>即解<span class="math inline">\(F(\lambda) = \lambda(\lambda-1)...(\lambda-n+1)+a_1\lambda(\lambda-1)...(\lambda-n+2)+...+a_{n-1}\lambda+a_n = 0\)</span></p>
-<p>对<span class="math inline">\(k_i\)</span>重根<span class="math inline">\(\lambda_i\)</span>，对应的解为</p>
-<p><span class="math inline">\(x^{\lambda_i},(ln|x|)x^{\lambda_i},...,(ln|x|)^{k_i-1}x^{\lambda_i}\)</span></p>
-<p>若<span class="math inline">\(\lambda_i=\alpha_i+i\beta_i\)</span>，对应有解</p>
-<p><span class="math inline">\(x^{\alpha_i}cos(\beta_iln|x|),x^{\alpha_i}ln|x|cos(\beta_iln|x|),...,x^{\alpha_i}(ln|x|)^{k_i-1}cos(\beta_iln|x|)\)</span></p>
-<p><span class="math inline">\(x^{\alpha_i}sin(\beta_iln|x|),x^{\alpha_i}ln|x|sin(\beta_iln|x|),...,x^{\alpha_i}(ln|x|)^{k_i-1}sin(\beta_iln|x|)\)</span></p>
-<p><span class="math inline">\(Ex.\)</span> <span class="math inline">\(x^2\frac{d^2y}{dx^2}-3x\frac{dy}{dx}+4y=0\)</span></p>
-<h4 id="n阶常系数非齐线性微分方程解法">n阶常系数非齐线性微分方程解法</h4>
-<p>常系数非齐线性微分方程：<span class="math inline">\(y^{(n)}+a_1y^{(n-1)}+...+a_{n-1}y&#39;+a_ny = f(x)\)</span></p>
-<h5 id="常数变易法">常数变易法</h5>
-<p>对<span class="math inline">\(f(x) = 0\)</span>解出<span class="math inline">\(y(x) = C_1y_1(x)+...+C_ny_n(x)\)</span></p>
-<p>将常数变易<span class="math inline">\(y(x) = C_1(x)y_1(x)+...+C_n(x)y_n(x)\)</span></p>
-<p>对<span class="math inline">\(y(x)\)</span>两边求导得<span class="math inline">\(y&#39;(x) = C_1(x)y&#39;_1(x)+...+C_n(x)y&#39;_n(x)+C_1&#39;(x)y_1(x)+...+C_n&#39;(x)y_n(x)\)</span></p>
-<p>令<span class="math inline">\(C_1&#39;(x)y_1(x)+...+C_n&#39;(x)y_n&#39;(x)=0\)</span></p>
-<p>如此求<span class="math inline">\(n-1\)</span>次，得到<span class="math inline">\(n-1\)</span>个方程</p>
-<p>最后关于<span class="math inline">\(x\)</span>求导可得<span class="math inline">\(C_1&#39;(x)y_1^{(n-1)}(x)+...+C&#39;_n(x)y_n^{(n-1)}(x) = f(x)\)</span></p>
-<p>通过解下列线性方程组即可求得<span class="math inline">\(C_1(x),...C_n(x)\)</span></p>
-<p><span class="math inline">\(\left\{\begin{array}{lr} C_1&#39;(x)y_1(x)+...+C_n&#39;(x)y_n(x) = 0 \\ C_1&#39;(x)y_1&#39;(x)+...+C_n&#39;(x)y_n&#39;(x) = 0 \\ ...... \\ C_1&#39;(x)y_1^{(n-2)}(x)+...+C_n&#39;(x)y_n^{(n-2)}(x) = 0 \\ C_1&#39;(x)y_1^{(n-1)}(x)+...+C_n&#39;(x)y_n^{(n-1)}(x) = f(x) \end{array} \right.\)</span></p>
-<p><span class="math inline">\(Ex.\)</span> <span class="math inline">\(\frac{d^2y}{dx^2}+4y=xsin2x\)</span></p>
-<h5 id="比较系数法">比较系数法</h5>
-<p>若<span class="math inline">\(f(x) = (b_0x^m+b_1x^{m-1}+...+b_{m-1}x+b_m)e^{rx}\)</span>，则方程有形如：<span class="math inline">\(y=x^k(B_0x^m+B_1x^{m-1}+...+B_{m-1}x+B_m)e^{rx}\)</span>的特解，其中<span class="math inline">\(k\)</span>为特征方程<span class="math inline">\(F(\lambda)=0\)</span>的根<span class="math inline">\(\lambda=r\)</span>的重数，当<span class="math inline">\(r\)</span>不是特征根时，取<span class="math inline">\(k=0\)</span></p>
-<p>若<span class="math inline">\(f(x) = [A_m(x)cos\beta x + B_n(x)sin\beta x]e^{\alpha x}\)</span>，其中<span class="math inline">\(\alpha,\beta\)</span>为实常数，<span class="math inline">\(A_m(x),B_n(x)\)</span>分别为<span class="math inline">\(x\)</span>的<span class="math inline">\(m,n\)</span>次实系数多项式，则方程有形如：</p>
-<p><span class="math inline">\(y = x^k[C_s(x)cos\beta x+D_s(x)sin \beta x]e^{\alpha x}\)</span>的特解，其中<span class="math inline">\(k\)</span>为特征根<span class="math inline">\(\alpha+i\beta\)</span>的重数，当$+i<span class="math inline">\(不是特征根时，取\)</span>k=0<span class="math inline">\(，\)</span>C_s(x),D_s(x)<span class="math inline">\(为\)</span>s<span class="math inline">\(次待定实系数多项式，\)</span>s = max { m,n }$</p>
-<p><span class="math inline">\(Ex.\)</span> <span class="math inline">\(y^{(4)}-2y&#39;&#39;+y=x^2-3\)</span></p>
-<p><span class="math inline">\(Ex.\)</span> <span class="math inline">\(y&#39;&#39;&#39;-y=(x+1)e^x\)</span></p>
-<p><span class="math inline">\(Ex.\)</span> <span class="math inline">\(y&#39;&#39;-2y&#39;+2y=xe^xcosx\)</span></p>
-<h5 id="复数法">复数法</h5>
-<p>若<span class="math inline">\(f(x) = A(x)e^{\alpha x}cos\beta x\)</span>或<span class="math inline">\(f(x) = A(x)e^{\alpha x}sin \beta x\)</span></p>
-<p>则原方程的特解为方程<span class="math inline">\(y^{(n)}+a_1y^{(n-1)}+...+a_{n-1}y&#39;+a_ny = f(x)\)</span>特解的实部或虚部</p>
-<p><span class="math inline">\(Ex.\)</span> <span class="math inline">\(y&#39;&#39;+9y=xsin3x\)</span></p>
-<h5 id="叠加原理法">叠加原理法</h5>
-<p><span class="math inline">\(Ex.\)</span> <span class="math inline">\(y&#39;&#39;+y=sinx-cos2x\)</span></p>
-<h4 id="laplace变换法求解n阶线性微分方程的初值问题"><span class="math inline">\(Laplace\)</span>变换法求解n阶线性微分方程的初值问题</h4>
-<p>在有定义的条件下，<span class="math inline">\(F(s) = \int _0 ^{+\infty} e^{-sx}f(x)dx\)</span>为<span class="math inline">\(f(x)\)</span>的<span class="math inline">\(Laplace\)</span>变换，记为<span class="math inline">\(L[f(x)] = F(s)\)</span></p>
-<p><span class="math inline">\(Laplace\)</span>变换的性质：</p>
-<p>（1）线性性质：<span class="math inline">\(L[\alpha f(x) + \beta g(x)] = \alpha L[f(x)]+\beta L[g(x)]\)</span></p>
-<p>（2）原函数微分性质：记<span class="math inline">\(L[f(x)] = F(s)\)</span>，则<span class="math inline">\(L[f&#39;(x)] = sF(s)-f(0)\)</span></p>
-<p>一般地，<span class="math inline">\(L[f^{(n)}(x)] = s^nF(s)-s^{n-1}f(0)-s^{n-2}f&#39;(0)-...-f^{(n-1)}(0)\)</span></p>
-<p>（3）像函数微分性质：<span class="math inline">\(F&#39;(s) = -L[xf(x)]\)</span></p>
-<p>一般地，<span class="math inline">\(F^{(n)}(s) = (-1)^n L[x^nf(x)]\)</span></p>
-<p>（4）位移性质：<span class="math inline">\(L[e^{ax}f(x)] = F(s-a)\)</span></p>
-<p>（5）卷积性质</p>
-<p>常见函数的<span class="math inline">\(Laplace\)</span>变换</p>
-<p><span class="math inline">\(L[1] = \frac{1}{s}\)</span></p>
-<p><span class="math inline">\(L[x^n] = \frac{n!}{s^{n+1}}\)</span></p>
-<p><span class="math inline">\(L[x^ne^{ax}] = \frac{n!}{(s-a)^{n+1}}\)</span></p>
-<p><span class="math inline">\(L[e^{ax}] = \frac{1}{s-a}\)</span></p>
-<p><span class="math inline">\(L[sinkx] = \frac{k}{s^2+k^2}\)</span></p>
-<p><span class="math inline">\(L[coskx] =\frac{s}{s^2+k^2}\)</span></p>
-<p><span class="math inline">\(L[xsinkx] = \frac{2sk}{(s^2+k^2)^2}\)</span></p>
-<p><span class="math inline">\(L[xcoskx] = \frac{s^2-k^2}{(s^2+k^2)^2}\)</span></p>
-<p>应用<span class="math inline">\(Laplace\)</span>变换解方程的解法</p>
-<p>记<span class="math inline">\(L[y(x)] = Y(s)\)</span>，在微分方程两边取<span class="math inline">\(Laplace\)</span>变换，代入初值条件，整理得到<span class="math inline">\(Y(s)\)</span>的表达式，将<span class="math inline">\(Y(s)\)</span>变形为容易得到<span class="math inline">\(Laplace\)</span>逆变换的形式，再做<span class="math inline">\(Laplace\)</span>逆变换，即可解得<span class="math inline">\(y(x)\)</span></p>
-<p><span class="math inline">\(Ex.\)</span> 方程<span class="math inline">\(y&#39;&#39;+2y&#39;-3y=e^{-x}\)</span>，满足初始条件<span class="math inline">\(y(0) = 0,y&#39;(0) = 1\)</span>，求<span class="math inline">\(y(x)\)</span></p>
-<h4 id="高阶微分方程降阶法">高阶微分方程降阶法</h4>
-<h5 id="换元">换元</h5>
-<p><span class="math inline">\(Ex.\)</span> <span class="math inline">\(\frac{d^5y}{dx^5}-\frac{1}{x}\frac{d^4y}{dx^4} = 0\)</span></p>
-<h5 id="凑微分">凑微分</h5>
-<p><span class="math inline">\(Ex.\)</span> <span class="math inline">\(yy&#39;&#39;-(y&#39;)^2=0\)</span></p>
-<h5 id="齐次方程换元法">齐次方程换元法</h5>
-<p>若<span class="math inline">\(F(x,y,y&#39;,...,y^{(n)})\)</span>关于<span class="math inline">\(y\)</span>与<span class="math inline">\(y\)</span>的各阶导数是齐次的，则可做换元<span class="math inline">\(y=e^{\int zdx}\)</span>，代入解出<span class="math inline">\(z\)</span></p>
-<p><span class="math inline">\(Ex.\)</span> <span class="math inline">\(yy&#39;&#39;-(y&#39;)^2=0\)</span></p>
-<h5 id="通过已知解降阶">通过已知解降阶</h5>
-<p>已知<span class="math inline">\(y_0\)</span>为方程的解，通过换元<span class="math inline">\(y = y_0u\)</span>，代入方程即可实现降阶</p>
-<p>特别地，设<span class="math inline">\(y_1(x) \neq 0\)</span>是二阶变系数微分方程<span class="math inline">\(y&#39;&#39;+a_1y&#39;+a_2y=0\)</span>的解，则方程另一与<span class="math inline">\(y_1\)</span>线性无关的解为<span class="math inline">\(y_1 \int \frac{1}{y_1^2}e^{-\int a_1(x)dx}dx\)</span>，即方程的通解为<span class="math inline">\(y=C_1y_1+C_2y_1 \int \frac{1}{y_1^2}e^{-a_1(x)dx}dx\)</span></p>
-<p><span class="math inline">\(Ex.\)</span> <span class="math inline">\(x\frac{d^3y}{dx^3}+3\frac{d^2y}{dx^2}-x\frac{dy}{dx}-y=0\)</span>有特解<span class="math inline">\(y_0=\frac{1}{x}\)</span>，求其通解</p>
-<h5 id="幂级数解法">幂级数解法</h5>
-<h4 id="常系数齐线性微分方程组解法">常系数齐线性微分方程组解法</h4>
-<p><span class="math inline">\(\frac{d \boldsymbol{x}}{dt} = A\boldsymbol{x}\)</span>，<span class="math inline">\(A=(a_{ij})_{(n \times n)}\)</span>为常数矩阵</p>
-<h5 id="特征向量法">特征向量法</h5>
-<p>如果矩阵<span class="math inline">\(A\)</span>有<span class="math inline">\(n\)</span>个线性无关的特征向量<span class="math inline">\(\boldsymbol{u}_1,\boldsymbol{u}_2,...,\boldsymbol{u}_n\)</span>，对应的特征值为<span class="math inline">\(\lambda_1,\lambda_2,...\lambda_n\)</span>（不必互不相同），则有基解矩阵<span class="math inline">\(\boldsymbol{\Phi}(t) = [e^{\lambda_1t}\boldsymbol{u}_1,e^{\lambda_2t}\boldsymbol{u}_2,...,e^{\lambda_nt}\boldsymbol{u}_n]\)</span></p>
-<p><span class="math inline">\(Ex.\)</span> <span class="math inline">\(\frac{d\boldsymbol{x}}{dt} = \left( \begin{array}{**} 3 &amp; -1 &amp; 1 \\ -1&amp; 5&amp; -1\\1 &amp; -1 &amp; 3 \end{array} \right)\boldsymbol{x}\)</span></p>
-<p><span class="math inline">\(Ex.\)</span> <span class="math inline">\(\frac{d\boldsymbol{x}}{dt} = \left( \begin{array}{**} 1 &amp; 1 \\ -1&amp; 1 \end{array} \right)\boldsymbol{x}\)</span></p>
-<h5 id="jordan标准形法"><span class="math inline">\(Jordan\)</span>标准形法</h5>
-<h5 id="hamilton-cayley法"><span class="math inline">\(Hamilton-Cayley\)</span>法</h5>
-<p>设<span class="math inline">\(\lambda_1,...\lambda_n\)</span>为<span class="math inline">\(A\)</span>的特征值（可以有相同的），令</p>
-<p><span class="math inline">\(\left \{ \begin{array}{lr} Q_0 = E \\ Q_1 = (A-\lambda_1E)Q_0 \\ ...... \\ Q_{n-1} = (A-\lambda_{n-1}E)Q_{n-2} \end{array} \right.\)</span></p>
-<p>令</p>
-<p><span class="math inline">\(\left \{ \begin{array}{lr} r_1(t) = e^{\lambda_1t} \\ r_2(t) = \int _0 ^t e^{\lambda_2(t-s)}r_1(s)ds \\ ...... \\ r_n(t) = \int_0^t e^{\lambda_n(t-s)}r_{n-1}(s)ds \end{array} \right.\)</span></p>
-<p>则方程的基解矩阵为<span class="math inline">\(e^{At} = r_1(t)Q_0 + r_2(t)Q_1 +...+r_n(t)Q_{n-1}\)</span></p>
-]]></content>
-      <categories>
-        <category>笔记</category>
-      </categories>
-      <tags>
-        <tag>数学</tag>
       </tags>
   </entry>
 </search>
